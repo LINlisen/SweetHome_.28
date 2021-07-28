@@ -7,9 +7,11 @@ using Photon.Realtime;
 using System.Linq;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Photon.Pun.UtilityScripts;
+using UnityEngine.UI;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
+    Hashtable nickname = new Hashtable();
     public static Launcher Instance;
     [SerializeField] TMP_InputField playerNicknameInputField;
     [SerializeField] TMP_InputField roomNameInputField;
@@ -45,14 +47,20 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        MenuManager.Instance.OpenMenu("nickname");
+        if( nickname["Nickname"] == null)
+        {
+            MenuManager.Instance.OpenMenu("nickname");
+        }
+        else
+        {
+            MenuManager.Instance.OpenMenu("title");
+        }
         Debug.Log("Joined Lobby");
         
     }
 
     public void setNickname()
     {
-        Hashtable nickname = new Hashtable();
         nickname.Add("Nickname",playerNicknameInputField.text);
         PhotonNetwork.NickName = playerNicknameInputField.text;
         MenuManager.Instance.OpenMenu("title");
@@ -64,6 +72,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             return;
         }
+        PhotonNetwork.NickName = "<sprite=0>" + playerNicknameInputField.text;
         PhotonNetwork.CreateRoom(roomNameInputField.text);
         MenuManager.Instance.OpenMenu("Loading");
     }
@@ -74,7 +83,6 @@ public class Launcher : MonoBehaviourPunCallbacks
         roomNameText.text = PhotonNetwork.CurrentRoom.Name;
         Hashtable hash = new Hashtable();
         hash.Add("WhichTeam", 0);
-        roomNameText.text = PhotonNetwork.CurrentRoom.Name;
         Player[] players = PhotonNetwork.PlayerList;
 
         foreach (Transform child in BlueListContent)
@@ -85,7 +93,6 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             Destroy(child.gameObject);
         }
-
         for (int i = 0; i < PhotonNetwork.PlayerList.Count(); i++)
         {
             if (i % 2 != 0)
