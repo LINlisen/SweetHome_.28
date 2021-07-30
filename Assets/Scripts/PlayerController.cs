@@ -102,11 +102,19 @@ public class PlayerController : MonoBehaviour
         directionXOZ = playerController.transform.right;// forward 指向物体当前的前方
         GameObject.Find("CandyCharactor(Clone)").gameObject.transform.GetChild(2).gameObject.SetActive(true);
     }
+    public void Skill()
+    {
+        playerAni.SetTrigger("Skill");
+    }
     private void Update()
     {
         if (TCKInput.GetAction("dashBtn", EActionEvent.Down))
         {
             Dash();
+        }
+        if (TCKInput.GetAction("skillBtn", EActionEvent.Down))
+        {
+            Skill();
         }
         if (_bIsDash == true)
         {
