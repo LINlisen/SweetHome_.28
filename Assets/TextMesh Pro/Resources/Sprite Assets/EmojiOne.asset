@@ -73,7 +73,13 @@ MonoBehaviour:
     m_StrikethroughThickness: 0
     m_TabWidth: 0
   spriteSheet: {fileID: 2800000, guid: ba6dffb9532d1b649870c89d90997f66, type: 3}
-  m_SpriteCharacterTable: []
+  m_SpriteCharacterTable:
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 16
+    m_Scale: 1
+    m_Name: master
+    m_HashCode: 80556476
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
@@ -315,6 +321,21 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     sprite: {fileID: 0}
+  - m_Index: 16
+    m_Metrics:
+      m_Width: 350
+      m_Height: 350
+      m_HorizontalBearingX: -175
+      m_HorizontalBearingY: 175
+      m_HorizontalAdvance: 350
+    m_GlyphRect:
+      m_X: 0
+      m_Y: 0
+      m_Width: 350
+      m_Height: 350
+    m_Scale: 1
+    m_AtlasIndex: 0
+    sprite: {fileID: 21300000, guid: ba6dffb9532d1b649870c89d90997f66, type: 3}
   spriteInfoList:
   - id: 0
     x: 0
