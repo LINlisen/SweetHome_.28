@@ -35,3 +35,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Assets/Models/Map/map2.fbx
+Assets/Models/Map/map2.fbx.meta
