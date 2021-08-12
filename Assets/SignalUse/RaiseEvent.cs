@@ -28,12 +28,12 @@ public class RaiseEvent : MonoBehaviourPun
     private void OnEnable()
     {
         PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_EventReceived;
-        Debug.Log("OnEable");
+        //Debug.Log("OnEable");
     }
     private void OnDisable()
     {
         PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_EventReceived;
-        Debug.Log("OnDisEable");
+        //Debug.Log("OnDisEable");
     }
     private void NetworkingClient_EventReceived(EventData obj)
     {
@@ -43,7 +43,7 @@ public class RaiseEvent : MonoBehaviourPun
             object[] datas = (object[])obj.CustomData;
             bool b = (bool)datas[0];
             string PotionName = (string)datas[1];
-            Debug.Log("NetWork"+ PotionName);
+            //Debug.Log("NetWork"+ PotionName);
             if(GameObject.Find(PotionName) != null)
             {
                 GameObject.Find(PotionName).SetActive(b);
@@ -56,7 +56,7 @@ public class RaiseEvent : MonoBehaviourPun
             string ObjTag = (string)datas[0];
             bool ObjState = (bool)datas[1];
             Animator anim =GameObject.FindWithTag(ObjTag).GetComponentInParent<Animator>();
-            Debug.Log(GameObject.FindWithTag(ObjTag).name);
+            //Debug.Log(GameObject.FindWithTag(ObjTag).name);
             anim.SetTrigger("moveOC2");
         }
         if (obj.Code == SEE_SAW_LEFT)
@@ -65,7 +65,7 @@ public class RaiseEvent : MonoBehaviourPun
             string ObjTag = (string)datas[0];
             bool ObjState = (bool)datas[1];
             Animator anim = GameObject.FindWithTag(ObjTag).GetComponentInParent<Animator>();
-            Debug.Log(GameObject.FindWithTag(ObjTag).name);
+            //Debug.Log(GameObject.FindWithTag(ObjTag).name);
             anim.SetTrigger("moveOC");
         }
         if (obj.Code == TREASURE_NORMAL)
@@ -83,7 +83,7 @@ public class RaiseEvent : MonoBehaviourPun
             string ObjTag = (string)datas[0];
             bool ObjState = (bool)datas[1];
             Animator anim = GameObject.FindWithTag(ObjTag).GetComponentInParent<Animator>();
-            Debug.Log(GameObject.FindWithTag(ObjTag).name);
+            //Debug.Log(GameObject.FindWithTag(ObjTag).name);
             anim.SetBool("openbox", true);
         }
     }

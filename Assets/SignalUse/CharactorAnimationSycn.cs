@@ -1,9 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
+using ExitGames.Client.Photon;
 
-public class TTTeamDoor : MonoBehaviour
+public class CharactorAnimationSycn : MonoBehaviour
 {
+
+    
     // Start is called before the first frame update
     void Start()
     {

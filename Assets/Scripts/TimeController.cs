@@ -71,7 +71,7 @@ public class TimeController : MonoBehaviour
             {
                 ctime = PhotonNetwork.CurrentRoom.CustomProperties;
                 currenttime = (int)ctime["Time"];
-                Debug.Log((int)ctime["Time"]);
+                //Debug.Log((int)ctime["Time"]);
                 minutes = currenttime / 60;
                 seconds = currenttime % 60;
             }
@@ -110,8 +110,8 @@ public class TimeController : MonoBehaviour
         text_Timmer.gameObject.SetActive(false);
 
         gameOver.SetActive(true);
+        Time.timeScale = 0;  //控制遊戲時間暫停
 
-        //Time.timeScale = 0; //控制遊戲時間暫停
 
 
     }

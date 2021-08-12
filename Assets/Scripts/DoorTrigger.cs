@@ -39,7 +39,7 @@ public class DoorTrigger : MonoBehaviour
         }
         else
         {
-            Debug.Log((bool)isopen["DoorState"]);
+            //Debug.Log((bool)isopen["DoorState"]);
             if ((bool)isopen["DoorState"])
             {
                 if (Door.transform.position.y < maxOpen)//move LeftRight

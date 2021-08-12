@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using TouchControlsKit;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
@@ -17,12 +18,14 @@ public class PlayerController : MonoBehaviour
     public GameObject BlueDoor;
     float verticalLookRotation;
     float rotation;
-    bool grounded;
-    Vector3 smoothMoveVelocity;
-    Vector3 moveAmount;
+    
 
     bool _bIsDash = false;
     private float dashTime = 0.0f;
+    private float skillCold = 0;
+    private float dashCold = 0;
+    private GameObject dahsColdBtn;
+
     private Vector3 directionXOZ;
     public float dashDuration;// 控制冲刺时间
     public float dashSpeed;// 冲刺速度
@@ -62,10 +65,9 @@ public class PlayerController : MonoBehaviour
         UpInformation = GameObject.Find("UpInformationCanvas");
         treasure = GameObject.Find("Wooden_Chest");
         playerAni = GetComponent<Animator>();
-        Debug.Log(playerAni.name);
-
-        //organ-treasure animate
-        //boxAnim = treasure.GetComponent<Animator>();
+       
+        dahsColdBtn = GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(6).gameObject;//dashColdTimeBtn_Get
+        
 
     }
 
@@ -75,11 +77,11 @@ public class PlayerController : MonoBehaviour
         Debug.Log(playerController.name);
         if (PV.IsMine)
         {
-			//EquipItem(0); 
+            //EquipItem(0);
         }
         else
         {
-			Destroy(GetComponentInChildren<Camera>().gameObject);
+            Destroy(GetComponentInChildren<Camera>().gameObject);
             Destroy(playerController);
             Destroy(rb);
         }
@@ -91,16 +93,22 @@ public class PlayerController : MonoBehaviour
         playerOnLeftSeesaw = false;
         playerOnRightSeesaw = false;
 
-        
-        
+
+
     }
     public void Dash()
     {
+        string playerName = PV.gameObject.name;
         _bIsDash = true;
         playerAni.SetBool("Dash", true);
         directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
         directionXOZ = playerController.transform.right;// forward 指向物体当前的前方
-        GameObject.Find("CandyCharactor(Clone)").gameObject.transform.GetChild(2).gameObject.SetActive(true);
+        
+        GameObject.Find(playerName).gameObject.transform.GetChild(2).gameObject.SetActive(true);
+       
+        dahsColdBtn.SetActive(true);
+
+        TCKInput.SetControllerActive("dashBtn",false);
     }
     public void Skill()
     {
@@ -118,21 +126,35 @@ public class PlayerController : MonoBehaviour
         }
         if (_bIsDash == true)
         {
-            Debug.Log(dashTime);
-            Debug.Log(dashDuration);
+
+            
+
             if (dashTime <= dashDuration)
             {
                 dashTime += Time.deltaTime;
-                //Debug.Log(directionXOZ);
-                Debug.Log("trueinside");
-                //Debug.Log(dashSpeed);
                 playerController.Move(-directionXOZ * dashTime * dashSpeed);
             }
             else
             {
-                _bIsDash = false;
-                dashTime = 0.0f;
+                
+
+                dashCold+=Time.deltaTime;
+                dahsColdBtn.GetComponent<Image>().fillAmount += Time.deltaTime/5.0f;
+
                 playerAni.SetBool("Dash", false);
+                string playerName = playerController.gameObject.name;
+                GameObject.Find(playerName).gameObject.transform.GetChild(2).gameObject.SetActive(false);
+                if (dashCold >= 5.0f)
+                {
+                    
+                    dashTime = 0.0f;
+                    _bIsDash = false;
+                    TCKInput.SetControllerActive("dashBtn", true);
+                    dahsColdBtn.GetComponent<Image>().fillAmount = 0;
+                    dahsColdBtn.SetActive(false);
+                    dashCold = 0.0f;
+                }
+                
             }
             
         }
@@ -173,25 +195,25 @@ public class PlayerController : MonoBehaviour
         camerHolder.transform.localEulerAngles = new Vector3(-rotation, camerHolder.transform.localEulerAngles.y, 0f);
     }
 
-    //void EquipItem(int _index)
-    //{
+    void EquipItem(int _index)
+    {
 
-    //    if (_index == previousItemIndex)
-    //        return;
+        if (_index == previousItemIndex)
+            return;
 
-    //    itemIndex = _index;
+        itemIndex = _index;
 
-    //    items[itemIndex].itemGameObject.SetActive(true);
+        items[itemIndex].itemGameObject.SetActive(true);
 
-    //    if (previousItemIndex != -1)
-    //    {
-    //        items[previousItemIndex].itemGameObject.SetActive(false);
-    //    }
+        if (previousItemIndex != -1)
+        {
+            items[previousItemIndex].itemGameObject.SetActive(false);
+        }
 
-    //    previousItemIndex = itemIndex;
-    //}
+        previousItemIndex = itemIndex;
+    }
 
-
+    bool grounded;
     public void SetGroundedState(bool _grounded)
     {
 		grounded = _grounded;
@@ -218,7 +240,7 @@ public class PlayerController : MonoBehaviour
      
   
     }
-    float rotate = 0;
+    
 
     void OnTriggerStay(Collider other)
     {
@@ -270,7 +292,7 @@ public class PlayerController : MonoBehaviour
 
             if ((bool)data["seesawbool"] == true)
             {
-                Debug.Log((bool)data["seesawbool"]);
+                //Debug.Log((bool)data["seesawbool"]);
                 data["seesawbool"] = false;
                 PhotonNetwork.CurrentRoom.SetCustomProperties(data);
                 GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SeeSawTriggerR("AnimRSeesaw", false);
@@ -280,7 +302,7 @@ public class PlayerController : MonoBehaviour
         {
             if ((bool)data["seesawbool"] == false)
             {
-                Debug.Log((bool)data["seesawbool"]);
+               // Debug.Log((bool)data["seesawbool"]);
                 data["seesawbool"] = true;
                 PhotonNetwork.CurrentRoom.SetCustomProperties(data);
                 GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SeeSawTriggerL("AnimLSeesaw", false);
@@ -305,8 +327,8 @@ public class PlayerController : MonoBehaviour
         /*PotionGet*/
         if (other.gameObject.transform.parent.name == "PotionList")
         {
-            Debug.Log("take"+other.gameObject.name);
-            Debug.Log("take" + other.gameObject.transform.parent.GetSiblingIndex());
+            //Debug.Log("take"+other.gameObject.name);
+            //Debug.Log("take" + other.gameObject.transform.parent.GetSiblingIndex());
             Hashtable team = PhotonNetwork.LocalPlayer.CustomProperties;
             PhotonView photonView = PhotonView.Get(UpInformation);
             photonView.RPC("getPoint", RpcTarget.All, (int)team["WhichTeam"]);
