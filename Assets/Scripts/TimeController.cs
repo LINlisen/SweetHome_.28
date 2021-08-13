@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Photon.Pun;
-public class TimeController : MonoBehaviour
+
+public class TimerTest : MonoBehaviour
 {
     public int allSeconds;
 
@@ -27,92 +28,49 @@ public class TimeController : MonoBehaviour
     Hashtable time = new Hashtable();
     Hashtable ctime = new Hashtable();
 
+    // Start is called before the first frame update
+    bool startTimer = false;
+    int timerIncrementValue;
+    int startTime;
+    ExitGames.Client.Photon.Hashtable CustomeValue;
+
     void Start()
     {
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            CustomeValue = new ExitGames.Client.Photon.Hashtable();
+            startTime = (int)PhotonNetwork.Time;
+            startTimer = true;
+            CustomeValue.Add("StartTime", startTime);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(CustomeValue);
+        }
+        else
+        {
+            startTime = int.Parse(PhotonNetwork.CurrentRoom.CustomProperties["StartTime"].ToString());
+            startTimer = true;
+        }
         RedTeam = 0;
         BlueTeam = 0;
         //text_RT.text = RedTeam.ToString();
         //text_BT.text = BlueTeam.ToString();
-        time.Add("Time", 0);
-        PhotonNetwork.CurrentRoom.SetCustomProperties(time);
         allSeconds = (minutes * 60) + seconds;
-        StartCoroutine(Timmer(allSeconds)); // 呼叫協程
-
     }
 
-
-    //void AddPotions()
-    //{
-    //    RedTeam += 1;
-    //    BlueTeam += 1;
-    //    text_RT.text = RedTeam.ToString();
-    //    text_BT.text = BlueTeam.ToString();
-    //}
-    IEnumerator Timmer(int currenttime)
+    void Update()
     {
-
-        /*allSeconds = (minutes * 60) + seconds;*/ //時間換算為秒數
-        /*text_Timmer.text = string.Format("{0}:{1}", minutes.ToString("00"), seconds.ToString("00"));*/ //顯示一次最初的時間
-
-        //使用迴圈和 WaitForSeconds 來計秒
-        while (currenttime > 0)
+        if (!startTimer) return;
+        timerIncrementValue = allSeconds - ((int)PhotonNetwork.Time - startTime);
+        Debug.Log(timerIncrementValue);
+        minutes = timerIncrementValue / 60;
+        seconds = timerIncrementValue % 60;
+        text_Timmer.text = string.Format("{0}:{1}", minutes.ToString("00"), seconds.ToString("00"));
+        if (timerIncrementValue <= 0)
         {
+            //Timer Completed
+            //Do What Ever You What to Do Here
+            text_Timmer.gameObject.SetActive(false);
 
-            yield return new WaitForSeconds(1); //每經過一秒
-
-             //更改總合與顯示的秒數
-            if (PhotonNetwork.LocalPlayer.IsMasterClient)
-            {
-                currenttime--;
-                time["Time"] = currenttime;
-                PhotonNetwork.CurrentRoom.SetCustomProperties(time);
-            }
-            else
-            {
-                ctime = PhotonNetwork.CurrentRoom.CustomProperties;
-                currenttime = (int)ctime["Time"];
-                //Debug.Log((int)ctime["Time"]);
-                minutes = currenttime / 60;
-                seconds = currenttime % 60;
-            }
-            seconds--; //換算
-
-            if (seconds < 0)
-            {
-
-                if (minutes > 0)
-                {
-
-                    minutes -= 1;
-
-                    seconds = 59;
-
-                }
-
-                else
-
-                {
-
-                    seconds = 0;
-
-                }
-
-            }
-
-            //更改顯示的時間
-
-            text_Timmer.text = string.Format("{0}:{1}", minutes.ToString("00"), seconds.ToString("00"));
-
+            gameOver.SetActive(true);
         }
-
-        yield return new WaitForSeconds(1); //為了顯示 00:00 停留一秒再顯示 GAME OVER
-
-        text_Timmer.gameObject.SetActive(false);
-
-        gameOver.SetActive(true);
-        Time.timeScale = 0;  //控制遊戲時間暫停
-
-
-
     }
 }
