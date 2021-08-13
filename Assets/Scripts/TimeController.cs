@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Photon.Pun;
 
-public class TimerTest : MonoBehaviour
+public class TimeController : MonoBehaviour
 {
     public int allSeconds;
 
