@@ -143,7 +143,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CandyAnimation
+  m_Name: ChocolateAnimation
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Walk
@@ -226,7 +226,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 4781951162920444690, guid: 309c8f1674d0a47088de2bbd7e374158,
+  m_Motion: {fileID: 4781951162920444690, guid: d2fd825debfda40e3a52cdfaf659d5a5,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
