@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 17289466c2d524892bfbc2bb1bc83705
+guid: c143dcdfaf4f44cdd9db8335f057913a
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
@@ -22,11 +22,6 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: HAIR.006
     second: {fileID: 2100000, guid: 264f009863f8444e0b6d6b3121a1d92b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: 7c8ec679fcea0476a858c3b0ef70a379, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
