@@ -196,6 +196,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         Hashtable hash = new Hashtable();
         if (PhotonNetwork.PlayerList.Count() % 2 == 0)
         {
+
             Instantiate(PlayerListItemPrefab, RedListContent).GetComponent<PlayerListItem>().SetUp(newPlayer);
             hash["WhichTeam"] = 1;
             newPlayer.SetCustomProperties(hash);

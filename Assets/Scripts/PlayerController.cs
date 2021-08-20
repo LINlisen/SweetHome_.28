@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour
     {
       
 
-        Vector3 moveDirection = playerController.transform.forward * horizontal;
+        Vector3 moveDirection = -playerController.transform.forward * horizontal;
         moveDirection += playerController.transform.right * vertical ;
 
        
