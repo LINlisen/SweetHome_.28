@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour
 
                 playerAni.SetBool("Dash", false);
                 string playerName = playerController.gameObject.name;
-                GameObject.Find(playerName).gameObject.transform.GetChild(2).gameObject.SetActive(false);
+                //GameObject.Find(playerName).gameObject.transform.GetChild(2).gameObject.SetActive(false);
                 if (dashCold >= 5.0f)
                 {
                     
@@ -172,7 +172,7 @@ public class PlayerController : MonoBehaviour
       
 
         Vector3 moveDirection = playerController.transform.forward * horizontal;
-        moveDirection -= playerController.transform.right * vertical ;
+        moveDirection += playerController.transform.right * vertical ;
 
        
         moveDirection.y = -1.0f;
@@ -329,11 +329,15 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("take"+other.gameObject.name);
             //Debug.Log("take" + other.gameObject.transform.parent.GetSiblingIndex());
+            Debug.Log("1");
             Hashtable team = PhotonNetwork.LocalPlayer.CustomProperties;
+            Debug.Log("2");
             PhotonView photonView = PhotonView.Get(UpInformation);
+            Debug.Log("3");
             photonView.RPC("getPoint", RpcTarget.All, (int)team["WhichTeam"]);
+            Debug.Log("4");
             other.GetComponent<RaiseEvent>().getPotion(other.gameObject.name);
-            
+            Debug.Log("5");
 
         }
     }
