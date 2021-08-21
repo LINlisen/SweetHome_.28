@@ -6,57 +6,7 @@ ModelImporter:
   - first:
       74: -1422011007694221501
     second: Armature|ArmatureAction.001
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material
-    second: {fileID: 2100000, guid: 8ad335ae553540844a5468f58efd9911, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: 100dbf29f98352345a34598ee14d1247, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.002
-    second: {fileID: 2100000, guid: c960438d19515854e9e782808e7cdcb0, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.003
-    second: {fileID: 2100000, guid: 0c933fd61a9ce43409b3f51d1d35f2b5, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.004
-    second: {fileID: 2100000, guid: 31c77cad63809d440b0fc7538db94c53, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.005
-    second: {fileID: 2100000, guid: 8c5bd87480ca9ec4fb20a524c620def8, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.006
-    second: {fileID: 2100000, guid: 78a266e22a2b446499d4c161d0126bad, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.007
-    second: {fileID: 2100000, guid: 504dea3ea319a4244b1fa95a99f14045, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.008
-    second: {fileID: 2100000, guid: 4628186aa7a1e524c828c43322a2c56b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.010
-    second: {fileID: 2100000, guid: 28f0895c758dba543ab83ba042a9e5a4, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -76,7 +26,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5

@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
         _bIsDash = true;
         playerAni.SetBool("Dash", true);
         directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
-        directionXOZ = playerController.transform.right;// forward 指向物体当前的前方
+        directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
         
         GameObject.Find(playerName).gameObject.transform.GetChild(2).gameObject.SetActive(true);
        

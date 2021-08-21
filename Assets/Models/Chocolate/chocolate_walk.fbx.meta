@@ -6,52 +6,10 @@ ModelImporter:
   - first:
       74: 4781951162920444690
     second: Armature|ArmatureAction
-  externalObjects:
   - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Brown
-    second: {fileID: 2100000, guid: 738d9f82cbe504ee0949d4924d561b93, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: EYE.006
-    second: {fileID: 2100000, guid: 349707bbbae814e8eaac41453ba8df9a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: HAIR.006
-    second: {fileID: 2100000, guid: 264f009863f8444e0b6d6b3121a1d92b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.013
-    second: {fileID: 2100000, guid: b804bde2c177d41579f09f524d006c34, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.014
-    second: {fileID: 2100000, guid: 07b0ca677ff6a4bb4ad63f05a5a338e6, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: SKIN
-    second: {fileID: 2100000, guid: 9f8d085aa2e574a859b87ca68200d1d1, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: SKIN.001
-    second: {fileID: 2100000, guid: e5884540579dc4138a3abc2b9e20f965, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: SKIN.002
-    second: {fileID: 2100000, guid: 2475057697b80469a888e3b1f19d04df, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: SKIN.008
-    second: {fileID: 2100000, guid: c2701a35d92074c3cb9e111d5a91d298, type: 2}
+      74: -1422011007694221501
+    second: Armature|ArmatureAction.001
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -78,36 +36,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: Armature|ArmatureAction
-      takeName: Armature|ArmatureAction
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 39
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 0
   meshes:
     lODScreenPercentages: []
