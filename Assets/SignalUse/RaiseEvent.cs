@@ -4,10 +4,13 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
+using System.Threading;
 
 public class RaiseEvent : MonoBehaviourPun
 {
-
+    //GetPotionAudio
+    private bool _bPotionAudio = false;
+    private float _fDurationTime = 0f;
     // Start is called before the first frame update
     private const byte GET_POTION_EVENT=0;
     private const byte TAKE_TOAST = 1;
@@ -23,7 +26,20 @@ public class RaiseEvent : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        
+        //GetPotoinAudio
+        if (_bPotionAudio == true)
+        {
+            
+            
+            _fDurationTime += Time.deltaTime;
+
+            if (_fDurationTime > 1.0f)
+            {
+                _bPotionAudio = false;
+                _fDurationTime = 0f;
+
+            }
+        }
     }
     private void OnEnable()
     {
@@ -39,15 +55,16 @@ public class RaiseEvent : MonoBehaviourPun
     {
         if(obj.Code == GET_POTION_EVENT)
         {
-         
+            
             object[] datas = (object[])obj.CustomData;
             bool b = (bool)datas[0];
             string PotionName = (string)datas[1];
-            //Debug.Log("NetWork"+ PotionName);
-            if(GameObject.Find(PotionName) != null)
-            {
+            if (GameObject.Find(PotionName) != null)
+              {
+                
                 GameObject.Find(PotionName).SetActive(b);
-            }
+              }
+            
            
         }
         if(obj.Code==SEE_SAW_RIGHT)
@@ -90,11 +107,10 @@ public class RaiseEvent : MonoBehaviourPun
 
     public void getPotion(string name)
     {
+        StartCoroutine(Coroutine(2.0f));
         
         bool b = false;
         string PotionName = name;
-        //Debug.Log(this.gameObject.name);
-        //potion.SetActive(b);
         object[] datas = new object[] {b, PotionName };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(GET_POTION_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
@@ -139,5 +155,15 @@ public class RaiseEvent : MonoBehaviourPun
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(TREASURE_DEATH, datas, raiseEventOptions, SendOptions.SendReliable);
     }
+    IEnumerator Coroutine(float sec)
+    {
+        //Print the time of when the function is first called.
+        Debug.Log("Started Coroutine at timestamp : " + Time.time);
 
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(sec);
+
+        //After we have waited 5 seconds print the time again.
+        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
+    }
 }

@@ -329,16 +329,12 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("take"+other.gameObject.name);
             //Debug.Log("take" + other.gameObject.transform.parent.GetSiblingIndex());
-            Debug.Log("1");
             Hashtable team = PhotonNetwork.LocalPlayer.CustomProperties;
-            Debug.Log("2");
             PhotonView photonView = PhotonView.Get(UpInformation);
-            Debug.Log("3");
             photonView.RPC("getPoint", RpcTarget.All, (int)team["WhichTeam"]);
-            Debug.Log("4");
+            other.GetComponent<AudioSource>().Play();
             other.GetComponent<RaiseEvent>().getPotion(other.gameObject.name);
-            Debug.Log("5");
-
+            
         }
     }
 
