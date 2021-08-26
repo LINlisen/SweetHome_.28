@@ -34,7 +34,7 @@ public class PlayerManager : MonoBehaviour
         }
         else 
         {
-            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "BlueCandyCharactor"), new Vector3(i, 20, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandyCharactor"), new Vector3(i, 20, 0), Quaternion.identity);
         }
     }
 }

@@ -137,8 +137,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4834069589844079343}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 732b2f58976c13d42b79d59e64187fcc, type: 3}
-  m_Controller: {fileID: 9100000, guid: 25d6f4fd7d05ca34297f1bfe9c1a0a6f, type: 2}
+  m_Avatar: {fileID: 9000000, guid: b43a61154d42b4d96aaa6d5d91d3489a, type: 3}
+  m_Controller: {fileID: 9100000, guid: fa78b4f5f1a114cf7a9f3709f8825d5b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -163,19 +163,19 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Walk
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Dash
   - Type: 1
     SynchronizeType: 0
     Name: Speed
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Skill
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 1
     LayerIndex: 0
 --- !u!1 &8028054502435081002
 GameObject:
@@ -203,7 +203,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8028054502435081002}
   m_LocalRotation: {x: 0.080046766, y: 0.7025614, z: -0.080046766, w: 0.7025614}
-  m_LocalPosition: {x: -21.700003, y: 5, z: 0}
+  m_LocalPosition: {x: -20.7, y: 9.2, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 5214535060679354453}
@@ -421,6 +421,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Candy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: b43a61154d42b4d96aaa6d5d91d3489a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b43a61154d42b4d96aaa6d5d91d3489a, type: 3}
