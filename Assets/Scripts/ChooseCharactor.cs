@@ -109,4 +109,26 @@ public class ChooseCharactor : MonoBehaviour
         //Debug.Log("Choose 2");
         _bCreated = false;
     }
+    public void NextBtn()
+    {
+        if (Input.charactor_id == 2)
+        {
+            Input.charactor_id = 1;
+        }
+        else
+        {
+            Input.charactor_id += 1;
+        }
+    }
+    public void PreBtn()
+    {
+        if(Input.charactor_id == 1)
+        {
+            Input.charactor_id = 2;
+        }
+        else
+        {
+            Input.charactor_id -= 1;
+        }
+    }
 }
