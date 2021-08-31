@@ -55,7 +55,11 @@ public class PlayerController : MonoBehaviour
 
     //treasure
     [SerializeField] private GameObject treasure;
-    
+
+    //armor
+    [SerializeField] private GameObject armor;
+    //[SerializeField] private GameObject armorTag;
+    private bool playerHasArmor;
 
     void Awake()
     {
@@ -93,6 +97,9 @@ public class PlayerController : MonoBehaviour
         playerOnLeftSeesaw = false;
         playerOnRightSeesaw = false;
 
+        //armor
+        armor.SetActive(false);
+        playerHasArmor = false;
 
 
     }
@@ -165,7 +172,13 @@ public class PlayerController : MonoBehaviour
         PlayerRotation(look.x, look.y);
 
 
-      
+        //armor
+        if (playerHasArmor == true)
+        {
+            armor.SetActive(true);
+        }
+
+
     }
     private void PlayerMovement(float horizontal, float vertical)
     {
@@ -285,7 +298,6 @@ public class PlayerController : MonoBehaviour
         //    playerOnLeftSeesaw = true;
         //}
 
-
         //animated seesaw
         if (other.tag == "AnimRSeesaw")
         {
@@ -322,6 +334,11 @@ public class PlayerController : MonoBehaviour
             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().TreasureDeath("TreasureDeath", true);
             //Animator diebox = other.GetComponentInParent<Animator>();
             //diebox.SetBool("openbox", true);
+        }
+        //armor
+        if (other.gameObject.tag == "armorTG")
+        {
+            playerHasArmor = true;
         }
 
         /*PotionGet*/

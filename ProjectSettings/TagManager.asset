@@ -11,6 +11,7 @@ TagManager:
   - TreasureDeath
   - AnimLSeesaw
   - Potion
+  - armorTG
   layers:
   - Default
   - TransparentFX
