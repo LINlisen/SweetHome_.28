@@ -131,7 +131,10 @@ public class Launcher : MonoBehaviourPunCallbacks
         PhotonNetwork.CurrentRoom.SetCustomProperties(time);
         PhotonNetwork.LoadLevel(1);
     }
-
+    public void ChooseRoom()
+    {
+        MenuManager.Instance.OpenMenu("Choose");
+    }
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();

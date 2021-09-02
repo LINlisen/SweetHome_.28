@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour
 
                 playerAni.SetBool("Dash", false);
                 string playerName = playerController.gameObject.name;
-                //GameObject.Find(playerName).gameObject.transform.GetChild(2).gameObject.SetActive(false);
+                GameObject.Find(playerName).gameObject.transform.GetChild(2).gameObject.SetActive(false);
                 if (dashCold >= 5.0f)
                 {
                     

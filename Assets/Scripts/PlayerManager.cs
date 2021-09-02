@@ -9,7 +9,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class PlayerManager : MonoBehaviour
 {
     PhotonView PV;
-    Hashtable team;
+    Hashtable hash;
     void Awake()
     {
         PV = GetComponent<PhotonView>();
@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        team = PhotonNetwork.LocalPlayer.CustomProperties;
+        hash = PhotonNetwork.LocalPlayer.CustomProperties;
         if (PV.IsMine)
         {
             CreateController();
@@ -28,13 +28,15 @@ public class PlayerManager : MonoBehaviour
     void CreateController()
     {
         int i = UnityEngine.Random.Range(0, 50);
-        if ((int)team["WhichTeam"] == 1)
+        //Debug.Log(hash["Charactor"]);
+        switch ((int)hash["Charactor"])
         {
-            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "ChocolateCharactor"), new Vector3(i, 20, 0), Quaternion.identity);
-        }
-        else 
-        {
-            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandyCharactor"), new Vector3(i, 20, 0), Quaternion.identity);
+            case 1:
+                PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandyCharactor"), new Vector3(i, 20, 0), Quaternion.identity);
+                break;
+            case 2:
+                PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "ChocolateCharactor"), new Vector3(i, 20, 0), Quaternion.identity);
+                break;
         }
     }
 }
