@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class LevelLoader : MonoBehaviour
 {
+    public GameObject CharacterModels;
     public GameObject loadingScreen;
     public GameObject RoomMenu;
     public Slider slider;
@@ -20,6 +21,7 @@ public class LevelLoader : MonoBehaviour
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
 
         RoomMenu.SetActive(false);
+        CharacterModels.SetActive(false);
         loadingScreen.SetActive(true);
 
         while (!operation.isDone)
@@ -27,7 +29,7 @@ public class LevelLoader : MonoBehaviour
             float progress = Mathf.Clamp01(operation.progress / .9f);
 
             slider.value = progress;
-            ProgressText.text = progress * 100f + "%";
+            ProgressText.text = progress * 100f - 1 + "%";
 
             yield return null;
         }

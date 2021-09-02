@@ -8,10 +8,12 @@ using System.Linq;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Photon.Pun.UtilityScripts;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
-    Hashtable nickname = new Hashtable();
+    Hashtable hash = new Hashtable();
+    Hashtable roomhash = new Hashtable();
     public static Launcher Instance;
     [SerializeField] TMP_InputField playerNicknameInputField;
     [SerializeField] TMP_InputField roomNameInputField;
@@ -23,7 +25,15 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] Transform BlueListContent;
     [SerializeField] Transform RedListContent;
     [SerializeField] GameObject PlayerListItemPrefab;
+    [SerializeField] GameObject ChooseButton;
     [SerializeField] GameObject startGameButton;
+
+    public GameObject CharacterModels;
+    public GameObject loadingScreen;
+    public GameObject RoomMenu;
+    public Slider slider;
+    public Text ProgressText;
+    Player[] players = PhotonNetwork.PlayerList;
 
     void Awake()
     {
@@ -33,6 +43,12 @@ public class Launcher : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        roomhash.Add("Choose", false);
+        roomhash.Add("StartGame", false);
+        roomhash.Add("StartTime", 0);
+        hash.Add("Nickname", null);
+        hash.Add("WhichTeam", 0); // 0為藍隊，1為紅隊
+        hash.Add("Ready", false);
         MenuManager.Instance.OpenMenu("loading");
         Debug.Log("Connecting To Master");
         PhotonNetwork.ConnectUsingSettings();
@@ -47,7 +63,8 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        if( nickname["Nickname"] == null)
+        
+        if ( hash["Nickname"] == null)
         {
             MenuManager.Instance.OpenMenu("nickname");
         }
@@ -61,7 +78,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void setNickname()
     {
-        nickname.Add("Nickname",playerNicknameInputField.text);
+        hash["Nickname"] = playerNicknameInputField.text;
         PhotonNetwork.NickName = playerNicknameInputField.text;
         MenuManager.Instance.OpenMenu("title");
     }
@@ -72,18 +89,17 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             return;
         }
+        
         PhotonNetwork.NickName = "<sprite=0>" + playerNicknameInputField.text;
         PhotonNetwork.CreateRoom(roomNameInputField.text);
         MenuManager.Instance.OpenMenu("Loading");
-        
+        PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
     }
 
     public override void OnJoinedRoom()
     {
         MenuManager.Instance.OpenMenu("room");
         roomNameText.text = PhotonNetwork.CurrentRoom.Name;
-        Hashtable hash = new Hashtable();
-        hash.Add("WhichTeam", 0);
         Player[] players = PhotonNetwork.PlayerList;
 
         foreach (Transform child in BlueListContent)
@@ -111,11 +127,14 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
 
         startGameButton.SetActive(PhotonNetwork.IsMasterClient);
+        ChooseButton.SetActive(PhotonNetwork.IsMasterClient);
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
+        PhotonNetwork.NickName = "<sprite=0>" + playerNicknameInputField.text;
         startGameButton.SetActive(PhotonNetwork.IsMasterClient);
+        ChooseButton.SetActive(PhotonNetwork.IsMasterClient);
     }
 
     public override void OnCreateRoomFailed(short returnCode,string message)
@@ -126,14 +145,15 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
-        Hashtable time = new Hashtable();
-        time.Add("StartTime", (int)PhotonNetwork.Time);
-        PhotonNetwork.CurrentRoom.SetCustomProperties(time);
-        PhotonNetwork.LoadLevel(1);
+        roomhash["StartTime"] = (int)PhotonNetwork.Time;
+        roomhash["StartGame"] = true;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        LoadLevel(1);
     }
     public void ChooseRoom()
     {
-        MenuManager.Instance.OpenMenu("Choose");
+        roomhash["Choose"] = true;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
     }
     public void LeaveRoom()
     {
@@ -150,6 +170,25 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         MenuManager.Instance.OpenMenu("title");
+    }
+
+    public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+    {
+        base.OnRoomPropertiesUpdate(propertiesThatChanged);
+        if(PhotonNetwork.CurrentRoom.CustomProperties["Choose"] != null)
+        {
+            if((bool)PhotonNetwork.CurrentRoom.CustomProperties["Choose"] == true)
+            {
+                MenuManager.Instance.OpenMenu("Choose");
+            }
+        }
+        //if (PhotonNetwork.CurrentRoom.CustomProperties["StartGame"] != null)
+        //{
+        //    if ((bool)PhotonNetwork.CurrentRoom.CustomProperties["StartGame"] == true)
+        //    {
+        //        LoadLevel(1);
+        //    }
+        //}
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
@@ -196,7 +235,6 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        Hashtable hash = new Hashtable();
         if (PhotonNetwork.PlayerList.Count() % 2 == 0)
         {
 
@@ -212,23 +250,64 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         }
     }
-    public void SwitchToBlue(int team)
+    public void SwitchToBlue()
     {
 
-        Player[] players = PhotonNetwork.PlayerList;
-        Hashtable hash = new Hashtable();
         hash["WhichTeam"] = 0;
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
         
 
     }
 
-    public void SwitchToRed(int team)
+    public void SwitchToRed()
     {
-        Player[] players = PhotonNetwork.PlayerList;
-        Hashtable hash = new Hashtable();
         hash["WhichTeam"] = 1;
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+
+    }
+
+    public void LoadLevel(int sceneIndex)
+    {
+        roomhash["StartGame"] = false;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        StartCoroutine(LoadAsynchronously(sceneIndex));
+    }
+
+    IEnumerator LoadAsynchronously(int sceneIndex)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+
+        RoomMenu.SetActive(false);
+        CharacterModels.SetActive(false);
+        loadingScreen.SetActive(true);
+
+        
+
+        int pready = 0;
+
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / .9f);
+
+            slider.value = progress;
+            ProgressText.text = progress * 100f - 1 + "%";
+            
+            yield return null;
+        }
+        //hash["Ready"] = true;
+        //PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        //while(pready != PhotonNetwork.PlayerList.Count())
+        //{
+        //    pready = 0;
+        //    for(int i =0;i< players.Count(); i++)
+        //    {
+        //        if((bool)players[i].CustomProperties["Ready"] == true)
+        //        {
+        //            pready++;
+        //        }
+        //    }
+        //}
+        //Debug.Log(pready);
 
     }
 }
