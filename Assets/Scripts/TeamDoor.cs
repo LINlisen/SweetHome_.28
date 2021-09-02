@@ -19,7 +19,7 @@ public class TeamDoor : MonoBehaviour
     
     void Update()
     {
-        Debug.Log(IsRedTeam);
+        //Debug.Log(IsRedTeam);
         if (IsRedTeam==true)
         {
             

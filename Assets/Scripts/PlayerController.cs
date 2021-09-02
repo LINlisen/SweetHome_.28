@@ -78,7 +78,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         team = PhotonNetwork.LocalPlayer.CustomProperties;
-        Debug.Log(playerController.name);
         if (PV.IsMine)
         {
             //EquipItem(0);
