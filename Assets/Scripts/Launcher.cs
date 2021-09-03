@@ -93,7 +93,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         PhotonNetwork.NickName = "<sprite=0>" + playerNicknameInputField.text;
         PhotonNetwork.CreateRoom(roomNameInputField.text);
         MenuManager.Instance.OpenMenu("Loading");
-        PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
+        //PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
     }
 
     public override void OnJoinedRoom()
