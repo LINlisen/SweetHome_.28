@@ -42,7 +42,6 @@ public class ExplosionRock : MonoBehaviour
         explode();
         
         
-        
     }
     public void explode()
     {
@@ -79,16 +78,16 @@ public class ExplosionRock : MonoBehaviour
     {
         //create little object
         GameObject piece;
-        //piece = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        piece=Instantiate(smallRock, new Vector3(x, y, z), Quaternion.identity);
+        piece = Instantiate(smallRock, new Vector3(x, y, z), Quaternion.identity);
 
         //set piece pos
         piece.transform.position = transform.position+new Vector3(cubeSize*x, cubeSize * y, cubeSize * z)-cubeP;
         piece.transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
 
         //add rigidbody
-        //piece.AddComponent<Rigidbody>();
+        piece.AddComponent<Rigidbody>();
         piece.GetComponent<Rigidbody>().mass = cubeSize;
+
         Destroy(piece,1.5f);
     }
 }

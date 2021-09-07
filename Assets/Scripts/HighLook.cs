@@ -88,6 +88,7 @@ public class HighLook : MonoBehaviour
         {
             playerHere = true;
             
+           
             playerTransformParent = col.transform.parent;//set the player on the pad
             col.transform.parent = transform;
             //Debug.Log("Player's Parent: " + col.transform.parent.name);
@@ -98,7 +99,10 @@ public class HighLook : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             playerHere = false;
-            col.transform.parent = playerTransformParent;//leave the pad
+
+            col.transform.parent = playerTransformParent;
+            //leave the pad
+            
         }
     }
 }

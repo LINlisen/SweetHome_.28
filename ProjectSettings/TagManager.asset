@@ -12,6 +12,7 @@ TagManager:
   - AnimLSeesaw
   - Potion
   - armorTG
+  - Pad
   layers:
   - Default
   - TransparentFX

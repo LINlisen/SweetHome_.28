@@ -61,6 +61,9 @@ public class PlayerController : MonoBehaviour
     //[SerializeField] private GameObject armorTag;
     private bool playerHasArmor;
 
+    //pad
+    private GameObject plat;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -179,6 +182,7 @@ public class PlayerController : MonoBehaviour
 
 
     }
+    
     private void PlayerMovement(float horizontal, float vertical)
     {
       
@@ -252,12 +256,16 @@ public class PlayerController : MonoBehaviour
      
   
     }
-    
+
+    private void OnCollisionEnter(Collision col)
+    {
+       
+    }
+
 
     void OnTriggerStay(Collider other)
     {
-        
-        
+         
     }
 
     private void OnTriggerEnter(Collider other)
@@ -268,6 +276,16 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.name == "toast")
         {
             GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(5).gameObject.SetActive(true);
+        }
+
+        
+        //Set player on Pad (code in late update)
+        //unfinished
+        if (other.gameObject.tag == "Pad")
+        {
+            Debug.Log("pad setting");
+            gameObject.AddComponent<FixedJoint>();
+            gameObject.GetComponent<FixedJoint>().connectedBody = other.GetComponent<Rigidbody>();
         }
 
         /*Organ*/
@@ -284,19 +302,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        //seesaw set not used
-        //Debug.Log(SeesawSet.transform.localRotation.eulerAngles.z);
-        //if (other.CompareTag("RSeesaw"))
-        //{
-           
-        //    playerOnLeftSeesaw = true;
-        //}
-        //if (other.CompareTag("LSeesaw"))
-        //{
-        //    Debug.Log("l");
-        //    playerOnLeftSeesaw = true;
-        //}
-
+        
         //animated seesaw
         if (other.tag == "AnimRSeesaw")
         {
