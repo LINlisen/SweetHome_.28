@@ -31,6 +31,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     public GameObject CharacterModels;
     public GameObject loadingScreen;
     public GameObject RoomMenu;
+    public GameObject ChooseMenu;
     public Slider slider;
     public Text ProgressText;
     Player[] players = PhotonNetwork.PlayerList;
@@ -279,9 +280,11 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         RoomMenu.SetActive(false);
         CharacterModels.SetActive(false);
+        ChooseMenu.SetActive(false);
         loadingScreen.SetActive(true);
-
         
+
+
 
         int pready = 0;
 
