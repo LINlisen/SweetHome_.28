@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
     public float maxAngle;
     public float minAngle;
     Hashtable team;
-
+    Hashtable hash;
     //treasure
     [SerializeField] private GameObject treasure;
 
@@ -72,15 +72,13 @@ public class PlayerController : MonoBehaviour
         UpInformation = GameObject.Find("UpInformationCanvas");
         treasure = GameObject.Find("Wooden_Chest");
         playerAni = GetComponent<Animator>();
-       
         dahsColdBtn = GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(6).gameObject;//dashColdTimeBtn_Get
-        
-
     }
 
     void Start()
     {
         team = PhotonNetwork.LocalPlayer.CustomProperties;
+        hash = PhotonNetwork.LocalPlayer.CustomProperties;
         if (PV.IsMine)
         {
             //EquipItem(0);
@@ -122,6 +120,19 @@ public class PlayerController : MonoBehaviour
     public void Skill()
     {
         playerAni.SetTrigger("Skill");
+        switch ((int)hash["Charactor"])
+        {
+            case 1:
+                gameObject.transform.GetChild(4).gameObject.SetActive(true);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+        }
+
     }
     private void Update()
     {
@@ -136,8 +147,6 @@ public class PlayerController : MonoBehaviour
         if (_bIsDash == true)
         {
 
-            
-
             if (dashTime <= dashDuration)
             {
                 dashTime += Time.deltaTime;
@@ -145,8 +154,6 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                
-
                 dashCold+=Time.deltaTime;
                 dahsColdBtn.GetComponent<Image>().fillAmount += Time.deltaTime/5.0f;
 
@@ -172,33 +179,20 @@ public class PlayerController : MonoBehaviour
         //Move();
         Vector2 look = TCKInput.GetAxis("Touchpad");
         PlayerRotation(look.x, look.y);
-
-
         //armor
         if (playerHasArmor == true)
         {
             armor.SetActive(true);
         }
 
-
     }
     
     private void PlayerMovement(float horizontal, float vertical)
     {
-      
-
         Vector3 moveDirection = -playerController.transform.forward * horizontal;
         moveDirection += playerController.transform.right * vertical ;
-
-       
         moveDirection.y = -1.0f;
-
-
-
         playerController.Move(moveDirection * Time.fixedDeltaTime * walkSpeed);
-      
-
-
     }
 
     // PlayerRotation
