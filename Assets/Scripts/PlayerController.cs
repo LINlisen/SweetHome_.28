@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
         UpInformation = GameObject.Find("UpInformationCanvas");
         treasure = GameObject.Find("Wooden_Chest");
         playerAni = GetComponent<Animator>();
-        dahsColdBtn = GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(6).gameObject;//dashColdTimeBtn_Get
+        
     }
 
     void Start()
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
         directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
         
         GameObject.Find(playerName).gameObject.transform.GetChild(2).gameObject.SetActive(true);
-       
+        dahsColdBtn = GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(6).gameObject;//dashColdTimeBtn_Get
         dahsColdBtn.SetActive(true);
 
         TCKInput.SetControllerActive("dashBtn",false);
