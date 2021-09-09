@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1619,7 +1619,6 @@ MonoBehaviour:
   CharacterModels: {fileID: 476779919}
   loadingScreen: {fileID: 1731395050}
   RoomMenu: {fileID: 1636354953}
-  ChooseMenu: {fileID: 1636354953}
   slider: {fileID: 1695251657}
   ProgressText: {fileID: 1298529433}
 --- !u!114 &520883424
@@ -7341,6 +7340,7 @@ GameObject:
   - component: {fileID: 1731395051}
   - component: {fileID: 1731395053}
   - component: {fileID: 1731395052}
+  - component: {fileID: 1731395054}
   m_Layer: 5
   m_Name: LoadingScreen
   m_TagString: Untagged
@@ -7405,6 +7405,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1731395050}
   m_CullTransparentMesh: 0
+--- !u!114 &1731395054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731395050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22b3bebce9a8e2541abb59803f42349a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuName: gameloading
+  open: 0
 --- !u!1 &1751780788
 GameObject:
   m_ObjectHideFlags: 0
