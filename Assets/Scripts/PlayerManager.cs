@@ -10,6 +10,9 @@ public class PlayerManager : MonoBehaviour
 {
     PhotonView PV;
     Hashtable hash;
+    [SerializeField]
+    
+
     void Awake()
     {
         PV = GetComponent<PhotonView>();
