@@ -7,6 +7,7 @@ public class HighLook : MonoBehaviour
     [SerializeField]
 
     public GameObject HighPad;
+    private Transform playerTransformParent;
 
     public float maxOpen = 5f;//max door height
     public float maxClose = 0f;
@@ -16,8 +17,6 @@ public class HighLook : MonoBehaviour
     public float moveSpeedz = 0f;
 
     bool playerHere;
-
-    Transform playerTransformParent;
 
     private void Start()
     {
@@ -34,6 +33,7 @@ public class HighLook : MonoBehaviour
                 {
                     //Debug.Log(playerHere);
                     HighPad.transform.Translate(moveSpeedx * Time.deltaTime, moveSpeedy * Time.deltaTime, moveSpeedz * Time.deltaTime);
+                   
                 }
             }
             if (moveSpeedy != 0)
@@ -58,7 +58,6 @@ public class HighLook : MonoBehaviour
                 if (HighPad.transform.position.x > maxClose){
                 //Debug.Log(playerHere);
                 HighPad.transform.Translate(-moveSpeedx * Time.deltaTime, -moveSpeedy * Time.deltaTime, -moveSpeedz * Time.deltaTime);
-
                 }
             }
             if (moveSpeedy != 0)
@@ -67,7 +66,6 @@ public class HighLook : MonoBehaviour
                 {
                     //Debug.Log(playerHere);
                     HighPad.transform.Translate(-moveSpeedx * Time.deltaTime, -moveSpeedy * Time.deltaTime, -moveSpeedz * Time.deltaTime);
-
                 }
             }
             if (moveSpeedz != 0)
@@ -76,7 +74,6 @@ public class HighLook : MonoBehaviour
                 {
                     //Debug.Log(playerHere);
                     HighPad.transform.Translate(-moveSpeedx * Time.deltaTime, -moveSpeedy * Time.deltaTime, -moveSpeedz * Time.deltaTime);
-
                 }
             }
         }
@@ -87,8 +84,7 @@ public class HighLook : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             playerHere = true;
-            
-           
+
             playerTransformParent = col.transform.parent;//set the player on the pad
             col.transform.parent = transform;
             //Debug.Log("Player's Parent: " + col.transform.parent.name);
@@ -100,9 +96,10 @@ public class HighLook : MonoBehaviour
         {
             playerHere = false;
 
+
             col.transform.parent = playerTransformParent;
             //leave the pad
-            
+
         }
     }
 }
