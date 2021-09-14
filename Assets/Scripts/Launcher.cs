@@ -47,10 +47,11 @@ public class Launcher : MonoBehaviourPunCallbacks
         roomhash.Add("Choose", false);
         roomhash.Add("StartGame", false);
         roomhash.Add("StartTime", 0);
+        hash.Add("TimerReady", false);
         hash.Add("Nickname", null);
         hash.Add("WhichTeam", 0); // 0為藍隊，1為紅隊
         hash.Add("Ready", false);
-        MenuManager.Instance.OpenMenu("loading");
+        //MenuManager.Instance.OpenMenu("nickname");
         Debug.Log("Connecting To Master");
         PhotonNetwork.ConnectUsingSettings();
     }
@@ -94,7 +95,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         PhotonNetwork.NickName = "<sprite=0>" + playerNicknameInputField.text;
         PhotonNetwork.CreateRoom(roomNameInputField.text);
-        MenuManager.Instance.OpenMenu("Loading");
+        //MenuManager.Instance.OpenMenu("Loading");
         //PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
     }
 
@@ -150,14 +151,11 @@ public class Launcher : MonoBehaviourPunCallbacks
     public void StartGame()
     {
         Player[] players = PhotonNetwork.PlayerList;
-        //roomhash["StartTime"] = (int)PhotonNetwork.Time;
-        //roomhash["StartGame"] = true;
         hash["Ready"] = true;
         for(int i =0;i< players.Count(); i++)
         {
             players[i].SetCustomProperties(hash);
         }
-        roomhash["StartTime"] = (int)PhotonNetwork.Time;
         //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
         //PhotonNetwork.LoadLevel(1);
         //LoadLevel(1);
@@ -172,13 +170,13 @@ public class Launcher : MonoBehaviourPunCallbacks
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
-        MenuManager.Instance.OpenMenu("Loading");
+        //MenuManager.Instance.OpenMenu("Loading");
     }
 
     public void JoinRoom(RoomInfo info)
     {
         PhotonNetwork.JoinRoom(info.Name);
-        MenuManager.Instance.OpenMenu("Loading");
+        //MenuManager.Instance.OpenMenu("Loading");
     }
 
     public override void OnLeftRoom()
@@ -295,7 +293,8 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void LoadLevel(int sceneIndex)
     {
-        if(flag == 1)
+        int pready = 0;
+        if (flag == 1)
         {
             CharacterModels.SetActive(false);
             roomhash["StartGame"] = false;
@@ -314,9 +313,6 @@ public class Launcher : MonoBehaviourPunCallbacks
         
 
 
-
-        int pready = 0;
-
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress / .9f);
@@ -326,20 +322,6 @@ public class Launcher : MonoBehaviourPunCallbacks
 
             yield return null;
         }
-        //hash["Ready"] = true;
-        //PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-        //while(pready != PhotonNetwork.PlayerList.Count())
-        //{
-        //    pready = 0;
-        //    for(int i =0;i< players.Count(); i++)
-        //    {
-        //        if((bool)players[i].CustomProperties["Ready"] == true)
-        //        {
-        //            pready++;
-        //        }
-        //    }
-        //}
-        //Debug.Log(pready);
 
     }
 }

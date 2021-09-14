@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Photon.Pun;
+using System.Linq;
 
 public class TimeController : MonoBehaviour
 {
@@ -31,41 +32,37 @@ public class TimeController : MonoBehaviour
     int timerIncrementValue;
     int startTime;
     Hashtable CustomeValue = new Hashtable();
-
+    int pready = 0;
     void Start()
     {
-        //if (PhotonNetwork.LocalPlayer.IsMasterClient)
-        //{
-        //    Hashtable time = new Hashtable();
-        //    time.Add("StartTime", (int)PhotonNetwork.Time);
-        //    PhotonNetwork.CurrentRoom.SetCustomProperties(time);
-        //    startTime = (int)PhotonNetwork.Time;
-        //    startTimer = true;
-        //}
-        //else
-        //{
-            
-        //}
-        if(PhotonNetwork.CurrentRoom.CustomProperties["StartTime"] == null)
-        {
-            startTime = 0;
-        }
-        else
-        {
-            startTime = (int)PhotonNetwork.CurrentRoom.CustomProperties["StartTime"];
-        }
-        startTimer = true;
+        time.Add("StartTime", (int)PhotonNetwork.Time);
+        CustomeValue.Add("TimerReady", true);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(time);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(CustomeValue);
         RedTeam = 0;
         BlueTeam = 0;
-        //text_RT.text = RedTeam.ToString();
-        //text_BT.text = BlueTeam.ToString();
         allSeconds = (minutes * 60) + seconds;
     }
 
     void Update()
     {
+        if (pready != PhotonNetwork.PlayerList.Count())
+        {
+            pready = 0;
+            for (int i = 0; i < PhotonNetwork.PlayerList.Count(); i++)
+            {
+                if ((bool)PhotonNetwork.PlayerList[i].CustomProperties["TimerReady"] == true)
+                {
+                    pready++;
+                }
+            }
+        }
+        else
+        {
+            startTimer = true;
+        }
         if (!startTimer) return;
-        if(startTime == 0)
+        if (startTime == 0)
         {
             startTime = (int)PhotonNetwork.CurrentRoom.CustomProperties["StartTime"];
         }
