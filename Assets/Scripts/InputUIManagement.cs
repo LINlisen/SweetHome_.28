@@ -20,6 +20,8 @@ public class InputUIManagement : MonoBehaviour
     public Sprite CanSprite;
     [SerializeField]
     public Sprite CreamSprite;
+    [SerializeField]
+    public Sprite DashSprite;
 
     void Awake()
     {
@@ -30,15 +32,15 @@ public class InputUIManagement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //switch ((int)hash["Charactor"])
-        //{
-        //    case 1:
-        //        skillImg.sprite = CandySprite;
-        //        break;
-        //    case 2:
-        //        skillImg.sprite = ChocolateSprite;
-        //        break;
-        //}
+        switch ((int)hash["Charactor"])
+        {
+            case 1:
+                skillImg.sprite = CandySprite;
+                break;
+            case 2:
+                skillImg.sprite = ChocolateSprite;
+                break;
+        }
     }
 
     // Update is called once per frame

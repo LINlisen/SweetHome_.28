@@ -22,15 +22,21 @@ public class PlayerController : MonoBehaviour
     float verticalLookRotation;
     float rotation;
     
-
+    //Dash
     bool _bIsDash = false;
     private float dashTime = 0.0f;
-    private float skillCold = 0;
     private float dashCold = 0;
     private GameObject dahsColdBtn;
+    public float dashDuration;// 控制冲刺时间
+    //Skill
+    bool _bIsSkill = false;
+    private float skillTime = 0.0f;
+    private float skillCold = 0;
+    private GameObject skillColdBtn;
+    private float skillDuration;
 
     private Vector3 directionXOZ;
-    public float dashDuration;// 控制冲刺时间
+    
     public float dashSpeed;// 冲刺速度
     // Start is called before the first frame update
 
@@ -112,7 +118,6 @@ public class PlayerController : MonoBehaviour
     {
         string playerName = PV.gameObject.name;
         _bIsDash = true;
-        //playerAni.SetBool("Dash", true);
         playerManager.animator.SetBool("Dash", true);
         directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
         directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
@@ -125,7 +130,9 @@ public class PlayerController : MonoBehaviour
     }
     public void Skill()
     {
-        //playerAni.SetTrigger("Skill");
+        _bIsSkill = true;
+        skillColdBtn = GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(7).gameObject;//dashColdTimeBtn_Get
+        skillColdBtn.SetActive(true);
         playerManager.animator.SetTrigger("Skill");
         switch ((int)hash["Charactor"])
         {
@@ -185,8 +192,26 @@ public class PlayerController : MonoBehaviour
                     }
 
                 }
-
             }
+
+            if (_bIsSkill == true)
+            {
+              skillCold += Time.deltaTime;
+              skillColdBtn.GetComponent<Image>().fillAmount += Time.deltaTime / 5.0f;
+                if (skillCold >= 5.0f)
+                  {
+
+                        skillTime = 0.0f;
+                        _bIsSkill = false;
+                        TCKInput.SetControllerActive("skillBtn", true);
+                        skillColdBtn.GetComponent<Image>().fillAmount = 0;
+                        skillColdBtn.SetActive(false);
+                        skillCold = 0.0f;
+                    }
+
+             }
+            
+
             //Move();
             Vector2 look = TCKInput.GetAxis("Touchpad");
             PlayerRotation(look.x, look.y);

@@ -8,6 +8,9 @@
 
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Photon.Pun;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+using UnityEngine.UI;
 
 namespace TouchControlsKit
 {
@@ -16,57 +19,84 @@ namespace TouchControlsKit
     {
         public bool swipeOut = false;
 
-        [Label( "Normal Button" )]
+        [Label("Normal Button")]
         public Sprite normalSprite;
-        [Label( "Pressed Button" )]
+        [Label("Pressed Button")]
         public Sprite pressedSprite;
 
-        public Color32 pressedColor = new Color32( 255, 255, 255, 165 );
-               
+        Hashtable hash;
+        private InputUIManagement inputUIManagement;
+
+        public Color32 pressedColor = new Color32(255, 255, 255, 165);
+
         int pressedFrame = -1
             , releasedFrame = -1
             , clickedFrame = -1;
 
 
         // isPRESSED
-        internal bool isPRESSED {  get { return touchDown; } }
+        internal bool isPRESSED { get { return touchDown; } }
         // isDOWN
-        internal bool isDOWN { get { return ( pressedFrame == Time.frameCount - 1 ); } }
+        internal bool isDOWN { get { return (pressedFrame == Time.frameCount - 1); } }
         // isUP
-        internal bool isUP { get { return ( releasedFrame == Time.frameCount - 1 ); } }
+        internal bool isUP { get { return (releasedFrame == Time.frameCount - 1); } }
         // isCLICK
-        internal bool isCLICK { get { return ( clickedFrame == Time.frameCount - 1 ); } }
+        internal bool isCLICK { get { return (clickedFrame == Time.frameCount - 1); } }
 
-
-                
-        // Update Position
-        protected override void UpdatePosition( Vector2 touchPos )
+        private void Start()
         {
-            base.UpdatePosition( touchPos );
+            hash = PhotonNetwork.LocalPlayer.CustomProperties;
+            inputUIManagement = GetComponentInParent<InputUIManagement>();
+            Debug.Log("input");
+            if (gameObject.name == "skillBtn")
+            {
+                Debug.Log(gameObject.name);
+                switch ((int)hash["Charactor"])
+                {
+                    case 1:
+                        normalSprite = inputUIManagement.CandySprite;
+                        pressedSprite = inputUIManagement.CandySprite;
+                        break;
+                    case 2:
+                        normalSprite = inputUIManagement.ChocolateSprite;
+                        pressedSprite = inputUIManagement.ChocolateSprite;
+                        break;
+                }
+            }
+            if(gameObject.name == "dashBtn")
+            {
+                normalSprite = inputUIManagement.DashSprite;
+            }
+        }
 
-            if( touchDown == false )
+        // Update Position
+        protected override void UpdatePosition(Vector2 touchPos)
+        {
+            base.UpdatePosition(touchPos);
+
+            if (touchDown == false)
             {
                 touchDown = true;
                 touchPhase = ETouchPhase.Began;
                 pressedFrame = Time.frameCount;
 
                 ButtonDown();
-            }            
+            }
         }
-                
+
 
         // Button Down
         protected void ButtonDown()
         {
             baseImage.sprite = pressedSprite;
-            baseImage.color = visible ? pressedColor : ( Color32 )Color.clear;
+            baseImage.color = visible ? pressedColor : (Color32)Color.clear;
         }
 
         // Button Up
         protected void ButtonUp()
         {
             baseImage.sprite = normalSprite;
-            baseImage.color = visible ? baseImageColor : ( Color32 )Color.clear;
+            baseImage.color = visible ? baseImageColor : (Color32)Color.clear;
         }
 
         // Control Reset
@@ -75,44 +105,45 @@ namespace TouchControlsKit
             base.ControlReset();
 
             releasedFrame = Time.frameCount;
-            ButtonUp();            
-        }        
+            ButtonUp();
+        }
 
         // OnPointer Down
-        public void OnPointerDown( PointerEventData pointerData )
+        public void OnPointerDown(PointerEventData pointerData)
         {
-            if( touchDown == false )
+            if (touchDown == false)
             {
                 touchId = pointerData.pointerId;
-                UpdatePosition( pointerData.position );
+                UpdatePosition(pointerData.position);
             }
         }
 
         // OnDrag
-        public void OnDrag( PointerEventData pointerData )
+        public void OnDrag(PointerEventData pointerData)
         {
-            if( Input.touchCount >= touchId && touchDown )
+            if (Input.touchCount >= touchId && touchDown)
             {
-                UpdatePosition( pointerData.position );
+                UpdatePosition(pointerData.position);
             }
         }
 
         // OnPointer Exit
-        public void OnPointerExit( PointerEventData pointerData )
+        public void OnPointerExit(PointerEventData pointerData)
         {
-            if( swipeOut == false ) {
-                OnPointerUp( pointerData );
-            }                
+            if (swipeOut == false)
+            {
+                OnPointerUp(pointerData);
+            }
         }
 
         // OnPointer Up
-        public void OnPointerUp( PointerEventData pointerData )
+        public void OnPointerUp(PointerEventData pointerData)
         {
             ControlReset();
         }
 
         // OnPointer Click
-        public void OnPointerClick( PointerEventData pointerData )
+        public void OnPointerClick(PointerEventData pointerData)
         {
             clickedFrame = Time.frameCount;
         }
