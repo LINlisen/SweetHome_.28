@@ -10,7 +10,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject camerHolder;
     [SerializeField] float mouseSensitivity, walkSpeed, smoothTime;
     [SerializeField] Item[] items;
+
     Animator playerAni;
+    private PlayerManager playerManager;
+
     int itemIndex;
     int previousItemIndex = -1;
     public GameObject rotation_Wall;
@@ -79,9 +82,11 @@ public class PlayerController : MonoBehaviour
     {
         team = PhotonNetwork.LocalPlayer.CustomProperties;
         hash = PhotonNetwork.LocalPlayer.CustomProperties;
+        
         if (PV.IsMine)
         {
             //EquipItem(0);
+            playerManager = GetComponentInParent<PlayerManager>();
         }
         else
         {
@@ -107,7 +112,8 @@ public class PlayerController : MonoBehaviour
     {
         string playerName = PV.gameObject.name;
         _bIsDash = true;
-        playerAni.SetBool("Dash", true);
+        //playerAni.SetBool("Dash", true);
+        playerManager.animator.SetBool("Dash", true);
         directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
         directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
         
@@ -119,7 +125,8 @@ public class PlayerController : MonoBehaviour
     }
     public void Skill()
     {
-        playerAni.SetTrigger("Skill");
+        //playerAni.SetTrigger("Skill");
+        playerManager.animator.SetTrigger("Skill");
         switch ((int)hash["Charactor"])
         {
             case 1:
@@ -136,55 +143,63 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        if (TCKInput.GetAction("dashBtn", EActionEvent.Down))
-        {
-            Dash();
-        }
-        if (TCKInput.GetAction("skillBtn", EActionEvent.Down))
-        {
-            Skill();
-        }
-        if (_bIsDash == true)
+        if (PV.IsMine)
         {
 
-            if (dashTime <= dashDuration)
+
+            if (TCKInput.GetAction("dashBtn", EActionEvent.Down))
             {
-                dashTime += Time.deltaTime;
-                playerController.Move(-directionXOZ * dashTime * dashSpeed);
+                Dash();
             }
-            else
+            if (TCKInput.GetAction("skillBtn", EActionEvent.Down))
             {
-                dashCold+=Time.deltaTime;
-                dahsColdBtn.GetComponent<Image>().fillAmount += Time.deltaTime/5.0f;
+                Skill();
+            }
+            if (_bIsDash == true)
+            {
 
-                playerAni.SetBool("Dash", false);
-                string playerName = playerController.gameObject.name;
-                GameObject.Find(playerName).gameObject.transform.GetChild(2).gameObject.SetActive(false);
-                if (dashCold >= 5.0f)
+                if (dashTime <= dashDuration)
                 {
-                    
-                    dashTime = 0.0f;
-                    _bIsDash = false;
-                    TCKInput.SetControllerActive("dashBtn", true);
-                    dahsColdBtn.GetComponent<Image>().fillAmount = 0;
-                    dahsColdBtn.SetActive(false);
-                    dashCold = 0.0f;
+                    dashTime += Time.deltaTime;
+                    playerController.Move(-directionXOZ * dashTime * dashSpeed);
                 }
-                
-            }
-            
-        }
-        if (!PV.IsMine)
-			return;
-        //Move();
-        Vector2 look = TCKInput.GetAxis("Touchpad");
-        PlayerRotation(look.x, look.y);
-        //armor
-        if (playerHasArmor == true)
-        {
-            armor.SetActive(true);
-        }
+                else
+                {
+                    dashCold += Time.deltaTime;
+                    dahsColdBtn.GetComponent<Image>().fillAmount += Time.deltaTime / 5.0f;
 
+                    //playerAni.SetBool("Dash", false);
+                    playerManager.animator.SetBool("Dash", false);
+
+                    string playerName = playerController.gameObject.name;
+                    GameObject.Find(playerName).gameObject.transform.GetChild(2).gameObject.SetActive(false);
+                    if (dashCold >= 5.0f)
+                    {
+
+                        dashTime = 0.0f;
+                        _bIsDash = false;
+                        TCKInput.SetControllerActive("dashBtn", true);
+                        dahsColdBtn.GetComponent<Image>().fillAmount = 0;
+                        dahsColdBtn.SetActive(false);
+                        dashCold = 0.0f;
+                    }
+
+                }
+
+            }
+            //Move();
+            Vector2 look = TCKInput.GetAxis("Touchpad");
+            PlayerRotation(look.x, look.y);
+            //armor
+            if (playerHasArmor == true)
+            {
+                armor.SetActive(true);
+            }
+        }
+        else
+        {
+            return;
+        }
     }
     
     private void PlayerMovement(float horizontal, float vertical)
@@ -233,22 +248,26 @@ public class PlayerController : MonoBehaviour
     {
 		if (!PV.IsMine)
 			return;
-		//playerController.MovePosition(playerController.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
-        Vector2 move = TCKInput.GetAxis("Joystick"); // NEW func since ver 1.5.5
-        if (move.x != 0 || move.y != 0)
-        {
-            playerAni.SetFloat("Speed",5);
-        }
         else
         {
-            playerAni.SetFloat("Speed", 0);
-            //Debug.Log("not Walk");
+            Vector2 move = TCKInput.GetAxis("Joystick"); // NEW func since ver 1.5.5
+            if (move.x != 0 || move.y != 0)
+            {
+                //playerAni.SetFloat("Speed",5);
+                playerManager.animator.SetFloat("Speed", 5);
+            }
+            else
+            {
+                //playerAni.SetFloat("Speed", 0);
+                playerManager.animator.SetFloat("Speed", 0);
+            }
+
+            PlayerMovement(move.x, move.y);
+            /*Dash*/
         }
-        
-        PlayerMovement(move.x, move.y);
-        /*Dash*/
-     
-  
+
+
+
     }
 
     private void OnCollisionEnter(Collision col)

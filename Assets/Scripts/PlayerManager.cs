@@ -11,7 +11,9 @@ public class PlayerManager : MonoBehaviour
     PhotonView PV;
     Hashtable hash;
     [SerializeField]
-    
+
+    public Animator animator;
+    public GameObject character;
 
     void Awake()
     {
@@ -35,10 +37,16 @@ public class PlayerManager : MonoBehaviour
         switch ((int)hash["Charactor"])
         {
             case 1:
-                PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandyCharactor"), new Vector3(i, 20, 0), Quaternion.identity);
+                character = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandyCharactor"), new Vector3(i, 20, 0), Quaternion.identity);
+                character.transform.parent = transform;
+                Debug.Log(character.name);
+                animator = character.GetComponent<Animator>();
+                Debug.Log(animator.name);
                 break;
             case 2:
-                PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "ChocolateCharactor"), new Vector3(i, 20, 0), Quaternion.identity);
+                character = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "ChocolateCharactor"), new Vector3(i, 20, 0), Quaternion.identity);
+                character.transform.parent = transform;
+                animator = character.GetComponent<Animator>();
                 break;
         }
     }
