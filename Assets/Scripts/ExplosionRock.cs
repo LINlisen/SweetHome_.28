@@ -45,7 +45,7 @@ public class ExplosionRock : MonoBehaviour
     //}
     public void explode()
     {
-        Debug.Log("explode");
+        //Debug.Log("explode");
         gameObject.SetActive(false);
         for(int x = 0; x < cubesInRow; x++)
         {

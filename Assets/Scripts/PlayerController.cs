@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
     //pad
     private GameObject plat;
-
+    //rock
     private ExplosionRock explosionRock;
     public GameObject rock;
 
@@ -401,7 +401,7 @@ public class PlayerController : MonoBehaviour
         }
         if(other.gameObject.transform.name == "RockExplo")
         {
-            Debug.Log("call explode func");
+            //Debug.Log("call explode func");
             explosionRock.explode();
         }
     }
