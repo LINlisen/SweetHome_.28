@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ba6dffb9532d1b649870c89d90997f66, type: 3}
+        m_Texture: {fileID: 2800000, guid: 824f64cc22c683f478a25ea26a7bb286, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -77,7 +77,7 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 16
-    m_Scale: 1
+    m_Scale: 1.5
     m_Name: master
     m_HashCode: 80556476
   m_SpriteGlyphTable:
@@ -330,7 +330,7 @@ MonoBehaviour:
       m_HorizontalAdvance: 350
     m_GlyphRect:
       m_X: 0
-      m_Y: 0
+      m_Y: -70
       m_Width: 350
       m_Height: 350
     m_Scale: 1
