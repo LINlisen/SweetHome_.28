@@ -36,15 +36,16 @@ public class ExplosionRock : MonoBehaviour
             thereIsSmallRock = false;
         }
     }
-    private void OnTriggerEnter(Collider other)
-    {
+    //private void OnTriggerEnter(Collider other)
+    //{
        
-        explode();
+    //    explode();
         
         
-    }
+    //}
     public void explode()
     {
+        Debug.Log("explode");
         gameObject.SetActive(false);
         for(int x = 0; x < cubesInRow; x++)
         {

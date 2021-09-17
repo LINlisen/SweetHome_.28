@@ -73,6 +73,9 @@ public class PlayerController : MonoBehaviour
     //pad
     private GameObject plat;
 
+    private ExplosionRock explosionRock;
+    public GameObject rock;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -86,6 +89,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        explosionRock = rock.GetComponent<ExplosionRock>();
         team = PhotonNetwork.LocalPlayer.CustomProperties;
         hash = PhotonNetwork.LocalPlayer.CustomProperties;
         
@@ -394,7 +398,11 @@ public class PlayerController : MonoBehaviour
             photonView.RPC("getPoint", RpcTarget.All, (int)team["WhichTeam"]);
             other.GetComponent<AudioSource>().Play();
             other.GetComponent<RaiseEvent>().getPotion(other.gameObject.name);
-            
+        }
+        if(other.gameObject.transform.name == "RockExplo")
+        {
+            Debug.Log("call explode func");
+            explosionRock.explode();
         }
     }
 
