@@ -18,6 +18,7 @@ public class RaiseEvent : MonoBehaviourPun
     private const byte SEE_SAW_LEFT = 3;
     private const byte TREASURE_NORMAL = 4;
     private const byte TREASURE_DEATH = 5;
+    private const byte GET_ARMOR = 6;
     void Start()
     {
        
@@ -103,6 +104,14 @@ public class RaiseEvent : MonoBehaviourPun
             //Debug.Log(GameObject.FindWithTag(ObjTag).name);
             anim.SetBool("openbox", true);
         }
+        if(obj.Code == GET_ARMOR)
+        {
+            object[] datas = (object[])obj.CustomData;
+            int ObjIndex = (int)datas[0];
+            bool ObjState = (bool)datas[1];
+            string ObjName = (string)datas[2];
+            GameObject.Find(ObjName).transform.GetChild(ObjIndex).gameObject.SetActive(ObjState);
+        }
     }
 
     public void getPotion(string name)
@@ -154,6 +163,15 @@ public class RaiseEvent : MonoBehaviourPun
         object[] datas = new object[] { ObjTag, ObjState };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(TREASURE_DEATH, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void GetArmor(int index,bool state,string name)
+    {
+        int ObjIndex = index;
+        bool ObjState = state;
+        string ObjName = name;
+        object[] datas = new object[] { ObjIndex, ObjState, ObjName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(GET_ARMOR, datas, raiseEventOptions, SendOptions.SendReliable);
     }
     IEnumerator Coroutine(float sec)
     {

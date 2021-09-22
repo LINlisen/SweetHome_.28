@@ -1,18 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon.Pun;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class TeamDoor : MonoBehaviour
 {
 
 
     private bool IsRedTeam;
     public GameObject theDoor;
-
+    Hashtable hash;
     void Start()
     {
 
-        
+        hash = PhotonNetwork.LocalPlayer.CustomProperties;
         IsRedTeam = false;
     }
 
@@ -32,7 +33,11 @@ public class TeamDoor : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")//the name of the player(different team)
         {
-            IsRedTeam = true;
+            if((int)hash["WhichTeam"] == 1)
+            {
+                IsRedTeam = true;
+            }
+           
         }
     }
 }

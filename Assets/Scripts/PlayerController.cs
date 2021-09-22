@@ -222,7 +222,8 @@ public class PlayerController : MonoBehaviour
             //armor
             if (playerHasArmor == true)
             {
-                armor.SetActive(true);
+                //armor.SetActive(true);
+                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().GetArmor(2,true,gameObject.name);
             }
         }
         else

@@ -39,9 +39,7 @@ public class PlayerManager : MonoBehaviour
             case 1:
                 character = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandyCharactor"), new Vector3(i, 20, 0), Quaternion.identity);
                 character.transform.parent = transform;
-                Debug.Log(character.name);
                 animator = character.GetComponent<Animator>();
-                Debug.Log(animator.name);
                 break;
             case 2:
                 character = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "ChocolateCharactor"), new Vector3(i, 20, 0), Quaternion.identity);
