@@ -223,7 +223,15 @@ public class PlayerController : MonoBehaviour
             if (playerHasArmor == true)
             {
                 //armor.SetActive(true);
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().GetArmor(2,true,gameObject.name);
+                if(gameObject.name == "CandyCharactor(Clone)")
+                {
+                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().GetArmor(3, true, gameObject.name);
+                }
+                else if(gameObject.name == "ChocolateCharactor(Clone)")
+                {
+                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().GetArmor(4, true, gameObject.name);
+                }
+                
             }
         }
         else
