@@ -247,7 +247,7 @@ public class PlayerController : MonoBehaviour
         //rb.transform.Rotate(0f, horizontal * 12f, 0f);
         rotation += vertical * 12f;
         rotation = Mathf.Clamp(rotation, -60f, 60f);
-        camerHolder.transform.localEulerAngles = new Vector3(-rotation, camerHolder.transform.localEulerAngles.y, 0f);
+        //camerHolder.transform.localEulerAngles = new Vector3(-rotation, camerHolder.transform.localEulerAngles.y, 0f);
     }
 
     void EquipItem(int _index)
