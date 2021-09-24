@@ -20,9 +20,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
         else
         {
             DontDestroyOnLoad(gameObject);
-            Instance = this;
+            
         }
-
+        Instance = this;
     }
 
     public override void OnEnable()
