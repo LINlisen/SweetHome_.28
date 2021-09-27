@@ -28,6 +28,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] GameObject PlayerListItemPrefab;
     [SerializeField] GameObject ChooseButton;
     [SerializeField] GameObject startGameButton;
+    [SerializeField] TMP_Text startGameButtonText;
+    [SerializeField] TMP_Text ClickText;
 
     public GameObject CharacterModels;
     public GameObject loadingScreen;
@@ -50,19 +52,37 @@ public class Launcher : MonoBehaviourPunCallbacks
         hash.Add("TimerReady", false);
         hash.Add("Nickname", null);
         hash.Add("WhichTeam", 0); // 0為藍隊，1為紅隊
+        hash.Add("Loading", false);
         hash.Add("Ready", false);
         //MenuManager.Instance.OpenMenu("nickname");
         Debug.Log("Connecting To Master");
         PhotonNetwork.ConnectUsingSettings();
+        InvokeRepeating("showHide", 1, 0.5f);
+    }
+
+    void showHide()
+    {
+        if (ClickText.text == "")
+        {
+            ClickText.SetText("* Tap To Start *");
+        }
+        else
+        {
+            ClickText.SetText("");
+        }
+
     }
 
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected To Master");
+        MenuManager.Instance.OpenMenu("clicktostart");
+    }
+    public void JoinLobby()
+    {
         PhotonNetwork.JoinLobby();
         PhotonNetwork.AutomaticallySyncScene = true;
     }
-
     public override void OnJoinedLobby()
     {
 
@@ -73,6 +93,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         else
         {
             MenuManager.Instance.OpenMenu("title");
+            PhotonNetwork.NickName = playerNicknameInputField.text;
         }
         Debug.Log("Joined Lobby");
 
@@ -131,8 +152,16 @@ public class Launcher : MonoBehaviourPunCallbacks
             }
         }
 
-        startGameButton.SetActive(PhotonNetwork.IsMasterClient);
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            startGameButtonText.SetText("START!");
+        }
+        else
+        {
+            startGameButtonText.SetText("READY");
+        }
         ChooseButton.SetActive(PhotonNetwork.IsMasterClient);
+        startGameButton.SetActive(true);
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)
@@ -150,15 +179,35 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
+        int pready = 0;
         Player[] players = PhotonNetwork.PlayerList;
-        hash["Ready"] = true;
-        for(int i =0;i< players.Count(); i++)
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
-            players[i].SetCustomProperties(hash);
+            for (int i = 0; i < players.Count(); i++)
+            {
+                if ((bool)players[i].CustomProperties["Ready"] == true)
+                {
+                    pready++;
+                }
+            }
+            if (pready == players.Count() - 1)
+            {
+                hash["Loading"] = true;
+                for (int i = 0; i < players.Count(); i++)
+                {
+                    players[i].SetCustomProperties(hash);
+                }
+            }
+            else
+            {
+                Debug.Log(pready);
+            }
         }
-        //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
-        //PhotonNetwork.LoadLevel(1);
-        //LoadLevel(1);
+        else
+        {
+            hash["Ready"] = true;
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        }
     }
     public void ChooseRoom()
     {
@@ -231,10 +280,10 @@ public class Launcher : MonoBehaviourPunCallbacks
                 Instantiate(PlayerListItemPrefab, BlueListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
             }
         }
-        if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["Ready"] == true)
+        if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["Loading"] == true)
         {
             flag++;
-            hash["Ready"] = false;
+            hash["Loading"] = false;
             PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
             LoadLevel(1);
         }
@@ -299,7 +348,7 @@ public class Launcher : MonoBehaviourPunCallbacks
             CharacterModels.SetActive(false);
             roomhash["StartGame"] = false;
             PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
-            hash["Ready"] = false;
+            hash["Loading"] = false;
             PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
             StartCoroutine(LoadAsynchronously(sceneIndex));
         }
