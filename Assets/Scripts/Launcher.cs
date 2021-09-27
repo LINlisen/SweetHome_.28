@@ -46,6 +46,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        roomhash.Add("LoadingProgress", 0);
         roomhash.Add("Choose", false);
         roomhash.Add("StartGame", false);
         roomhash.Add("StartTime", 0);
@@ -198,10 +199,6 @@ public class Launcher : MonoBehaviourPunCallbacks
                     players[i].SetCustomProperties(hash);
                 }
             }
-            else
-            {
-                Debug.Log(pready);
-            }
         }
         else
         {
@@ -243,15 +240,6 @@ public class Launcher : MonoBehaviourPunCallbacks
                 MenuManager.Instance.OpenMenu("Choose");
             }
         }
-        //if (PhotonNetwork.CurrentRoom.CustomProperties["StartGame"] != null)
-        //{
-        //    if ((bool)PhotonNetwork.CurrentRoom.CustomProperties["StartGame"] == true)
-        //    {
-        //        LoadLevel(1);
-        //        roomhash["StartGame"] = false;
-        //        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
-        //    }
-        //}
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
@@ -285,7 +273,10 @@ public class Launcher : MonoBehaviourPunCallbacks
             flag++;
             hash["Loading"] = false;
             PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-            LoadLevel(1);
+            if(flag == 1)
+            {
+                LoadLevel(1);
+            }
         }
     }
 
@@ -343,34 +334,34 @@ public class Launcher : MonoBehaviourPunCallbacks
     public void LoadLevel(int sceneIndex)
     {
         int pready = 0;
-        if (flag == 1)
-        {
-            CharacterModels.SetActive(false);
-            roomhash["StartGame"] = false;
-            PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
-            hash["Loading"] = false;
-            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-            StartCoroutine(LoadAsynchronously(sceneIndex));
-        }
+        CharacterModels.SetActive(false);
+        roomhash["StartGame"] = false;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        hash["Loading"] = false;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        StartCoroutine(LoadAsynchronously(sceneIndex));
     }
 
     IEnumerator LoadAsynchronously(int sceneIndex)
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-        RoomMenu.SetActive(false);
-        loadingScreen.SetActive(true);
-        
-
-
-        while (!operation.isDone)
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
-            float progress = Mathf.Clamp01(operation.progress / .9f);
+            AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+            RoomMenu.SetActive(false);
+            loadingScreen.SetActive(true);
+            while (!operation.isDone)
+            {
+                float progress = Mathf.Clamp01(operation.progress / .9f);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+                slider.value = progress;
+                ProgressText.text = progress * 100f - 1 + "%";
 
-            slider.value = progress;
-            ProgressText.text = progress * 100f - 1 + "%";
-
-            yield return null;
+                yield return null;
+            }
         }
+        else
+        {
 
+        }
     }
 }
