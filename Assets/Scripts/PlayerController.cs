@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
         switch ((int)hash["Charactor"])
         {
             case 1:
-                gameObject.transform.GetChild(4).gameObject.SetActive(true);
+                gameObject.transform.GetChild(1).gameObject.SetActive(true);
                 break;
             case 2:
                 break;
@@ -223,15 +223,7 @@ public class PlayerController : MonoBehaviour
             if (playerHasArmor == true)
             {
                 //armor.SetActive(true);
-                if(gameObject.name == "CandyCharactor(Clone)")
-                {
-                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().GetArmor(3, true, gameObject.name);
-                }
-                else if(gameObject.name == "ChocolateCharactor(Clone)")
-                {
-                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().GetArmor(4, true, gameObject.name);
-                }
-                
+                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().GetArmor(3, true, gameObject.name);
             }
         }
         else
