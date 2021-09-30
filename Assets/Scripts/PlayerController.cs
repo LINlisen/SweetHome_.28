@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private float skillCold = 0;
     private GameObject skillColdBtn;
     private float skillDuration;
+    private SkillManager skillManager;
 
     private Vector3 directionXOZ;
     
@@ -76,6 +77,8 @@ public class PlayerController : MonoBehaviour
     private ExplosionRock explosionRock;
     public GameObject rock;
 
+
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -92,7 +95,8 @@ public class PlayerController : MonoBehaviour
         explosionRock = rock.GetComponent<ExplosionRock>();
         team = PhotonNetwork.LocalPlayer.CustomProperties;
         hash = PhotonNetwork.LocalPlayer.CustomProperties;
-        
+        skillManager = GameObject.Find("SkillManager").GetComponent <SkillManager>();
+
         if (PV.IsMine)
         {
             //EquipItem(0);
@@ -156,15 +160,22 @@ public class PlayerController : MonoBehaviour
     {
         if (PV.IsMine)
         {
-
+            Vector2 look = TCKInput.GetAxis("Touchpad");
 
             if (TCKInput.GetAction("dashBtn", EActionEvent.Down))
             {
                 Dash();
             }
-            if (TCKInput.GetAction("skillBtn", EActionEvent.Down))
+            //if (TCKInput.GetAction("skillBtn", EActionEvent.Down))
+            //{
+            //    Skill();
+            //}
+            if (TCKInput.GetAction("skillBtn", EActionEvent.Press))
             {
-                Skill();
+                Vector3 Pos = new Vector3(gameObject.transform.position.x,gameObject.transform.position.y,gameObject.transform.position.z);
+                skillManager.UseSkill(Pos, "Candy", Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+                Debug.Log(Input.GetAxis("Horizontal"));
+                Debug.Log(Input.GetAxis("Vertical"));
             }
             if (_bIsDash == true)
             {
@@ -217,7 +228,7 @@ public class PlayerController : MonoBehaviour
             
 
             //Move();
-            Vector2 look = TCKInput.GetAxis("Touchpad");
+           
             PlayerRotation(look.x, look.y);
             //armor
             if (playerHasArmor == true)
