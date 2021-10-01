@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] GameObject camerHolder;
     [SerializeField] float mouseSensitivity, walkSpeed, smoothTime;
-    [SerializeField] Item[] items;
+
 
     Animator playerAni;
     private PlayerManager playerManager;
@@ -262,23 +262,7 @@ public class PlayerController : MonoBehaviour
         //camerHolder.transform.localEulerAngles = new Vector3(-rotation, camerHolder.transform.localEulerAngles.y, 0f);
     }
 
-    void EquipItem(int _index)
-    {
-
-        if (_index == previousItemIndex)
-            return;
-
-        itemIndex = _index;
-
-        items[itemIndex].itemGameObject.SetActive(true);
-
-        if (previousItemIndex != -1)
-        {
-            items[previousItemIndex].itemGameObject.SetActive(false);
-        }
-
-        previousItemIndex = itemIndex;
-    }
+    
 
     bool grounded;
     public void SetGroundedState(bool _grounded)
