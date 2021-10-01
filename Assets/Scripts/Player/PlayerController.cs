@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using Photon.Pun;
 using TouchControlsKit;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using UnityEngine.EventSystems;
+
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] GameObject camerHolder;
@@ -172,11 +174,18 @@ public class PlayerController : MonoBehaviour
             //}
             if (TCKInput.GetAction("skillBtn", EActionEvent.Press))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                Vector3 Pos = new Vector3(gameObject.transform.position.x,gameObject.transform.position.y,gameObject.transform.position.z);
-                skillManager.UseSkill(Pos, "Candy", ray.direction.x, ray.direction.y);
-                Debug.Log(ray.direction.x);
-                Debug.Log(ray.direction.y);
+                RaycastHit hit;
+                Ray ray = new Ray(transform.position,new Vector3(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"),0));
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                {
+                    Debug.Log("Drag");
+                    Vector3 Pos = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+                    skillManager.UseSkill(Pos, "Candy", ray.direction.x, ray.direction.y,gameObject.transform.position);
+                }
+                
+                //Debug.Log(ray.direction.x);
+                //Debug.Log(ray.direction.y);
+         
             }
             if (_bIsDash == true)
             {
@@ -191,7 +200,6 @@ public class PlayerController : MonoBehaviour
                     dashCold += Time.deltaTime;
                     dahsColdBtn.GetComponent<Image>().fillAmount += Time.deltaTime / 5.0f;
 
-                    //playerAni.SetBool("Dash", false);
                     playerManager.animator.SetBool("Dash", false);
 
                     string playerName = playerController.gameObject.name;
@@ -234,7 +242,6 @@ public class PlayerController : MonoBehaviour
             //armor
             if (playerHasArmor == true)
             {
-                //armor.SetActive(true);
                 GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().GetArmor(3, true, gameObject.name);
             }
         }
@@ -256,10 +263,8 @@ public class PlayerController : MonoBehaviour
     public void PlayerRotation(float horizontal, float vertical)
     {
         playerController.transform.Rotate(0f, horizontal * 12f, 0f);
-        //rb.transform.Rotate(0f, horizontal * 12f, 0f);
         rotation += vertical * 12f;
         rotation = Mathf.Clamp(rotation, -60f, 60f);
-        //camerHolder.transform.localEulerAngles = new Vector3(-rotation, camerHolder.transform.localEulerAngles.y, 0f);
     }
 
     
@@ -279,7 +284,6 @@ public class PlayerController : MonoBehaviour
             Vector2 move = TCKInput.GetAxis("Joystick"); // NEW func since ver 1.5.5
             if (move.x != 0 || move.y != 0)
             {
-                //playerAni.SetFloat("Speed",5);
                 playerManager.animator.SetFloat("Speed", 5);
             }
             else
@@ -348,7 +352,6 @@ public class PlayerController : MonoBehaviour
 
             if ((bool)data["seesawbool"] == true)
             {
-                //Debug.Log((bool)data["seesawbool"]);
                 data["seesawbool"] = false;
                 PhotonNetwork.CurrentRoom.SetCustomProperties(data);
                 GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SeeSawTriggerR("AnimRSeesaw", false);
@@ -358,7 +361,6 @@ public class PlayerController : MonoBehaviour
         {
             if ((bool)data["seesawbool"] == false)
             {
-               // Debug.Log((bool)data["seesawbool"]);
                 data["seesawbool"] = true;
                 PhotonNetwork.CurrentRoom.SetCustomProperties(data);
                 GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SeeSawTriggerL("AnimLSeesaw", false);
@@ -369,15 +371,11 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "TreasureNormal")
         {
             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().TreasureNormal("Wooden_Chest", true);
-            //Animator boxAnim = treasure.GetComponent<Animator>();
-            //boxAnim.SetBool("openbox", true);
         }
         //easter
         if (other.tag == "TreasureDeath")
         {
             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().TreasureDeath("TreasureDeath", true);
-            //Animator diebox = other.GetComponentInParent<Animator>();
-            //diebox.SetBool("openbox", true);
         }
         //armor
         if (other.gameObject.tag == "armorTG")
@@ -388,8 +386,6 @@ public class PlayerController : MonoBehaviour
         /*PotionGet*/
         if (other.gameObject.transform.parent.name == "PotionList")
         {
-            //Debug.Log("take"+other.gameObject.name);
-            //Debug.Log("take" + other.gameObject.transform.parent.GetSiblingIndex());
             Hashtable team = PhotonNetwork.LocalPlayer.CustomProperties;
             PhotonView photonView = PhotonView.Get(UpInformation);
             photonView.RPC("getPoint", RpcTarget.All, (int)team["WhichTeam"]);
@@ -398,7 +394,6 @@ public class PlayerController : MonoBehaviour
         }
         if(other.gameObject.transform.name == "RockExplo")
         {
-            //Debug.Log("call explode func");
             explosionRock.explode();
         }
     }
@@ -409,17 +404,6 @@ public class PlayerController : MonoBehaviour
         {
             GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(5).gameObject.SetActive(false);
         }
-
-        /*Organ*/
-        //seesaw set
-        //if (other.CompareTag("RSeesaw"))
-        //{
-        //    playerOnLeftSeesaw = false;
-        //}
-        //if (other.CompareTag("LSeesaw"))
-        //{
-        //    playerOnLeftSeesaw = false;
-        //}
     }
 
     /*Organ*/

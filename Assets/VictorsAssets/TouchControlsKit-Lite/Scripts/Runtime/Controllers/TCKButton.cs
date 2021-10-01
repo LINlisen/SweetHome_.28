@@ -124,6 +124,8 @@ namespace TouchControlsKit
             if (Input.touchCount >= touchId && touchDown)
             {
                 UpdatePosition(pointerData.position);
+                Debug.Log(pointerData.position);
+                Debug.Log(pointerData.scrollDelta);
             }
         }
 

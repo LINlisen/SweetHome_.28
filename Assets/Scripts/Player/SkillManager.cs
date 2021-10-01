@@ -15,11 +15,13 @@ public class SkillManager : MonoBehaviour
     private SkillInfo Can;
     private SkillInfo Cream;
 
-    public GameObject RangeImage;
+
     public GameObject Arrow;
+    public Canvas SkillRange;
     private bool _bOpen = false;
     private Vector2 dir = Vector2.zero;
     private Vector3 PlayerPos;
+    private Vector3 position;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,22 +47,24 @@ public class SkillManager : MonoBehaviour
     {
         if(_bOpen == true)
         {
-            Arrow.transform.position = PlayerPos;
-            RangeImage.transform.position = PlayerPos;
-            Arrow.transform.Rotate(0f, 0f, dir.x);
+            
+            Quaternion transRot = Quaternion.LookRotation(position - PlayerPos);
+            transRot.eulerAngles = new Vector3(0, transRot.eulerAngles.y, transRot.eulerAngles.z);
+            SkillRange.transform.rotation = Quaternion.Lerp(transRot, SkillRange.transform.rotation, 0f);
         }
     }
-    public void UseSkill(Vector3 pos,string name,float x,float y)
+    public void UseSkill(Vector3 pos,string name,float x,float y,Vector3 playerPos)
     {
         switch (name)
         {
             case "Candy":
-                RangeImage.SetActive(true);
+               
                 Arrow.SetActive(true);
                 _bOpen = true;
                 dir.x = x;
                 dir.y = y;
-                PlayerPos= pos;
+                PlayerPos = playerPos;
+                position = pos;
                 break;
         }
     }
