@@ -47,7 +47,7 @@ public class SkillManager : MonoBehaviour
         {
             Arrow.transform.position = PlayerPos;
             RangeImage.transform.position = PlayerPos;
-            Arrow.transform.Rotate(dir.x, dir.y, 0f);
+            Arrow.transform.Rotate(0f, 0f, dir.x);
         }
     }
     public void UseSkill(Vector3 pos,string name,float x,float y)

@@ -172,10 +172,11 @@ public class PlayerController : MonoBehaviour
             //}
             if (TCKInput.GetAction("skillBtn", EActionEvent.Press))
             {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 Vector3 Pos = new Vector3(gameObject.transform.position.x,gameObject.transform.position.y,gameObject.transform.position.z);
-                skillManager.UseSkill(Pos, "Candy", Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-                Debug.Log(Input.GetAxis("Horizontal"));
-                Debug.Log(Input.GetAxis("Vertical"));
+                skillManager.UseSkill(Pos, "Candy", ray.direction.x, ray.direction.y);
+                Debug.Log(ray.direction.x);
+                Debug.Log(ray.direction.y);
             }
             if (_bIsDash == true)
             {
