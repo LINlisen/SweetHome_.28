@@ -17,6 +17,8 @@ public class TimeController : MonoBehaviour
     [Header("設定 UI 元素")]
 
     public Text text_Timmer; // 指定倒數計時的文字
+    public Text text_Countdown;
+    public GameObject text_Waiting;
     //public Text text_RT;
     //public Text text_BT;
 
@@ -29,6 +31,7 @@ public class TimeController : MonoBehaviour
 
     // Start is called before the first frame update
     bool startTimer = false;
+    int countdown = 4;
     int timerIncrementValue;
     int startTime;
     Hashtable CustomeValue = new Hashtable();
@@ -60,6 +63,7 @@ public class TimeController : MonoBehaviour
         else
         {
             startTimer = true;
+            text_Waiting.SetActive(false);
         }
         if (!startTimer) return;
         if (startTime == 0)
@@ -68,19 +72,28 @@ public class TimeController : MonoBehaviour
         }
         else
         {
-            timerIncrementValue = allSeconds - ((int)PhotonNetwork.Time - (int)startTime);
-
-            minutes = timerIncrementValue / 60;
-            seconds = timerIncrementValue % 60;
-
-            text_Timmer.text = string.Format("{0}:{1}", minutes.ToString("00"), seconds.ToString("00"));
-            if (timerIncrementValue <= 0)
+            timerIncrementValue = countdown - ((int)PhotonNetwork.Time - (int)startTime);
+            text_Countdown.text = (timerIncrementValue % 60).ToString();
+            if (timerIncrementValue == 0)
             {
-                //Timer Completed
-                //Do What Ever You What to Do Here
-                text_Timmer.gameObject.SetActive(false);
+                text_Countdown.text = "Start!";
+            }
+            else if (timerIncrementValue < 0)
+            {
+                text_Countdown.text = ' '.ToString();
+                timerIncrementValue = allSeconds - ((int)PhotonNetwork.Time - (int)startTime - countdown);
+                minutes = timerIncrementValue / 60;
+                seconds = timerIncrementValue % 60;
 
-                gameOver.SetActive(true);
+                text_Timmer.text = string.Format("{0}:{1}", minutes.ToString("00"), seconds.ToString("00"));
+                if (timerIncrementValue <= 0)
+                {
+                    //Timer Completed
+                    //Do What Ever You What to Do Here
+                    text_Timmer.gameObject.SetActive(false);
+
+                    gameOver.SetActive(true);
+                }
             }
         }
     }

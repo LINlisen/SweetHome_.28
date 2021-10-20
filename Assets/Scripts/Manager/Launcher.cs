@@ -30,14 +30,14 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] GameObject startGameButton;
     [SerializeField] TMP_Text startGameButtonText;
     [SerializeField] TMP_Text ClickText;
+    [SerializeField] Transform LoadingSpinner;
 
     public GameObject CharacterModels;
     public GameObject loadingScreen;
     public GameObject RoomMenu;
-    public Slider slider;
     public Text ProgressText;
     int flag = 0;
-
+    private float pr = 0f;
     void Awake()
     {
         Instance = this;
@@ -77,7 +77,14 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected To Master");
-        MenuManager.Instance.OpenMenu("clicktostart");
+        if (hash["Nickname"] == null)
+        {
+            MenuManager.Instance.OpenMenu("clicktostart");
+        }
+        else
+        {
+            MenuManager.Instance.OpenMenu("title");
+        }
     }
     public void JoinLobby()
     {
@@ -216,7 +223,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
-        //MenuManager.Instance.OpenMenu("Loading");
+        //MenuManager.Instance.OpenMenu("title");
     }
 
     public void JoinRoom(RoomInfo info)
@@ -353,15 +360,20 @@ public class Launcher : MonoBehaviourPunCallbacks
             {
                 float progress = Mathf.Clamp01(operation.progress / .9f);
                 PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
-                slider.value = progress;
-                ProgressText.text = progress * 100f - 1 + "%";
+                ProgressText.text = progress * 100f + "%";
 
                 yield return null;
             }
         }
         else
         {
-
+            RoomMenu.SetActive(false);
+            loadingScreen.SetActive(true);
         }
+    }
+
+    void Update()
+    {
+        LoadingSpinner.localEulerAngles = new Vector3(0, 0, ++pr);
     }
 }
