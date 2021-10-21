@@ -27,6 +27,7 @@ public class PlayerManager : MonoBehaviour
         {
             CreateController();
         }
+       
         
     }
 
@@ -37,12 +38,12 @@ public class PlayerManager : MonoBehaviour
         switch ((int)hash["Charactor"])
         {
             case 1:
-                character = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandyCharactor"), new Vector3(i, 20, 0), Quaternion.identity);
+                character = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandyCharactor"), GameObject.Find("PlayersPos").transform.GetChild(0).position, Quaternion.identity);
                 character.transform.parent = transform;
                 animator = character.GetComponent<Animator>();
                 break;
             case 2:
-                character = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "ChocolateCharactor"), new Vector3(i, 20, 0), Quaternion.identity);
+                character = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "ChocolateCharactor"), GameObject.Find("PlayersPos").transform.GetChild(1).position, Quaternion.identity);
                 character.transform.parent = transform;
                 animator = character.GetComponent<Animator>();
                 break;
