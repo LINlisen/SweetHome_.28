@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SkillManager : MonoBehaviour
 {
@@ -59,7 +60,7 @@ public class SkillManager : MonoBehaviour
         }
         if (_SkillbtnDown)
         {
-
+            Arrow.transform.position = GameObject.Find("PlayerManager(Clone)").transform.GetChild(0).transform.GetChild(0).position;
         }
     }
     public void UseSkill(Vector3 pos,string name,float x,float y,Vector3 playerPos)
@@ -80,10 +81,12 @@ public class SkillManager : MonoBehaviour
     {
         Arrow.SetActive(true);
         _SkillbtnDown = true;
-        Debug.Log("showwArrow");
+        Arrow.transform.position = GameObject.Find("PlayerManager(Clone)").transform.GetChild(0).transform.position;
+        
     }
     public void Drag()
     {
 
     }
+
 }

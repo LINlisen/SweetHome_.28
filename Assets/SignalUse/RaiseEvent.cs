@@ -123,10 +123,6 @@ public class RaiseEvent : MonoBehaviourPun
         object[] datas = new object[] {b, PotionName };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(GET_POTION_EVENT,datas, raiseEventOptions, SendOptions.SendReliable);
-       
-
-
-
     }
     public void takeToast()
     {
