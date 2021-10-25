@@ -26,6 +26,8 @@ public class SkillManager : MonoBehaviour
 
     private bool _SkillbtnDown;
     private Vector2 DragDir;
+
+    PlayerController PlayerController;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +48,8 @@ public class SkillManager : MonoBehaviour
         Cream.way = "sector";
 
         _SkillbtnDown = false;
+
+        PlayerController = GameObject.Find("PlayerManager(Clone)").transform.GetChild(0).GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -81,12 +85,20 @@ public class SkillManager : MonoBehaviour
     {
         Arrow.SetActive(true);
         _SkillbtnDown = true;
-        Arrow.transform.position = GameObject.Find("PlayerManager(Clone)").transform.GetChild(0).transform.position;
+        //Arrow.transform.position = GameObject.Find("PlayerManager(Clone)").transform.GetChild(0).transform.position;
         
     }
     public void Drag()
     {
 
     }
-
+    public void DisaArrow()
+    {
+        Arrow.SetActive(false);
+        _SkillbtnDown = false;
+    }
+    public void UseSkill()
+    {
+        //PlayerController.Skill();
+    }
 }
