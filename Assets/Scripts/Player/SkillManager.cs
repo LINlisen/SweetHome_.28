@@ -22,6 +22,9 @@ public class SkillManager : MonoBehaviour
     private Vector2 dir = Vector2.zero;
     private Vector3 PlayerPos;
     private Vector3 position;
+
+    private bool _SkillbtnDown;
+    private Vector2 DragDir;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,17 +43,23 @@ public class SkillManager : MonoBehaviour
         Cream.name = "Candy";
         Cream.range = 10.0f;
         Cream.way = "sector";
+
+        _SkillbtnDown = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(_bOpen == true)
+        if (_bOpen == true)
         {
-            
+
             Quaternion transRot = Quaternion.LookRotation(position - PlayerPos);
             transRot.eulerAngles = new Vector3(0, transRot.eulerAngles.y, transRot.eulerAngles.z);
             SkillRange.transform.rotation = Quaternion.Lerp(transRot, SkillRange.transform.rotation, 0f);
+        }
+        if (_SkillbtnDown)
+        {
+
         }
     }
     public void UseSkill(Vector3 pos,string name,float x,float y,Vector3 playerPos)
@@ -58,7 +67,6 @@ public class SkillManager : MonoBehaviour
         switch (name)
         {
             case "Candy":
-               
                 Arrow.SetActive(true);
                 _bOpen = true;
                 dir.x = x;
@@ -67,5 +75,15 @@ public class SkillManager : MonoBehaviour
                 position = pos;
                 break;
         }
+    }
+    public void ShowArrow()
+    {
+        Arrow.SetActive(true);
+        _SkillbtnDown = true;
+        Debug.Log("showwArrow");
+    }
+    public void Drag()
+    {
+
     }
 }

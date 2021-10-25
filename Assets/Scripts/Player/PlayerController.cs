@@ -80,7 +80,6 @@ public class PlayerController : MonoBehaviour
     public GameObject rock;
 
 
-
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -172,21 +171,15 @@ public class PlayerController : MonoBehaviour
             //{
             //    Skill();
             //}
-            if (TCKInput.GetAction("skillBtn", EActionEvent.Press))
-            {
-                RaycastHit hit;
-                Ray ray = new Ray(transform.position,new Vector3(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"),0));
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-                {
-                    Debug.Log("Drag");
-                    Vector3 Pos = new Vector3(hit.point.x, hit.point.y, hit.point.z);
-                    skillManager.UseSkill(Pos, "Candy", ray.direction.x, ray.direction.y,gameObject.transform.position);
-                }
-                
-                //Debug.Log(ray.direction.x);
-                //Debug.Log(ray.direction.y);
-         
-            }
+            //if (TCKInput.GetAction("skillBtn", EActionEvent.Press))
+            //{
+            //    RaycastHit hit;
+            //    Ray ray = new Ray(transform.position, new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0));
+            //    Debug.Log("Drag");
+            //    Vector3 Pos = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+            //    skillManager.UseSkill(Pos, "Candy", ray.direction.x, ray.direction.y, gameObject.transform.position);
+            //}
+            
             if (_bIsDash == true)
             {
 
