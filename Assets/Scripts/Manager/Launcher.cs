@@ -29,7 +29,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] GameObject ChooseButton;
     [SerializeField] GameObject startGameButton;
     [SerializeField] TMP_Text startGameButtonText;
-    [SerializeField] TMP_Text ClickText;
+    [SerializeField] Text ClickText;
     [SerializeField] Transform LoadingSpinner;
 
     public GameObject CharacterModels;
@@ -65,11 +65,11 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         if (ClickText.text == "")
         {
-            ClickText.SetText("* Tap To Start *");
+            ClickText.text="點  擊  開  始  ！";
         }
         else
         {
-            ClickText.SetText("");
+            ClickText.text="";
         }
 
     }
