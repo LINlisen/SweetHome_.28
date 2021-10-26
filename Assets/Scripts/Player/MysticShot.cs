@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class MysticShot : MonoBehaviour
 {
     //Ability range
@@ -15,18 +17,35 @@ public class MysticShot : MonoBehaviour
     public Canvas abilityCanvas;
     //public Image skillshot;
     public Transform player;
+
+    //Hash
+    Hashtable hash;
     // Start is called before the first frame update
     void Start()
     {
-        moveScript = GetComponent<PlayerController>();
+        hash = PhotonNetwork.LocalPlayer.CustomProperties;
         abilityCanvas = GameObject.Find("AbilityCanvas").GetComponent<Canvas>();
-        player = GameObject.Find("CandyCharactor(Clone)").transform;
+        switch ((int)hash["Charactor"])
+        {
+            case 1:
+                player = GameObject.Find("CandyCharactor(Clone)").transform;
+                break;
+            case 2:
+                player = GameObject.Find("ChocolateCharactor(Clone)").transform;
+                break;
+            case 3:
+                player = GameObject.Find("CanCharactor(Clone)").transform;
+                break;
+            case 4:
+                player = GameObject.Find("CreamCharactor(Clone)").transform;
+                break;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        SkillshotAbility();
+        //SkillshotAbility();
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if(Physics.Raycast(ray, out hit, Mathf.Infinity))
@@ -36,7 +55,7 @@ public class MysticShot : MonoBehaviour
 
         //Ability 1 Canvas Input
         Quaternion transRot = Quaternion.LookRotation(position - player.transform.position);
-        transRot.eulerAngles = new Vector3(0, transRot.eulerAngles.y, transRot.eulerAngles.z) * 10f;
+        transRot.eulerAngles = new Vector3(0, transRot.eulerAngles.y, transRot.eulerAngles.z) * 5f;
 
         abilityCanvas.transform.rotation = Quaternion.Lerp(transRot, abilityCanvas.transform.rotation, 0f);
         abilityCanvas.transform.position = player.transform.GetChild(0).position;
@@ -47,8 +66,8 @@ public class MysticShot : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             //Rotate
-            Quaternion rotationToLookAt = Quaternion.LookRotation(position - transform.position);
-            float rotationY = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationToLookAt.eulerAngles.y,ref moveScript.rotateVelocity,0);
+            //Quaternion rotationToLookAt = Quaternion.LookRotation(position - transform.position);
+            //float rotationY = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationToLookAt.eulerAngles.y,ref moveScript.rotateVelocity,0);
 
             //transform.eulerAngles = new Vector3(0, rotationY, 0);
             //if (moveScript.agent.isOnNavMesh)

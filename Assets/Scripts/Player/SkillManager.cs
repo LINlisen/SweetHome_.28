@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using Photon.Pun;
 public class SkillManager : MonoBehaviour
 {
     private struct SkillInfo
@@ -51,7 +51,11 @@ public class SkillManager : MonoBehaviour
         _SkillbtnDown = false;
 
         //PlayerController = GameObject.Find("PlayerManager(Clone)").transform.GetChild(0).GetComponent<PlayerController>();
-        Player = GameObject.Find("PlayerManager(Clone)");
+        if (GameObject.Find("PlayerManager(Clone)").GetComponentInChildren<PhotonView>().IsMine)
+        {
+            Player = GameObject.Find("PlayerManager(Clone)");
+        }
+        
     }
 
     // Update is called once per frame
@@ -66,7 +70,7 @@ public class SkillManager : MonoBehaviour
         }
         if (_SkillbtnDown)
         {
-            Arrow.transform.position = GameObject.Find("PlayerManager(Clone)").transform.GetChild(0).transform.GetChild(0).position;
+            Arrow.transform.position = Player.transform.GetChild(0).transform.GetChild(0).position;
         }
     }
     public void UseSkill(Vector3 pos,string name,float x,float y,Vector3 playerPos)

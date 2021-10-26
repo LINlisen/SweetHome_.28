@@ -16,10 +16,10 @@ public class Launcher : MonoBehaviourPunCallbacks
     Hashtable hash = new Hashtable();
     Hashtable roomhash = new Hashtable();
     public static Launcher Instance;
-    [SerializeField] TMP_InputField playerNicknameInputField;
-    [SerializeField] TMP_InputField roomNameInputField;
+    [SerializeField] InputField playerNicknameInputField;
+    [SerializeField] InputField roomNameInputField;
     [SerializeField] TMP_Text errorText;
-    [SerializeField] TMP_Text roomNameText;
+    [SerializeField] Text RoomNameText;
     [SerializeField] Transform roomListContent;
     [SerializeField] GameObject roomListItemPrefab;
     [SerializeField] Transform playerListContent;
@@ -28,7 +28,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] GameObject PlayerListItemPrefab;
     [SerializeField] GameObject ChooseButton;
     [SerializeField] GameObject startGameButton;
-    [SerializeField] TMP_Text startGameButtonText;
+    [SerializeField] Text startGameButtonText;
     [SerializeField] Text ClickText;
     [SerializeField] Transform LoadingSpinner;
 
@@ -131,7 +131,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         MenuManager.Instance.OpenMenu("room");
-        roomNameText.text = PhotonNetwork.CurrentRoom.Name;
+        RoomNameText.text = PhotonNetwork.CurrentRoom.Name;
 
 
         Player[] players = PhotonNetwork.PlayerList;
@@ -162,11 +162,11 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
-            startGameButtonText.SetText("START!");
+            startGameButtonText.text="開始";
         }
         else
         {
-            startGameButtonText.SetText("READY");
+            startGameButtonText.text = "準備";
         }
         ChooseButton.SetActive(PhotonNetwork.IsMasterClient);
         startGameButton.SetActive(true);
