@@ -622,7 +622,7 @@ GameObject:
   - component: {fileID: 5833135827634413184}
   m_Layer: 0
   m_Name: CameraHolder
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1286,6 +1286,8 @@ GameObject:
   - component: {fileID: 3674384034967465706}
   - component: {fileID: 8690926295567802635}
   - component: {fileID: 1914419864111018623}
+  - component: {fileID: -6832254563132394578}
+  - component: {fileID: 4572819574903327668}
   m_Layer: 0
   m_Name: ChocolateCharactor
   m_TagString: Untagged
@@ -1362,6 +1364,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94760967763eb6b4fad6fed0c5ca6eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  rotateVelocity: 0
   camerHolder: {fileID: 1968711252, guid: 32bdc632978528045814ca8dc2893c56, type: 3}
   mouseSensitivity: 10
   walkSpeed: 18
@@ -1452,6 +1456,42 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
+--- !u!195 &-6832254563132394578
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8988692295513814274}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &4572819574903327668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8988692295513814274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faaac7ae03cdc4cfcb51ef846aff1639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityCanvas: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &9067941620128154271
 GameObject:
   m_ObjectHideFlags: 0

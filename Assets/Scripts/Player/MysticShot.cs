@@ -20,11 +20,16 @@ public class MysticShot : MonoBehaviour
 
     //Hash
     Hashtable hash;
+
+    //Photon
+    PhotonView PV;
+
     // Start is called before the first frame update
     void Start()
     {
         hash = PhotonNetwork.LocalPlayer.CustomProperties;
         abilityCanvas = GameObject.Find("AbilityCanvas").GetComponent<Canvas>();
+        PV = GetComponent<PhotonView>();
         switch ((int)hash["Charactor"])
         {
             case 1:
@@ -45,20 +50,27 @@ public class MysticShot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //SkillshotAbility();
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if(Physics.Raycast(ray, out hit, Mathf.Infinity))
+        if (PV.IsMine)
         {
-            position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            {
+                position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+            }
+
+            //Ability 1 Canvas Input
+            Quaternion transRot = Quaternion.LookRotation(position - player.transform.position);
+            transRot.eulerAngles = new Vector3(0, transRot.eulerAngles.y, transRot.eulerAngles.z) * 5f;
+
+            abilityCanvas.transform.rotation = Quaternion.Lerp(transRot, abilityCanvas.transform.rotation, 0f);
+            abilityCanvas.transform.position = player.transform.GetChild(0).position;
         }
-
-        //Ability 1 Canvas Input
-        Quaternion transRot = Quaternion.LookRotation(position - player.transform.position);
-        transRot.eulerAngles = new Vector3(0, transRot.eulerAngles.y, transRot.eulerAngles.z) * 5f;
-
-        abilityCanvas.transform.rotation = Quaternion.Lerp(transRot, abilityCanvas.transform.rotation, 0f);
-        abilityCanvas.transform.position = player.transform.GetChild(0).position;
+        else
+        {
+            return;
+        }
+        
     }
 
     public void SkillshotAbility()
