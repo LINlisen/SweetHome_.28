@@ -26,11 +26,12 @@ public class ChooseCharactor : MonoBehaviour
             {   
                 public GameObject CandyModel;
                 public GameObject ChocolateModel;
-                //public GameObject CandyModel;
+                public GameObject CanModel;
                 //public GameObject CandyModel;
             }   
     private Charactor Candy;
     private Charactor Chocolate;
+    private Charactor Can;
     public UserInput Input;
     public Charactor UserChoose;
     public CharactorModels Models;
@@ -42,6 +43,7 @@ public class ChooseCharactor : MonoBehaviour
     {
         setCandyInfo();
         setChocolateInfo();
+        setCanInfo();
         Input.charactor_id = 1;
         UserChoose.Name.GetComponent<Text>();
         UserChoose.Introduction.GetComponent<Text>();
@@ -94,6 +96,26 @@ public class ChooseCharactor : MonoBehaviour
                     _bCreated = true;
                 }
                 break;
+            case 3:
+                hash["Charactor"] = 3;
+                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                UserChoose.Id = Can.Id;
+                UserChoose.Name.text = " ";
+                UserChoose.Introduction.text = "技能效果：放置巧克力牆，當敵人接近時，蓋下來壓住敵人，造成敵人暈眩2秒。技能增強：巧克力牆有隱形效果。";
+                if (!_bCreated)
+                {
+                    if (UserChoose.CharactorModel.childCount != 0)
+                    {
+                        GameObject pre = UserChoose.CharactorModel.GetChild(0).gameObject;
+                        Destroy(pre);
+                    }
+                    Debug.Log(2);
+                    Instantiate(Models.CanModel, UserChoose.CharactorModel.position, UserChoose.CharactorModel.rotation, UserChoose.CharactorModel);
+                    UserChoose.CharactorModel.transform.localScale = new Vector3(6, 6, 6);
+                    UserChoose.CharactorModel.transform.position = new Vector3(10.7f, 1.6f, 83.6f);
+                    _bCreated = true;
+                }
+                break;
         }
            
     }
@@ -109,6 +131,12 @@ public class ChooseCharactor : MonoBehaviour
         //Candy.Name = "Chocolare";
         //Candy.Introduction.text = "一片高大的巧克力";
     }
+    private void setCanInfo()
+    {
+        Can.Id = 3;
+        //Candy.Name = "Chocolare";
+        //Candy.Introduction.text = "一片高大的巧克力";
+    }
     public void CandyChoosed()
     {
         Input.charactor_id = 1;
@@ -121,10 +149,16 @@ public class ChooseCharactor : MonoBehaviour
         //Debug.Log("Choose 2");
         _bCreated = false;
     }
+    public void CanChoosed()
+    {
+        Input.charactor_id = 3;
+        //Debug.Log("Choose 3");
+        _bCreated = false;
+    }
     public void NextBtn()
     {
         _bCreated = false;
-        if (Input.charactor_id == 2)
+        if (Input.charactor_id == 3)
         {
             Input.charactor_id = 1;
         }
@@ -138,7 +172,7 @@ public class ChooseCharactor : MonoBehaviour
         _bCreated = false;
         if (Input.charactor_id == 1)
         {
-            Input.charactor_id = 2;
+            Input.charactor_id = 3;
         }
         else
         {

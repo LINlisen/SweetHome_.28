@@ -47,6 +47,11 @@ public class PlayerManager : MonoBehaviour
                 character.transform.parent = transform;
                 animator = character.GetComponent<Animator>();
                 break;
+            case 3:
+                character = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CanCharactor"), GameObject.Find("PlayersPos").transform.GetChild(2).position, Quaternion.identity);
+                character.transform.parent = transform;
+                animator = character.GetComponent<Animator>();
+                break;
         }
     }
 }
