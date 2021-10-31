@@ -131,15 +131,14 @@ public class PlayerController : MonoBehaviour
     }
     public void Dash()
     {
-        string playerName = PV.gameObject.name;
+       
         _bIsDash = true;
         playerManager.animator.SetBool("Dash", true);
         directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
         directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
         
-        GameObject.Find(playerName).gameObject.transform.GetChild(2).gameObject.SetActive(true);
-        dahsColdBtn = GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(6).gameObject;//dashColdTimeBtn_Get
-        dahsColdBtn.SetActive(true);
+        
+        
 
         TCKInput.SetControllerActive("dashBtn",false);
     }
@@ -174,13 +173,19 @@ public class PlayerController : MonoBehaviour
                 Dash();
             }
    
-            if (_bIsDash == true)
+            if (_bIsDash == true )
             {
-
+                string playerName = PV.gameObject.name;
                 if (dashTime <= dashDuration)
                 {
-                    dashTime += Time.deltaTime;
-                    playerController.Move(-directionXOZ * dashTime * dashSpeed);
+                    if (playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash"))
+                    {
+                        GameObject.Find(playerName).gameObject.transform.GetChild(2).gameObject.SetActive(true);
+                        dahsColdBtn = GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(6).gameObject;//dashColdTimeBtn_Get
+                        dahsColdBtn.SetActive(true);
+                        dashTime += Time.deltaTime;
+                        playerController.Move(-directionXOZ * dashTime * dashSpeed);
+                    }
                 }
                 else
                 {
@@ -189,7 +194,7 @@ public class PlayerController : MonoBehaviour
 
                     playerManager.animator.SetBool("Dash", false);
 
-                    string playerName = playerController.gameObject.name;
+                    
                     GameObject.Find(playerName).gameObject.transform.GetChild(2).gameObject.SetActive(false);
                     if (dashCold >= 5.0f)
                     {
