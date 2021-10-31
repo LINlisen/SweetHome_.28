@@ -21,9 +21,6 @@ public class PlayerController : MonoBehaviour
 
     int itemIndex;
     int previousItemIndex = -1;
-    public GameObject rotation_Wall;
-    public GameObject RedDoor;
-    public GameObject BlueDoor;
     float verticalLookRotation;
     float rotation;
     

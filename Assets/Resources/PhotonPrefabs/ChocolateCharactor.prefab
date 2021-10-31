@@ -1370,12 +1370,7 @@ MonoBehaviour:
   mouseSensitivity: 10
   walkSpeed: 18
   smoothTime: 0.15
-  rotation_Wall: {fileID: 5054885072502563742, guid: fa3e1b0a7c213484f8d56749bebc80c9,
-    type: 3}
-  RedDoor: {fileID: 1323162390903397704, guid: 5a63f76009c9acb42b7953abc7afd819, type: 3}
-  BlueDoor: {fileID: 7343264242423041474, guid: 4175929ea54ca8243bce5a6f106431ad,
-    type: 3}
-  dashDuration: 1.2
+  dashDuration: 0.9
   dashSpeed: 0.8
   playerController: {fileID: 1078051825160143480}
   boostedSpeed: 22
