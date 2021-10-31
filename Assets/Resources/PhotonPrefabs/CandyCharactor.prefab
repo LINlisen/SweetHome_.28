@@ -162,15 +162,13 @@ MonoBehaviour:
   mouseSensitivity: 10
   walkSpeed: 18
   smoothTime: 0.15
-  dashDuration: 0.9
-  dashSpeed: 0.8
+  dashDuration: 1
+  dashSpeed: 1
   playerController: {fileID: 8488325058980157827}
   boostedSpeed: 22
   speedCooldown: 2
   maxAngle: 350
   minAngle: 15
-  treasure: {fileID: 5541628849186769823, guid: c075b11f3e08ade439ef2c0006cbe41b,
-    type: 3}
   armor: {fileID: 7360618131214421170}
   rock: {fileID: 2316141889199578944, guid: 8552273b1f8994953818dcd15f8df05d, type: 3}
 --- !u!114 &2438392420292023281

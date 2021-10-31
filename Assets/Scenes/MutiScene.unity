@@ -10332,6 +10332,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3281899735966577890, guid: 775ffb5ea8547414e82c7d8ada8c5f4b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 775ffb5ea8547414e82c7d8ada8c5f4b,
         type: 3}
       propertyPath: m_Name
@@ -18399,6 +18404,26 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!1 &1563976382 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5479021865797886284, guid: 775ffb5ea8547414e82c7d8ada8c5f4b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1563975575}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1563976383
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1563976382}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6207308119592204935, guid: 775ffb5ea8547414e82c7d8ada8c5f4b, type: 3}
 --- !u!1 &1573463269
 GameObject:
   m_ObjectHideFlags: 0
@@ -19333,7 +19358,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 3974c9ff87ae7b749b495495fcd038b9, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.26
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -21859,7 +21884,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1967156399}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -100.9, y: 30.99, z: -541.95}
+  m_LocalPosition: {x: -100.81907, y: 50.36, z: -539.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1338131821}

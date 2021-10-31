@@ -15,13 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject camerHolder;
     [SerializeField] float mouseSensitivity, walkSpeed, smoothTime;
 
-
-    Animator playerAni;
     private PlayerManager playerManager;
-
-    int itemIndex;
-    int previousItemIndex = -1;
-    float verticalLookRotation;
     float rotation;
     
     //Dash
@@ -30,6 +24,8 @@ public class PlayerController : MonoBehaviour
     private float dashCold = 0;
     private GameObject dahsColdBtn;
     public float dashDuration;// 控制冲刺时间
+    private Vector3 directionXOZ;
+    public float dashSpeed;// 冲刺速度
     //Skill
     bool _bIsSkill = false;
     private float skillTime = 0.0f;
@@ -38,16 +34,12 @@ public class PlayerController : MonoBehaviour
     private float skillDuration;
     private SkillManager skillManager;
 
-    private Vector3 directionXOZ;
-    
-    public float dashSpeed;// 冲刺速度
     // Start is called before the first frame update
 
     public CharacterController playerController;
     Rigidbody rb;
     PhotonView PV;
     GameObject UpInformation;
-    Material playerColor;
     /*Organ*/
     //[SerializeField] private GameObject SeesawSet;
 
@@ -65,8 +57,7 @@ public class PlayerController : MonoBehaviour
     public float minAngle;
     Hashtable team;
     Hashtable hash;
-    //treasure
-    [SerializeField] private GameObject treasure;
+
 
     //armor
     [SerializeField] private GameObject armor;
@@ -87,9 +78,6 @@ public class PlayerController : MonoBehaviour
         playerController = GetComponent<CharacterController>();
         PV = GetComponent<PhotonView>();
         UpInformation = GameObject.Find("UpInformationCanvas");
-        treasure = GameObject.Find("Wooden_Chest");
-        playerAni = GetComponent<Animator>();
-        
     }
 
     void Start()
@@ -103,7 +91,6 @@ public class PlayerController : MonoBehaviour
 
         if (PV.IsMine)
         {
-            //EquipItem(0);
             playerManager = GetComponentInParent<PlayerManager>();
         }
         else
@@ -277,7 +264,6 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                //playerAni.SetFloat("Speed", 0);
                 playerManager.animator.SetFloat("Speed", 0);
             }
 
@@ -375,7 +361,6 @@ public class PlayerController : MonoBehaviour
         /*PotionGet*/
         if (other.gameObject.transform.parent.name == "PotionList")
         {
-            Hashtable team = PhotonNetwork.LocalPlayer.CustomProperties;
             PhotonView photonView = PhotonView.Get(UpInformation);
             photonView.RPC("getPoint", RpcTarget.All, (int)team["WhichTeam"]);
             other.GetComponent<AudioSource>().Play();
