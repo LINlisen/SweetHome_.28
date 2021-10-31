@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-public class GameManager : MonoBehaviour
+public class GameManagement : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    [SerializeField] public GameObject setPage;
     void Start()
     {
         
@@ -17,5 +18,18 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("all loading ok");
         }
+
+    }
+    public void QuitGameSingle()
+    {
+        Application.Quit();
+    }
+    public void OpenSettingBox()
+    {
+        setPage.SetActive(true);
+    }
+    public void CloseSettingBox()
+    {
+        setPage.SetActive(false);
     }
 }
