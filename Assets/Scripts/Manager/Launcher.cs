@@ -47,7 +47,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     void Start()
     {
         roomhash.Add("LoadingProgress", 0);
-        roomhash.Add("Choose", false);
+        roomhash.Add("Choose", 0);
         roomhash.Add("StartGame", false);
         roomhash.Add("StartTime", 0);
         hash.Add("TimerReady", false);
@@ -215,9 +215,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     }
     public void ChooseRoom()
     {
-        roomhash["Choose"] = true;
+        roomhash["Choose"] = 1;
         PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
-        roomhash["Choose"] = false;
+        roomhash["Choose"] = 0;
         PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
     }
     public void LeaveRoom()
@@ -237,14 +237,26 @@ public class Launcher : MonoBehaviourPunCallbacks
         MenuManager.Instance.OpenMenu("title");
     }
 
+    public void BackToRoom()
+    {
+        roomhash["Choose"] = 2;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        roomhash["Choose"] = 0;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+    }
+
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
     {
         base.OnRoomPropertiesUpdate(propertiesThatChanged);
         if (PhotonNetwork.CurrentRoom.CustomProperties["Choose"] != null)
         {
-            if ((bool)PhotonNetwork.CurrentRoom.CustomProperties["Choose"] == true)
+            if ((int)PhotonNetwork.CurrentRoom.CustomProperties["Choose"] == 1)
             {
                 MenuManager.Instance.OpenMenu("Choose");
+            }
+            else if((int)PhotonNetwork.CurrentRoom.CustomProperties["Choose"] == 2)
+            {
+                MenuManager.Instance.OpenMenu("room");
             }
         }
     }

@@ -16,6 +16,7 @@ public class ChooseCharactor : MonoBehaviour
            public Text Introduction;
            public Transform CharactorModel;
            public GameObject ModelsParent;
+           //public Button CharactorButton;
         }
         public struct UserInput
         {
@@ -32,9 +33,14 @@ public class ChooseCharactor : MonoBehaviour
     private Charactor Candy;
     private Charactor Chocolate;
     private Charactor Can;
+    public Button CandyButton;
+    public Button ChocolateButton;
+    public Button CanButton;
+    public Button IceCreamButton;
     public UserInput Input;
     public Charactor UserChoose;
     public CharactorModels Models;
+    public Color cb = new Color(0.72f, 0.72f, 0.72f, 1);
 
     private bool _bCreated = false;
     Hashtable hash = new Hashtable();
@@ -57,6 +63,10 @@ public class ChooseCharactor : MonoBehaviour
         {
             case 1:
                 hash["Charactor"] = 1;
+                CandyButton.GetComponent<Image>().color = Color.white;
+                ChocolateButton.GetComponent<Image>().color = Color.gray;
+                CanButton.GetComponent<Image>().color = Color.gray;
+                IceCreamButton.GetComponent<Image>().color = Color.gray;
                 PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
                 UserChoose.Id = Candy.Id;
                 UserChoose.Name.text = "史帝夫‧哈靈頓";
@@ -78,6 +88,10 @@ public class ChooseCharactor : MonoBehaviour
                 break;
             case 2:
                 hash["Charactor"] = 2;
+                CandyButton.GetComponent<Image>().color = Color.gray;
+                ChocolateButton.GetComponent<Image>().color = Color.white;
+                CanButton.GetComponent<Image>().color = Color.gray;
+                IceCreamButton.GetComponent<Image>().color = Color.gray;
                 PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
                 UserChoose.Id = Chocolate.Id;
                 UserChoose.Name.text = "傑克‧威爾森";
@@ -98,6 +112,10 @@ public class ChooseCharactor : MonoBehaviour
                 break;
             case 3:
                 hash["Charactor"] = 3;
+                CandyButton.GetComponent<Image>().color = Color.gray;
+                ChocolateButton.GetComponent<Image>().color = Color.gray;
+                CanButton.GetComponent<Image>().color = Color.white;
+                IceCreamButton.GetComponent<Image>().color = Color.gray;
                 PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
                 UserChoose.Id = Can.Id;
                 UserChoose.Name.text = " ";
