@@ -32,4 +32,9 @@ public class GameManagement : MonoBehaviour
     {
         setPage.SetActive(false);
     }
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+        //MenuManager.Instance.OpenMenu("title");
+    }
 }
