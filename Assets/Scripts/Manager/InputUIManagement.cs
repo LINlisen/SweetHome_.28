@@ -40,6 +40,9 @@ public class InputUIManagement : MonoBehaviour
             case 2:
                 skillImg.sprite = ChocolateSprite;
                 break;
+            case 3:
+                skillImg.sprite = CanSprite;
+                break;
         }
     }
 

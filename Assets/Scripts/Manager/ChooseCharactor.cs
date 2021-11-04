@@ -115,11 +115,11 @@ public class ChooseCharactor : MonoBehaviour
                 CandyButton.GetComponent<Image>().color = Color.gray;
                 ChocolateButton.GetComponent<Image>().color = Color.gray;
                 CanButton.GetComponent<Image>().color = Color.white;
-                IceCreamButton.GetComponent<Image>().color = Color.gray;
+                IceCreamButton.GetComponent<Image>().color = Color. gray;
                 PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
                 UserChoose.Id = Can.Id;
-                UserChoose.Name.text = " ";
-                UserChoose.Introduction.text = "技能效果：放置巧克力牆，當敵人接近時，蓋下來壓住敵人，造成敵人暈眩2秒。技能增強：巧克力牆有隱形效果。";
+                UserChoose.Name.text = "南西‧梅森";
+                UserChoose.Introduction.text = "技能效果：從玩家自身方圓5米內噴射一攤飲料，範圍內的敵人進入障目狀態。技能增強：增加緩速5秒效果。";
                 if (!_bCreated)
                 {
                     if (UserChoose.CharactorModel.childCount != 0)
