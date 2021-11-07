@@ -29,6 +29,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] GameObject ChooseButton;
     [SerializeField] GameObject startGameButton;
     [SerializeField] Text startGameButtonText;
+    [SerializeField] Text startGameHint;
     [SerializeField] Text ClickText;
     [SerializeField] Transform LoadingSpinner;
 
@@ -59,6 +60,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         Debug.Log("Connecting To Master");
         PhotonNetwork.ConnectUsingSettings();
         InvokeRepeating("showHide", 1, 0.5f);
+        startGameHint.CrossFadeAlpha(0.0f, 0.0f, false);
     }
 
     void showHide()
@@ -73,7 +75,6 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
 
     }
-
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected To Master");
@@ -115,6 +116,11 @@ public class Launcher : MonoBehaviourPunCallbacks
         MenuManager.Instance.OpenMenu("title");
     }
 
+    public void BackToTitle()
+    {
+        MenuManager.Instance.OpenMenu("title");
+    }
+
     public void CreateRoom()
     {
         if (string.IsNullOrEmpty(roomNameInputField.text))
@@ -133,7 +139,8 @@ public class Launcher : MonoBehaviourPunCallbacks
         MenuManager.Instance.OpenMenu("room");
         RoomNameText.text = PhotonNetwork.CurrentRoom.Name;
 
-
+        ColorBlock cb = startGameButton.GetComponent<Button>().colors;
+        Color color = new Color(0, 1, 0.004989f, 1);
         Player[] players = PhotonNetwork.PlayerList;
 
         foreach (Transform child in BlueListContent)
@@ -167,6 +174,8 @@ public class Launcher : MonoBehaviourPunCallbacks
         else
         {
             startGameButtonText.text = "準備";
+            cb.selectedColor = color;
+            startGameButton.GetComponent<Button>().colors = cb;
         }
         ChooseButton.SetActive(PhotonNetwork.IsMasterClient);
         startGameButton.SetActive(true);
@@ -187,10 +196,12 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
+
         int pready = 0;
         Player[] players = PhotonNetwork.PlayerList;
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
+            startGameHint.CrossFadeAlpha(1.0f, 0.00f, false);
             for (int i = 0; i < players.Count(); i++)
             {
                 if ((bool)players[i].CustomProperties["Ready"] == true)
@@ -205,6 +216,10 @@ public class Launcher : MonoBehaviourPunCallbacks
                 {
                     players[i].SetCustomProperties(hash);
                 }
+            }
+            else
+            {
+                startGameHint.CrossFadeAlpha(0.0f, 0.8f, false);
             }
         }
         else
