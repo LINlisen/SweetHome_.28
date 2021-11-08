@@ -116,7 +116,7 @@ public class RaiseEvent : MonoBehaviourPun
 
     public void getPotion(string name)
     {
-        Debug.Log("GetPostion");
+        //Debug.Log("GetPostion");
         StartCoroutine(Coroutine(2.0f));
         
         bool b = false;
