@@ -16,7 +16,7 @@ public class GameManagement : MonoBehaviour
     {
         if (PhotonNetwork.AutomaticallySyncScene)
         {
-            Debug.Log("all loading ok");
+            //Debug.Log("all loading ok");
         }
 
     }

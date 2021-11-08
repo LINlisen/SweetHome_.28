@@ -20,6 +20,6 @@ public class PowerUp : MonoBehaviour
         Instantiate(pickupEffect, transform.position, transform.rotation);
 
 
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 }

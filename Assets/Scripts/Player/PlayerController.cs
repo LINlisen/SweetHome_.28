@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
         playerController = GetComponent<CharacterController>();
         PV = GetComponent<PhotonView>();
         UpInformation = GameObject.Find("UpInformationCanvas");
@@ -96,8 +96,9 @@ public class PlayerController : MonoBehaviour
         else
         {
             Destroy(GetComponentInChildren<Camera>().gameObject);
-            Destroy(playerController);
-            Destroy(rb);
+            Destroy(GetComponentInChildren<PlayerController>());
+            //Destroy(playerController);
+            //Destroy(rb);
         }
         GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(5).gameObject.SetActive(false);
         /*Orgna*/
@@ -359,7 +360,7 @@ public class PlayerController : MonoBehaviour
         }
 
         /*PotionGet*/
-        if (other.gameObject.transform.parent.name == "PotionList")
+        if (other.gameObject.transform.parent.name == "PotionList" || other.gameObject.transform.tag=="Potion")
         {
             PhotonView photonView = PhotonView.Get(UpInformation);
             photonView.RPC("getPoint", RpcTarget.All, (int)team["WhichTeam"]);
@@ -379,7 +380,18 @@ public class PlayerController : MonoBehaviour
             GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(5).gameObject.SetActive(false);
         }
     }
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (PV.IsMine)
+        {
+            if (hit.gameObject.tag == "Player" && playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash"))
+            {
+                Debug.Log("Collider other players");
+                PotionOut(hit.gameObject);
+            }
 
+        }
+    }
     /*Organ*/
     IEnumerator BoostDuration()
     {
@@ -387,6 +399,11 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(speedCooldown);
         walkSpeed = normalSpeed;
 
+    }
+    //Dash Get Potion
+    public void PotionOut(GameObject Player)
+    {
+        Player.transform.GetChild(4).gameObject.SetActive(true);
     }
 }
 
