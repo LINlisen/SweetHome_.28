@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
     public void Skill()
     {
         _bIsSkill = true;
-        skillColdBtn = GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(7).gameObject;//dashColdTimeBtn_Get
+        skillColdBtn = GameObject.Find("AbilityCanvas").gameObject.transform.GetChild(1).gameObject;//dashColdTimeBtn_Get
         skillColdBtn.SetActive(true);
         playerManager.animator.SetTrigger("Skill");
         switch ((int)hash["Charactor"])

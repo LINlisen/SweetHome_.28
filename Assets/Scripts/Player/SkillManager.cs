@@ -70,7 +70,12 @@ public class SkillManager : MonoBehaviour
         }
         if (_SkillbtnDown)
         {
+           
             Arrow.transform.position = Player.transform.GetChild(0).transform.GetChild(0).position;
+        }
+        else
+        {
+            Arrow.SetActive(false);
         }
     }
     public void UseSkill(Vector3 pos,string name,float x,float y,Vector3 playerPos)
@@ -91,6 +96,7 @@ public class SkillManager : MonoBehaviour
     {
         Arrow.SetActive(true);
         _SkillbtnDown = true;
+        Debug.Log("show");
         //Arrow.transform.position = GameObject.Find("PlayerManager(Clone)").transform.GetChild(0).transform.position;
         
     }
@@ -100,7 +106,8 @@ public class SkillManager : MonoBehaviour
     }
     public void DisaArrow()
     {
-        Arrow.SetActive(false);
+        Debug.Log("noshow");
+        
         _SkillbtnDown = false;
     }
     public void UseSkill()
