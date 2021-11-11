@@ -15,16 +15,14 @@ public class GameManagement : MonoBehaviour
     Hashtable hash = new Hashtable();
     void Start()
     {
-        hash.Add("WhichTeam", 0);
+        
+        PlayerLeaderBoardInfoPlayerList();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PhotonNetwork.AutomaticallySyncScene)
-        {
-            //Debug.Log("all loading ok");
-        }
+        
 
     }
 
@@ -42,17 +40,14 @@ public class GameManagement : MonoBehaviour
         }
         for (int i = 0; i < PhotonNetwork.PlayerList.Count(); i++)
         {
-            if (i % 2 != 0)
+            hash = players[i].CustomProperties;
+            if ((int)hash["WhichTeam"] == 1)
             {
                 Instantiate(PlayerListItemPrefab, RedListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
-                hash["WhichTeam"] = 1; //紅隊為1
-                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
             }
             else
             {
                 Instantiate(PlayerListItemPrefab, BlueListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
-                hash["WhichTeam"] = 0; //藍隊為0
-                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
             }
         }
     }
