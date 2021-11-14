@@ -13,6 +13,8 @@ public class InputUIManagement : MonoBehaviour
     [SerializeField]
     Image skillImg;
     [SerializeField]
+    Image coldBtn;
+    [SerializeField]
     public  Sprite CandySprite;
     [SerializeField]
     public Sprite ChocolateSprite;
@@ -27,7 +29,8 @@ public class InputUIManagement : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         hash = PhotonNetwork.LocalPlayer.CustomProperties;
-        
+        coldBtn = gameObject.transform.GetChild(1).GetComponent<Image>();
+
     }
     // Start is called before the first frame update
     void Start()
@@ -36,12 +39,15 @@ public class InputUIManagement : MonoBehaviour
         {
             case 1:
                 skillImg.sprite = CandySprite;
+                coldBtn.sprite = CandySprite;
                 break;
             case 2:
                 skillImg.sprite = ChocolateSprite;
+                coldBtn.sprite = ChocolateSprite;
                 break;
             case 3:
                 skillImg.sprite = CanSprite;
+                coldBtn.sprite = CanSprite;
                 break;
         }
     }

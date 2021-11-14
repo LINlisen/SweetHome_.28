@@ -13637,6 +13637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImg: {fileID: 100708788}
+  coldBtn: {fileID: 1814501944}
   CandySprite: {fileID: 21300000, guid: 5bedd349c043941ada1cfd92b4db0fc1, type: 3}
   ChocolateSprite: {fileID: 21300000, guid: 152f539373e2a4d238b538a663f8354a, type: 3}
   CanSprite: {fileID: 21300000, guid: 7f7447d5b73174f0196b19313b68ece7, type: 3}
@@ -14792,12 +14793,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 916981566}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ef6329d6bdb64d6fa699fe0179de0ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   skillImg: {fileID: 2047723186}
+  coldBtn: {fileID: 0}
   CandySprite: {fileID: 21300000, guid: 5bedd349c043941ada1cfd92b4db0fc1, type: 3}
   ChocolateSprite: {fileID: 21300000, guid: 152f539373e2a4d238b538a663f8354a, type: 3}
   CanSprite: {fileID: 21300000, guid: 7f7447d5b73174f0196b19313b68ece7, type: 3}
@@ -21739,7 +21741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 0.64705884}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.64705884}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -23163,7 +23165,7 @@ GameObject:
   - component: {fileID: 1992773911}
   - component: {fileID: 1992773910}
   m_Layer: 0
-  m_Name: AbilityCanvas
+  m_Name: ArrowCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

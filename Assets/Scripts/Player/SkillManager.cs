@@ -96,7 +96,6 @@ public class SkillManager : MonoBehaviour
     {
         Arrow.SetActive(true);
         _SkillbtnDown = true;
-        Debug.Log("show");
         //Arrow.transform.position = GameObject.Find("PlayerManager(Clone)").transform.GetChild(0).transform.position;
         
     }
@@ -106,8 +105,6 @@ public class SkillManager : MonoBehaviour
     }
     public void DisaArrow()
     {
-        Debug.Log("noshow");
-        
         _SkillbtnDown = false;
     }
     public void UseSkill()
