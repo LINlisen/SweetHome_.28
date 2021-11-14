@@ -13,6 +13,7 @@ TagManager:
   - Potion
   - armorTG
   - Pad
+  - ExitPortal
   layers:
   - Default
   - TransparentFX

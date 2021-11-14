@@ -19,6 +19,7 @@ public class RaiseEvent : MonoBehaviourPun
     private const byte TREASURE_NORMAL = 4;
     private const byte TREASURE_DEATH = 5;
     private const byte GET_ARMOR = 6;
+    private const byte EXCAPE = 7;
     void Start()
     {
        
@@ -112,6 +113,13 @@ public class RaiseEvent : MonoBehaviourPun
             string ObjName = (string)datas[2];
             GameObject.Find(ObjName).transform.GetChild(ObjIndex).gameObject.SetActive(ObjState);
         }
+        if (obj.Code == EXCAPE)
+        {
+            object[] datas = (object[])obj.CustomData;
+            int ObjIndex = (int)datas[0];
+            string ObjName = (string)datas[1];
+            GameObject.Find(ObjName).SetActive(false);
+        }
     }
 
     public void getPotion(string name)
@@ -169,6 +177,30 @@ public class RaiseEvent : MonoBehaviourPun
         object[] datas = new object[] { ObjIndex, ObjState, ObjName };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(GET_ARMOR, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void Excape(int index , string name)
+    {
+        int ObjIndex = index;
+        switch (ObjIndex)
+        {
+            case 1:
+                name = "CandyCharactor(Clone)";
+                break;
+            case 2:
+                name = "ChocolateCharactor(Clone)";
+                break;
+            case 3:
+                name = "CanCharactor(Clone)";
+                break;
+            case 4:
+
+                break;
+        }
+        string ObjName = name;
+        object[] datas = new object[] { ObjIndex, ObjName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
+        PhotonNetwork.RaiseEvent(EXCAPE, datas, raiseEventOptions, SendOptions.SendReliable);
+
     }
     IEnumerator Coroutine(float sec)
     {

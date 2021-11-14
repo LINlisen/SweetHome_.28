@@ -7,6 +7,9 @@ using TouchControlsKit;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using UnityEngine.EventSystems;
 using UnityEngine.AI;
+using System.Linq;
+using Photon.Realtime;
+
 public class PlayerController : MonoBehaviour
 {
     public NavMeshAgent agent;
@@ -70,8 +73,13 @@ public class PlayerController : MonoBehaviour
     private ExplosionRock explosionRock;
     public GameObject rock;
 
-    
+    public GameObject TeamMate;
+    public GameObject Excaper;
+    public GameObject ExcaperCamera;
+    public GameObject ExcaperTouchPad;
+    public GameObject ExcaperAbility;
 
+    Player[] players = PhotonNetwork.PlayerList;
     void Awake()
     {
         //rb = GetComponent<Rigidbody>();
@@ -222,6 +230,11 @@ public class PlayerController : MonoBehaviour
             {
                 GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().GetArmor(3, true, gameObject.name);
             }
+            if (TeamMate)
+            {
+                ExcaperCamera.transform.position = TeamMate.transform.position;
+                ExcaperCamera.transform.rotation = TeamMate.transform.rotation;
+            }
         }
         else
         {
@@ -359,7 +372,37 @@ public class PlayerController : MonoBehaviour
         {
             playerHasArmor = true;
         }
-
+        //Excape
+        if (other.gameObject.tag == "ExitPortal" || other.gameObject.name == "Teleporter Pad A")
+        {
+            for (int i = 0; i < players.Count(); i++)
+            {
+                if ((int)players[i].CustomProperties["WhichTeam"] == (int)PhotonNetwork.LocalPlayer.CustomProperties["WhichTeam"] && players[i] != PhotonNetwork.LocalPlayer)
+                {
+                    switch ((int)players[i].CustomProperties["Charactor"])
+                    {
+                        case 1:
+                            TeamMate = GameObject.Find("CandyCharactor(Clone)/CameraTarget");
+                            break;
+                        case 2:
+                            TeamMate = GameObject.Find("ChocolateCharactor(Clone)/CameraTarget");
+                            break;
+                        case 3:
+                            TeamMate = GameObject.Find("CanCharactor(Clone)/CameraTarget");
+                            break;
+                        case 4:
+                            break;
+                    }
+                }
+            }
+            Excaper.SetActive(false);
+            ExcaperTouchPad = GameObject.Find("_TCKCanvas");
+            ExcaperTouchPad.SetActive(false);
+            ExcaperAbility = GameObject.Find("AbilityBtn");
+            ExcaperAbility.SetActive(false);
+            PhotonView photonView = PhotonView.Get(UpInformation);
+            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().Excape((int)PhotonNetwork.LocalPlayer.CustomProperties["Charactor"], "");
+        }
         /*PotionGet*/
         if (other.gameObject.transform.parent.name == "PotionList" || other.gameObject.transform.tag=="Potion")
         {
@@ -372,6 +415,8 @@ public class PlayerController : MonoBehaviour
         {
             explosionRock.explode();
         }
+        
+        
     }
 
     private void OnTriggerExit(Collider other)
@@ -406,6 +451,8 @@ public class PlayerController : MonoBehaviour
     {
         Player.transform.GetChild(4).gameObject.SetActive(true);
     }
+
+
 }
 
 

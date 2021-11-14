@@ -37,6 +37,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     public GameObject loadingScreen;
     public GameObject RoomMenu;
     public Text ProgressText;
+    int team = 0;
     int flag = 0;
     private float pr = 0f;
     void Awake()
@@ -51,11 +52,16 @@ public class Launcher : MonoBehaviourPunCallbacks
         roomhash.Add("Choose", 0);
         roomhash.Add("StartGame", false);
         roomhash.Add("StartTime", 0);
+        roomhash.Add("Player1", 0);
+        roomhash.Add("Player2", 0);
+        roomhash.Add("Player3", 0);
+        roomhash.Add("Player4", 0);
         hash.Add("TimerReady", false);
         hash.Add("Nickname", null);
-        hash.Add("WhichTeam", 0); // 0為藍隊，1為紅隊
+        hash.Add("WhichTeam", null); // 0為藍隊，1為紅隊
         hash.Add("Loading", false);
         hash.Add("Ready", false);
+        hash.Add("GetOut", false);
         //MenuManager.Instance.OpenMenu("nickname");
         Debug.Log("Connecting To Master");
         PhotonNetwork.ConnectUsingSettings();
@@ -153,17 +159,20 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
         for (int i = 0; i < PhotonNetwork.PlayerList.Count(); i++)
         {
-            if (i % 2 != 0)
+            if(players[i].CustomProperties["WhichTeam"] == null)
             {
-                Instantiate(PlayerListItemPrefab, RedListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
-                hash["WhichTeam"] = 1; //紅隊為1
-                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-            }
-            else
-            {
-                Instantiate(PlayerListItemPrefab, BlueListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
-                hash["WhichTeam"] = 0; //藍隊為0
-                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                if (i % 2 != 0)
+                {
+                    Instantiate(PlayerListItemPrefab, RedListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
+                    hash["WhichTeam"] = 1; //紅隊為1
+                    players[i].SetCustomProperties(hash);
+                }
+                else
+                {
+                    Instantiate(PlayerListItemPrefab, BlueListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
+                    hash["WhichTeam"] = 0; //藍隊為0
+                    players[i].SetCustomProperties(hash);
+                }
             }
         }
 
@@ -196,7 +205,6 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
-
         int pready = 0;
         Player[] players = PhotonNetwork.PlayerList;
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
@@ -230,10 +238,17 @@ public class Launcher : MonoBehaviourPunCallbacks
     }
     public void ChooseRoom()
     {
+        Player[] players = PhotonNetwork.PlayerList;
         roomhash["Choose"] = 1;
         PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
         roomhash["Choose"] = 0;
         PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        for (int i = 0; i < players.Count(); i++)
+        {
+            team = (int)players[i].CustomProperties["WhichTeam"];
+            roomhash["Player" + i] = team;
+            PhotonNetwork.CurrentRoom.CustomProperties["Player" + i] = team;
+        }
     }
     public void LeaveRoom()
     {
@@ -402,5 +417,14 @@ public class Launcher : MonoBehaviourPunCallbacks
     void Update()
     {
         LoadingSpinner.localEulerAngles = new Vector3(0, 0, ++pr);
+    }
+    public void CheckTeam()
+    {
+        Player[] players = PhotonNetwork.PlayerList;
+        for (int i = 0; i < players.Count(); i++)
+        {
+            Debug.Log(players[i].NickName + "隊伍" + (int)players[i].CustomProperties["WhichTeam"]);
+
+        }
     }
 }

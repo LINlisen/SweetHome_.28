@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Photon.Pun;
 using System.Linq;
+using Photon.Realtime;
 
 public class TimeController : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class TimeController : MonoBehaviour
 
     Hashtable time = new Hashtable();
     Hashtable ctime = new Hashtable();
+    Hashtable hash = new Hashtable();
 
     // Start is called before the first frame update
     bool startTimer = false;
@@ -35,6 +37,9 @@ public class TimeController : MonoBehaviour
     int timerIncrementValue;
     int startTime;
     Hashtable CustomeValue = new Hashtable();
+
+    Player[] players = PhotonNetwork.PlayerList;
+
     int pready = 0;
     void Start()
     {
@@ -45,6 +50,10 @@ public class TimeController : MonoBehaviour
         RedTeam = 0;
         BlueTeam = 0;
         allSeconds = (minutes * 60) + seconds;
+        for (int i = 0; i < players.Count(); i++)
+        {
+            players[i].CustomProperties["WhichTeam"] = (int)PhotonNetwork.CurrentRoom.CustomProperties["Player" + i];
+        }
     }
 
     void Update()
