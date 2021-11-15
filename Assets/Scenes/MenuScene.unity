@@ -2610,7 +2610,7 @@ MonoBehaviour:
   playerListContent: {fileID: 0}
   BlueListContent: {fileID: 259715464}
   RedListContent: {fileID: 165585584}
-  PlayerListItemPrefab: {fileID: 280570551177861656, guid: 2f5b31363a6fa3541aedfa67ca1c173f,
+  PlayerListItemPrefab: {fileID: 6104003713368194113, guid: b58214e9ba097024c83ce1adea202d19,
     type: 3}
   ChooseButton: {fileID: 1281178320}
   startGameButton: {fileID: 1610586321}

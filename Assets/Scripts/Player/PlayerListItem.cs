@@ -4,10 +4,11 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerListItem : MonoBehaviourPunCallbacks
 {
-    [SerializeField] TMP_Text text;
+    [SerializeField] Text text;
     Player player;
 
     public void SetUp(Player _player)
