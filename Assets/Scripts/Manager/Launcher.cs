@@ -40,6 +40,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     int team = 0;
     int flag = 0;
     private float pr = 0f;
+    GameObject playername;
     void Awake()
     {
         Instance = this;
@@ -133,15 +134,17 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             return;
         }
-
-        PhotonNetwork.NickName = "<sprite=0>" + playerNicknameInputField.text;
+        
+        PhotonNetwork.NickName = playerNicknameInputField.text;
         PhotonNetwork.CreateRoom(roomNameInputField.text);
+        
         //MenuManager.Instance.OpenMenu("Loading");
         //PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
     }
 
     public override void OnJoinedRoom()
     {
+        
         MenuManager.Instance.OpenMenu("room");
         RoomNameText.text = PhotonNetwork.CurrentRoom.Name;
 
@@ -159,7 +162,8 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
         for (int i = 0; i < PhotonNetwork.PlayerList.Count(); i++)
         {
-            if(players[i].CustomProperties["WhichTeam"] == null)
+            
+            if (players[i].CustomProperties["WhichTeam"] == null)
             {
                 if (i % 2 != 0)
                 {
@@ -173,6 +177,16 @@ public class Launcher : MonoBehaviourPunCallbacks
                     hash["WhichTeam"] = 0; //藍隊為0
                     players[i].SetCustomProperties(hash);
                 }
+            }
+            if (players[i].IsMasterClient)
+            {
+                playername = GameObject.Find("PlayerListItem(Clone)");
+                if (players[i].NickName == playername.GetComponent<Text>().text)
+                {
+                    playername.gameObject.SetActive(true);
+                }
+                Debug.Log(GameObject.Find("PlayerListItem(Clone)").GetComponent<Text>().text);
+
             }
         }
 
