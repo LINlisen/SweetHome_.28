@@ -404,7 +404,7 @@ public class PlayerController : MonoBehaviour
             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().Excape((int)PhotonNetwork.LocalPlayer.CustomProperties["Charactor"], "", (int)PhotonNetwork.LocalPlayer.CustomProperties["WhichTeam"]);
         }
         /*PotionGet*/
-        if (other.gameObject.transform.parent.name == "PotionList" /*|| other.gameObject.transform.tag == "Potion"*/)
+        if (other.gameObject.transform.parent.name == "PotionList" || other.gameObject.transform.tag == "Potion")
         {
             PhotonView photonView = PhotonView.Get(UpInformation);
             photonView.RPC("getPoint", RpcTarget.All, (int)team["WhichTeam"]);
@@ -450,6 +450,7 @@ public class PlayerController : MonoBehaviour
     public void PotionOut(GameObject Player)
     {
         Player.transform.GetChild(3).gameObject.SetActive(true);
+        Player.GetComponent<Animator>().SetTrigger("Wounded");
     }
 
 
