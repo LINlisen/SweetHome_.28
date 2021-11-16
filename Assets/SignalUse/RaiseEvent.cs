@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
 using System.Threading;
+using UnityEngine.UI;
 
 public class RaiseEvent : MonoBehaviourPun
 {
@@ -118,7 +119,11 @@ public class RaiseEvent : MonoBehaviourPun
             object[] datas = (object[])obj.CustomData;
             int ObjIndex = (int)datas[0];
             string ObjName = (string)datas[1];
+            int TeamBlueExcaper = (int)datas[2];
+            int TeamRedExcaper = (int)datas[3];
             GameObject.Find(ObjName).SetActive(false);
+            GameObject.Find("TeamBlueExcape").GetComponent<Text>().text = "藍隊逃出人數: " + TeamBlueExcaper;
+            GameObject.Find("TeamRedExcape").GetComponent<Text>().text = "紅隊逃出人數: " + TeamRedExcaper;
         }
     }
 
@@ -178,10 +183,12 @@ public class RaiseEvent : MonoBehaviourPun
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(GET_ARMOR, datas, raiseEventOptions, SendOptions.SendReliable);
     }
-    public void Excape(int index , string name)
+    public void Excape(int charactor, string name, int team)
     {
-        int ObjIndex = index;
-        switch (ObjIndex)
+        int PlayerCharactor = charactor;
+        int TeamBlueExcaper = 0;
+        int TeamRedExcaper = 0;
+        switch (PlayerCharactor)
         {
             case 1:
                 name = "CandyCharactor(Clone)";
@@ -197,7 +204,15 @@ public class RaiseEvent : MonoBehaviourPun
                 break;
         }
         string ObjName = name;
-        object[] datas = new object[] { ObjIndex, ObjName };
+        if (team == 0)
+        {
+            TeamBlueExcaper++;
+        }
+        else
+        {
+            TeamRedExcaper++;
+        }
+        object[] datas = new object[] { PlayerCharactor, ObjName, TeamBlueExcaper, TeamRedExcaper };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
         PhotonNetwork.RaiseEvent(EXCAPE, datas, raiseEventOptions, SendOptions.SendReliable);
 

@@ -401,7 +401,7 @@ public class PlayerController : MonoBehaviour
             ExcaperAbility = GameObject.Find("AbilityBtn");
             ExcaperAbility.SetActive(false);
             PhotonView photonView = PhotonView.Get(UpInformation);
-            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().Excape((int)PhotonNetwork.LocalPlayer.CustomProperties["Charactor"], "");
+            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().Excape((int)PhotonNetwork.LocalPlayer.CustomProperties["Charactor"], "", (int)PhotonNetwork.LocalPlayer.CustomProperties["WhichTeam"]);
         }
         /*PotionGet*/
         if (other.gameObject.transform.parent.name == "PotionList" /*|| other.gameObject.transform.tag == "Potion"*/)
