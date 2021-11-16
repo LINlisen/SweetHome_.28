@@ -138,7 +138,6 @@ public class Launcher : MonoBehaviourPunCallbacks
         PhotonNetwork.NickName = playerNicknameInputField.text;
         PhotonNetwork.CreateRoom(roomNameInputField.text);
         
-        
         //MenuManager.Instance.OpenMenu("Loading");
         //PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
     }
@@ -178,6 +177,16 @@ public class Launcher : MonoBehaviourPunCallbacks
                     hash["WhichTeam"] = 0; //藍隊為0
                     players[i].SetCustomProperties(hash);
                 }
+            }
+            if (players[i].IsMasterClient)
+            {
+                playername = GameObject.Find("PlayerListItem(Clone)");
+                if (players[i].NickName == playername.GetComponent<Text>().text)
+                {
+                    playername.gameObject.SetActive(true);
+                }
+                Debug.Log(GameObject.Find("PlayerListItem(Clone)").GetComponent<Text>().text);
+
             }
         }
 
