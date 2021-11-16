@@ -8,11 +8,16 @@ using UnityEngine.UI;
 
 public class PlayerListItem : MonoBehaviourPunCallbacks
 {
+    [SerializeField] TMP_Text MasterIcon;
     [SerializeField] Text text;
     Player player;
 
     public void SetUp(Player _player)
     {
+        if (_player.IsMasterClient)
+        {
+            MasterIcon.text = "<sprite=0>";
+        }
         player = _player;
         text.text = _player.NickName;
         text.color = Color.black;
@@ -20,7 +25,7 @@ public class PlayerListItem : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        if(player == otherPlayer)
+        if (player == otherPlayer)
         {
             Destroy(gameObject);
         }

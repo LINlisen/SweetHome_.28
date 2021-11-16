@@ -22,7 +22,6 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] Text RoomNameText;
     [SerializeField] Transform roomListContent;
     [SerializeField] GameObject roomListItemPrefab;
-    [SerializeField] Transform playerListContent;
     [SerializeField] Transform BlueListContent;
     [SerializeField] Transform RedListContent;
     [SerializeField] GameObject PlayerListItemPrefab;
@@ -74,11 +73,11 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         if (ClickText.text == "")
         {
-            ClickText.text="點  擊  開  始  ！";
+            ClickText.text = "點  擊  開  始  ！";
         }
         else
         {
-            ClickText.text="";
+            ClickText.text = "";
         }
 
     }
@@ -134,17 +133,18 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             return;
         }
-        
+
         PhotonNetwork.NickName = playerNicknameInputField.text;
         PhotonNetwork.CreateRoom(roomNameInputField.text);
-        
+
+
         //MenuManager.Instance.OpenMenu("Loading");
         //PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
     }
 
     public override void OnJoinedRoom()
     {
-        
+
         MenuManager.Instance.OpenMenu("room");
         RoomNameText.text = PhotonNetwork.CurrentRoom.Name;
 
@@ -162,7 +162,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
         for (int i = 0; i < PhotonNetwork.PlayerList.Count(); i++)
         {
-            
+
             if (players[i].CustomProperties["WhichTeam"] == null)
             {
                 if (i % 2 != 0)
@@ -178,21 +178,11 @@ public class Launcher : MonoBehaviourPunCallbacks
                     players[i].SetCustomProperties(hash);
                 }
             }
-            if (players[i].IsMasterClient)
-            {
-                playername = GameObject.Find("PlayerListItem(Clone)");
-                if (players[i].NickName == playername.GetComponent<Text>().text)
-                {
-                    playername.gameObject.SetActive(true);
-                }
-                Debug.Log(GameObject.Find("PlayerListItem(Clone)").GetComponent<Text>().text);
-
-            }
         }
 
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
-            startGameButtonText.text="開始";
+            startGameButtonText.text = "開始";
         }
         else
         {
@@ -298,7 +288,7 @@ public class Launcher : MonoBehaviourPunCallbacks
             {
                 MenuManager.Instance.OpenMenu("Choose");
             }
-            else if((int)PhotonNetwork.CurrentRoom.CustomProperties["Choose"] == 2)
+            else if ((int)PhotonNetwork.CurrentRoom.CustomProperties["Choose"] == 2)
             {
                 MenuManager.Instance.OpenMenu("room");
             }
@@ -336,7 +326,7 @@ public class Launcher : MonoBehaviourPunCallbacks
             flag++;
             hash["Loading"] = false;
             PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-            if(flag == 1)
+            if (flag == 1)
             {
                 LoadLevel(1);
             }
