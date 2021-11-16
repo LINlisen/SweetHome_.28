@@ -56,6 +56,8 @@ public class Launcher : MonoBehaviourPunCallbacks
         roomhash.Add("Player2", 0);
         roomhash.Add("Player3", 0);
         roomhash.Add("Player4", 0);
+        roomhash.Add("BlueScore", 0);
+        roomhash.Add("RedScore", 0);
         hash.Add("TimerReady", false);
         hash.Add("Nickname", null);
         hash.Add("WhichTeam", null); // 0為藍隊，1為紅隊
@@ -196,7 +198,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
-        PhotonNetwork.NickName = "<sprite=0>" + playerNicknameInputField.text;
+        PhotonNetwork.NickName =playerNicknameInputField.text;
         startGameButton.SetActive(PhotonNetwork.IsMasterClient);
         ChooseButton.SetActive(PhotonNetwork.IsMasterClient);
     }

@@ -373,8 +373,11 @@ public class PlayerController : MonoBehaviour
             playerHasArmor = true;
         }
         //Excape
-        if (other.gameObject.tag == "ExitPortal" || other.gameObject.name == "Teleporter Pad A")
+        if (other.gameObject.tag == "ExitPortal")
         {
+            hash = PhotonNetwork.LocalPlayer.CustomProperties;
+            hash["GetOut"] = true;
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
             for (int i = 0; i < players.Count(); i++)
             {
                 if ((int)players[i].CustomProperties["WhichTeam"] == (int)PhotonNetwork.LocalPlayer.CustomProperties["WhichTeam"] && players[i] != PhotonNetwork.LocalPlayer)
@@ -400,6 +403,14 @@ public class PlayerController : MonoBehaviour
             ExcaperTouchPad.SetActive(false);
             ExcaperAbility = GameObject.Find("AbilityBtn");
             ExcaperAbility.SetActive(false);
+            if ((int)PhotonNetwork.LocalPlayer.CustomProperties["WhichTeam"] == 0)
+            {
+                GameObject.Find("TeamBlueExcape").GetComponent<Text>().text = "藍隊逃出人數: 1";
+            }
+            else
+            {
+                GameObject.Find("TeamRedExcape").GetComponent<Text>().text = "紅隊逃出人數: 1";
+            }
             PhotonView photonView = PhotonView.Get(UpInformation);
             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().Excape((int)PhotonNetwork.LocalPlayer.CustomProperties["Charactor"], "", (int)PhotonNetwork.LocalPlayer.CustomProperties["WhichTeam"]);
         }

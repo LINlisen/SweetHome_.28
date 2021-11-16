@@ -21,6 +21,8 @@ public class RaiseEvent : MonoBehaviourPun
     private const byte TREASURE_DEATH = 5;
     private const byte GET_ARMOR = 6;
     private const byte EXCAPE = 7;
+    int TeamBlueExcaper = 0;
+    int TeamRedExcaper = 0;
     void Start()
     {
        
@@ -186,8 +188,6 @@ public class RaiseEvent : MonoBehaviourPun
     public void Excape(int charactor, string name, int team)
     {
         int PlayerCharactor = charactor;
-        int TeamBlueExcaper = 0;
-        int TeamRedExcaper = 0;
         switch (PlayerCharactor)
         {
             case 1:
