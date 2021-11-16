@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private PlayerManager playerManager;
     float rotation;
-    
+
     //Dash
     bool _bIsDash = false;
     private float dashTime = 0.0f;
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
         explosionRock = rock.GetComponent<ExplosionRock>();
         team = PhotonNetwork.LocalPlayer.CustomProperties;
         hash = PhotonNetwork.LocalPlayer.CustomProperties;
-        skillManager = GameObject.Find("SkillManager").GetComponent <SkillManager>();
+        skillManager = GameObject.Find("SkillManager").GetComponent<SkillManager>();
 
         agent = gameObject.GetComponent<NavMeshAgent>();
 
@@ -124,28 +124,28 @@ public class PlayerController : MonoBehaviour
     }
     public void Dash()
     {
-       
+
         _bIsDash = true;
         playerManager.animator.SetBool("Dash", true);
         directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
         directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
-        
-        
-        
 
-        TCKInput.SetControllerActive("dashBtn",false);
+
+
+
+        TCKInput.SetControllerActive("dashBtn", false);
     }
     public void Skill()
     {
         _bIsSkill = true;
         skillColdBtn = GameObject.Find("AbilityCanvas").gameObject.transform.GetChild(1).gameObject;//dashColdTimeBtn_Get
-       
+
         skillColdBtn.SetActive(true);
         playerManager.animator.SetTrigger("Skill");
         switch ((int)hash["Charactor"])
         {
             case 1:
-                gameObject.transform.GetChild(1).gameObject.SetActive(true);
+                gameObject.transform.GetChild(4).gameObject.SetActive(true);
                 break;
             case 2:
                 break;
@@ -166,15 +166,15 @@ public class PlayerController : MonoBehaviour
             {
                 Dash();
             }
-   
-            if (_bIsDash == true )
+
+            if (_bIsDash == true)
             {
                 string playerName = PV.gameObject.name;
                 if (dashTime <= dashDuration)
                 {
                     if (playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash"))
                     {
-                        GameObject.Find(playerName).gameObject.transform.GetChild(2).gameObject.SetActive(true);
+                        GameObject.Find(playerName).gameObject.transform.GetChild(1).gameObject.SetActive(true);
                         dahsColdBtn = GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(6).gameObject;//dashColdTimeBtn_Get
                         dahsColdBtn.SetActive(true);
                         dashTime += Time.deltaTime;
@@ -188,8 +188,8 @@ public class PlayerController : MonoBehaviour
 
                     playerManager.animator.SetBool("Dash", false);
 
-                    
-                    GameObject.Find(playerName).gameObject.transform.GetChild(2).gameObject.SetActive(false);
+
+                    GameObject.Find(playerName).gameObject.transform.GetChild(1).gameObject.SetActive(false);
                     if (dashCold >= 5.0f)
                     {
 
@@ -206,24 +206,24 @@ public class PlayerController : MonoBehaviour
 
             if (_bIsSkill == true)
             {
-              skillCold += Time.deltaTime;
-              skillColdBtn.GetComponent<Image>().fillAmount += Time.deltaTime / 5.0f;
+                skillCold += Time.deltaTime;
+                skillColdBtn.GetComponent<Image>().fillAmount += Time.deltaTime / 5.0f;
                 if (skillCold >= 5.0f)
-                  {
+                {
 
-                        skillTime = 0.0f;
-                        _bIsSkill = false;
-                        TCKInput.SetControllerActive("skillBtn", true);
-                        skillColdBtn.GetComponent<Image>().fillAmount = 0;
-                        skillColdBtn.SetActive(false);
-                        skillCold = 0.0f;
-                    }
+                    skillTime = 0.0f;
+                    _bIsSkill = false;
+                    TCKInput.SetControllerActive("skillBtn", true);
+                    skillColdBtn.GetComponent<Image>().fillAmount = 0;
+                    skillColdBtn.SetActive(false);
+                    skillCold = 0.0f;
+                }
 
-             }
-            
+            }
+
 
             //Move();
-           
+
             PlayerRotation(look.x, look.y);
             //armor
             if (playerHasArmor == true)
@@ -241,11 +241,11 @@ public class PlayerController : MonoBehaviour
             return;
         }
     }
-    
+
     private void PlayerMovement(float horizontal, float vertical)
     {
         Vector3 moveDirection = -playerController.transform.forward * horizontal;
-        moveDirection += playerController.transform.right * vertical ;
+        moveDirection += playerController.transform.right * vertical;
         moveDirection.y = -1.0f;
         playerController.Move(moveDirection * Time.fixedDeltaTime * walkSpeed);
     }
@@ -258,18 +258,18 @@ public class PlayerController : MonoBehaviour
         rotation = Mathf.Clamp(rotation, -60f, 60f);
     }
 
-    
+
 
     bool grounded;
     public void SetGroundedState(bool _grounded)
     {
-		grounded = _grounded;
+        grounded = _grounded;
     }
 
     private void FixedUpdate()
     {
-		if (!PV.IsMine)
-			return;
+        if (!PV.IsMine)
+            return;
         else
         {
             Vector2 move = TCKInput.GetAxis("Joystick"); // NEW func since ver 1.5.5
@@ -292,13 +292,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-       
+
     }
 
 
     void OnTriggerStay(Collider other)
     {
-         
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -311,7 +311,7 @@ public class PlayerController : MonoBehaviour
             GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(5).gameObject.SetActive(true);
         }
 
-        
+
         //Set player on Pad (code in late update)
         //unfinished
         if (other.gameObject.tag == "Pad")
@@ -335,7 +335,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        
+
         //animated seesaw
         if (other.tag == "AnimRSeesaw")
         {
@@ -404,19 +404,19 @@ public class PlayerController : MonoBehaviour
             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().Excape((int)PhotonNetwork.LocalPlayer.CustomProperties["Charactor"], "");
         }
         /*PotionGet*/
-        if (other.gameObject.transform.parent.name == "PotionList" || other.gameObject.transform.tag=="Potion")
+        if (other.gameObject.transform.parent.name == "PotionList" /*|| other.gameObject.transform.tag == "Potion"*/)
         {
             PhotonView photonView = PhotonView.Get(UpInformation);
             photonView.RPC("getPoint", RpcTarget.All, (int)team["WhichTeam"]);
             other.GetComponent<AudioSource>().Play();
             other.GetComponent<RaiseEvent>().getPotion(other.gameObject.name);
         }
-        if(other.gameObject.transform.name == "RockExplo")
+        if (other.gameObject.transform.name == "RockExplo")
         {
             explosionRock.explode();
         }
-        
-        
+
+
     }
 
     private void OnTriggerExit(Collider other)
@@ -449,7 +449,7 @@ public class PlayerController : MonoBehaviour
     //Dash Get Potion
     public void PotionOut(GameObject Player)
     {
-        Player.transform.GetChild(4).gameObject.SetActive(true);
+        Player.transform.GetChild(3).gameObject.SetActive(true);
     }
 
 

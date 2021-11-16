@@ -14,28 +14,23 @@ public class Instantiate_Obj : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     GameObject Ins_objs(int size)
     {
-        //int Random_Objects = Random.Range(0, Potions.Length);
-
-        //int Random_Points = Random.Range(0, Points.Length);
-        
         GameObject potionone =PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Potion"), Points[size].transform.position, Points[size].transform.rotation);
         return (potionone);
     }
     void Start()
     {
-        PotionList = GameObject.Find("PotionList");
-        for (int i = 0; i < Points.Length; i++)
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
-            //Debug.Log("create");
-            potions = new GameObject[Points.Length];
-            potions[i]=Ins_objs(i);
-            //Debug.Log(potions[i].name);
-            
-            potions[i].name = "potion" + i.ToString();
-            potions[i].transform.parent = PotionList.transform;
-            //Debug.Log(potions[i].name);
-            //Debug.Log("Father" + potions[i].transform.parent.gameObject.name);
+            PotionList = GameObject.Find("PotionList");
+            for (int i = 0; i < Points.Length; i++)
+            {
+                potions = new GameObject[Points.Length];
+                potions[i] = Ins_objs(i);
+                potions[i].name = "potion" + i.ToString();
+                potions[i].transform.parent = PotionList.transform;
+            }
         }
+        
     }
     
     // Update is called once per frame
