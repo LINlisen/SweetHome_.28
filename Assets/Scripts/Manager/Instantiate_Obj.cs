@@ -19,8 +19,7 @@ public class Instantiate_Obj : MonoBehaviourPunCallbacks
     }
     void Start()
     {
-        if (PhotonNetwork.LocalPlayer.IsMasterClient)
-        {
+       
             PotionList = GameObject.Find("PotionList");
             for (int i = 0; i < Points.Length; i++)
             {
@@ -29,7 +28,7 @@ public class Instantiate_Obj : MonoBehaviourPunCallbacks
                 potions[i].name = "potion" + i.ToString();
                 potions[i].transform.parent = PotionList.transform;
             }
-        }
+        
         
     }
     
