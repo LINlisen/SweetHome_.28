@@ -61,7 +61,6 @@ public class PlayerController : MonoBehaviour
     Hashtable team;
     Hashtable hash;
 
-
     //armor
     [SerializeField] private GameObject armor;
     //[SerializeField] private GameObject armorTag;
@@ -421,6 +420,9 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.transform.parent.name == "PotionList" || other.gameObject.transform.tag == "Potion")
         {
             PhotonView photonView = PhotonView.Get(UpInformation);
+            hash = PhotonNetwork.LocalPlayer.CustomProperties;
+            hash["Point"] = (int)hash["Point"] + 1;
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
             photonView.RPC("getPoint", RpcTarget.All, (int)team["WhichTeam"]);
             other.GetComponent<AudioSource>().Play();
             other.GetComponent<RaiseEvent>().getPotion(other.gameObject.name);

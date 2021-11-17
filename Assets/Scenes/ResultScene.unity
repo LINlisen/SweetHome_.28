@@ -1343,11 +1343,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1001557800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23f1e3688a5b3cf46a8361819f2d3f55, type: 3}
+  m_Script: {fileID: 11500000, guid: 160bdcf4b95ba81408f672400347884c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MasterIcon: {fileID: 0}
-  text: {fileID: 4539207634220431849, guid: b58214e9ba097024c83ce1adea202d19, type: 3}
+  ResultListItemPrefab: {fileID: 383696002834602267, guid: c196fa33453abcd4eb4315235e1ef5ba,
+    type: 3}
+  BlueListContent: {fileID: 1594436121}
+  RedListContent: {fileID: 591823182}
 --- !u!114 &1001557802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1638,8 +1640,6 @@ GameObject:
   - component: {fileID: 1300185255}
   - component: {fileID: 1300185257}
   - component: {fileID: 1300185256}
-  - component: {fileID: 1300185258}
-  - component: {fileID: 1300185259}
   m_Layer: 5
   m_Name: TeamPlayerList
   m_TagString: Untagged
@@ -1706,32 +1706,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1300185254}
   m_CullTransparentMesh: 0
---- !u!114 &1300185258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1300185254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23f1e3688a5b3cf46a8361819f2d3f55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MasterIcon: {fileID: 0}
-  text: {fileID: 0}
---- !u!114 &1300185259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1300185254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f510fb3985c9a264f9ca7dabb0661537, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1407894762
 GameObject:
   m_ObjectHideFlags: 0

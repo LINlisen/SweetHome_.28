@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class RoomListItem : MonoBehaviour
 {
     [SerializeField] TMP_Text text;
+    [SerializeField] Text PlayerNumber;
 
     public RoomInfo info;
 
@@ -14,6 +16,7 @@ public class RoomListItem : MonoBehaviour
     {
         info = _info;
         text.text = _info.Name;
+        PlayerNumber.text = _info.PlayerCount.ToString();
     }
 
     public void OnClick()

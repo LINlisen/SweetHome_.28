@@ -64,6 +64,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         hash.Add("Loading", false);
         hash.Add("Ready", false);
         hash.Add("GetOut", false);
+        hash.Add("Point", 0);
         //MenuManager.Instance.OpenMenu("nickname");
         Debug.Log("Connecting To Master");
         PhotonNetwork.ConnectUsingSettings();

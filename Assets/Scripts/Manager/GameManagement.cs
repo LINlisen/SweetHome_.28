@@ -72,7 +72,6 @@ public class GameManagement : MonoBehaviourPunCallbacks
     }
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
-        Debug.Log("HI");
         int bluegetoutnumber = 0;
         int redgetoutnumber = 0;
         for (int i = 0; i < players.Count(); i++)
@@ -82,12 +81,10 @@ public class GameManagement : MonoBehaviourPunCallbacks
                 if ((int)players[i].CustomProperties["WhichTeam"] == 1)
                 {
                     redgetoutnumber++;
-                    Debug.Log(redgetoutnumber);
                 }
                 else
                 {
                     bluegetoutnumber++;
-                    Debug.Log(bluegetoutnumber);
                 }
             }
         }

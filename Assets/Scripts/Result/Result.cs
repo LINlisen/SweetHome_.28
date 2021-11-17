@@ -23,12 +23,13 @@ public class Result : MonoBehaviour
         int redgetoutnumber = 0;
         Player[] players = PhotonNetwork.PlayerList;
         roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
-        TeamBlueScore.text = (string)roomhash["BlueScore"];
-        TeamRedScore.text = (string)roomhash["RedScore"];
+        TeamBlueScore.text = roomhash["BlueScore"].ToString();
+        TeamRedScore.text = roomhash["RedScore"].ToString();
         for(int i = 0; i < players.Count(); i++)
         {
-            if((bool)players[i].CustomProperties["GetOut"] == true)
+            if ((bool)players[i].CustomProperties["GetOut"] == true)
             {
+                
                 if((int)players[i].CustomProperties["WhichTeam"] == 1)
                 {
                     redgetoutnumber++;
@@ -39,15 +40,15 @@ public class Result : MonoBehaviour
                 }
             }
         }
+        TeamBlueExcaper.text = bluegetoutnumber.ToString();
+        TeamRedExcaper.text = redgetoutnumber.ToString();
         if (bluegetoutnumber == 2)
         {
             TeamWon.text = "藍隊";
-            TeamBlueExcaper.text = bluegetoutnumber.ToString();
         }
         else if (redgetoutnumber == 2)
         {
             TeamWon.text = "紅隊";
-            TeamRedExcaper.text = redgetoutnumber.ToString();
         }
         else
         {
