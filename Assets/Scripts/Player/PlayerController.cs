@@ -79,6 +79,9 @@ public class PlayerController : MonoBehaviour
     public GameObject ExcaperTouchPad;
     public GameObject ExcaperAbility;
 
+    //Wounded
+    private bool _bWounded = false;
+
     Player[] players = PhotonNetwork.PlayerList;
     void Awake()
     {
@@ -441,8 +444,9 @@ public class PlayerController : MonoBehaviour
     {
         if (PV.IsMine)
         {
-            if (hit.gameObject.tag == "Player" && playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash"))
+            if (hit.gameObject.tag == "Player" && playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash") &&_bWounded == false)
             {
+                _bWounded = true;
                 Debug.Log("Collider other players");
                 PotionOut(hit.gameObject);
             }
@@ -462,6 +466,7 @@ public class PlayerController : MonoBehaviour
     {
         Player.transform.GetChild(3).gameObject.SetActive(true);
         Player.GetComponent<Animator>().SetTrigger("Wounded");
+        _bWounded = false;
     }
 
 
