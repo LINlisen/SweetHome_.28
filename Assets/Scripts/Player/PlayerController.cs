@@ -231,7 +231,7 @@ public class PlayerController : MonoBehaviour
             //armor
             if (playerHasArmor == true)
             {
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().GetArmor(3, true, gameObject.name);
+                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().GetArmor(2, true, gameObject.name);
             }
             if (TeamMate)
             {
