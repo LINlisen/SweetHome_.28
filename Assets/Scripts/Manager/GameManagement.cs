@@ -17,14 +17,14 @@ public class GameManagement : MonoBehaviourPunCallbacks
     Player[] players = PhotonNetwork.PlayerList;
     void Start()
     {
-        
+
         PlayerLeaderBoardInfoPlayerList();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
 
     }
 
@@ -92,6 +92,14 @@ public class GameManagement : MonoBehaviourPunCallbacks
             }
         }
         if (bluegetoutnumber == 2 || redgetoutnumber == 2)
+        {
+            PhotonNetwork.LoadLevel(2);
+        }
+    }
+    public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+    {
+        base.OnRoomPropertiesUpdate(propertiesThatChanged);
+        if ((int)PhotonNetwork.CurrentRoom.CustomProperties["BlueScore"] == 25 || (int)PhotonNetwork.CurrentRoom.CustomProperties["RedScore"] == 25)
         {
             PhotonNetwork.LoadLevel(2);
         }
