@@ -13,6 +13,7 @@ public class Score : MonoBehaviour
     [SerializeField] TMP_Text teamredpoint;
     int redpoint;
     int bluepoint;
+    Hashtable roomhash;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,7 @@ public class Score : MonoBehaviour
         bluepoint = 0;
         teamredpoint.SetText(redpoint.ToString());
         teambluepoint.SetText(bluepoint.ToString());
+        roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
     }
 
     // Update is called once per frame
@@ -36,11 +38,15 @@ public class Score : MonoBehaviour
         {
             redpoint++;
             teamredpoint.SetText(redpoint.ToString());
+            roomhash["RedScore"] = redpoint;
+            PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
         }
         else
         {
             bluepoint++;
             teambluepoint.SetText(bluepoint.ToString());
+            roomhash["BlueScore"] = bluepoint;
+            PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
         }
     }
 
