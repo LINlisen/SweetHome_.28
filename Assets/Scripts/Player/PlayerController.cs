@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
     public GameObject ExcaperAbility;
 
     //Wounded
-    private bool _bWounded = false;
+    public bool _bWounded = false;
 
     Player[] players = PhotonNetwork.PlayerList;
     void Awake()
@@ -450,9 +450,9 @@ public class PlayerController : MonoBehaviour
             {
                 _bWounded = true;
                 Debug.Log("Collider other players");
-                PotionOut(hit.gameObject);
+                Debug.Log(hit.gameObject.name);
+                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name);
             }
-
         }
     }
     /*Organ*/
@@ -463,15 +463,6 @@ public class PlayerController : MonoBehaviour
         walkSpeed = normalSpeed;
 
     }
-    //Dash Get Potion
-    public void PotionOut(GameObject Player)
-    {
-        Player.transform.GetChild(3).gameObject.SetActive(true);
-        Player.GetComponent<Animator>().SetTrigger("Wounded");
-        _bWounded = false;
-    }
-
-
 }
 
 

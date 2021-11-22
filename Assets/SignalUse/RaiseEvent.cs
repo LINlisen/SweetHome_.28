@@ -21,6 +21,7 @@ public class RaiseEvent : MonoBehaviourPun
     private const byte TREASURE_DEATH = 5;
     private const byte GET_ARMOR = 6;
     private const byte EXCAPE = 7;
+    private const byte POTION_OUT = 8;
     int TeamBlueExcaper = 0;
     int TeamRedExcaper = 0;
     void Start()
@@ -127,6 +128,14 @@ public class RaiseEvent : MonoBehaviourPun
             GameObject.Find("TeamBlueExcape").GetComponent<Text>().text = "藍隊逃出人數: " + TeamBlueExcaper;
             GameObject.Find("TeamRedExcape").GetComponent<Text>().text = "紅隊逃出人數: " + TeamRedExcaper;
         }
+        if(obj.Code == POTION_OUT)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Playername = (string)datas[0];
+            GameObject.Find(Playername).transform.GetChild(3).gameObject.SetActive(true);
+            GameObject.Find(Playername).GetComponent<Animator>().SetTrigger("Wounded");
+            GameObject.Find(Playername).GetComponent<PlayerController>()._bWounded = false;
+        }
     }
 
     public void getPotion(string name)
@@ -216,6 +225,13 @@ public class RaiseEvent : MonoBehaviourPun
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.Others };
         PhotonNetwork.RaiseEvent(EXCAPE, datas, raiseEventOptions, SendOptions.SendReliable);
 
+    }
+    public void PotionOut(string PlayerName)
+    {
+        string Name = PlayerName;
+        object[] datas = new object[] { Name };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(POTION_OUT, datas, raiseEventOptions, SendOptions.SendReliable);
     }
     IEnumerator Coroutine(float sec)
     {
