@@ -48302,6 +48302,7 @@ MonoBehaviour:
   ExcaperCamera: {fileID: 8028054502435081002}
   ExcaperTouchPad: {fileID: 0}
   ExcaperAbility: {fileID: 0}
+  _bWounded: 0
 --- !u!114 &2438392420292023281
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -455,6 +455,13 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    public void ResetPost()
+    {
+        gameObject.transform.position = Vector3.zero;
+        Debug.Log("resetPos");
+        playerController.Move(new Vector3(0, 100, 0));
+        
+    }
     /*Organ*/
     IEnumerator BoostDuration()
     {

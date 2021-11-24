@@ -10,5 +10,14 @@ public class VolumnControlBG : MonoBehaviour
         mixer.SetFloat("MusicVol", Mathf.Log10(sliderValue) *20 );
 
     }
+    public void SetPos()
+    {
+        if (GameObject.Find("PlayerManager(Clone)").transform.GetChild(0) != null)
+        {
+            GameObject.Find("PlayerManager(Clone)").transform.GetChild(0).gameObject.GetComponent<PlayerController>().ResetPost();
+            
+        }
+       
+    }
     
 }
