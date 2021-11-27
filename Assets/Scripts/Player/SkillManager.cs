@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Photon.Pun;
+using UnityEngine.UI;
 public class SkillManager : MonoBehaviour
 {
     private struct SkillInfo
@@ -29,6 +30,10 @@ public class SkillManager : MonoBehaviour
 
     PlayerController PlayerController;
     GameObject Player;
+
+    //Candy's ability
+    public Text _tLittleCandy;
+    public int _iLittleCandyNum = 4;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +60,8 @@ public class SkillManager : MonoBehaviour
         {
             Player = GameObject.Find("PlayerManager(Clone)");
         }
-        
+        _tLittleCandy.text = "4";
+        _tLittleCandy.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -94,9 +100,9 @@ public class SkillManager : MonoBehaviour
     }
     public void ShowArrow()
     {
-        Arrow.SetActive(true);
-        _SkillbtnDown = true;
-        //Arrow.transform.position = GameObject.Find("PlayerManager(Clone)").transform.GetChild(0).transform.position;
+        //Arrow.SetActive(true);
+        //_SkillbtnDown = true;
+        
         
     }
     public void Drag()
@@ -105,7 +111,7 @@ public class SkillManager : MonoBehaviour
     }
     public void DisaArrow()
     {
-        _SkillbtnDown = false;
+        //_SkillbtnDown = false;
     }
     public void UseSkill()
     {

@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private float skillDuration;
     private SkillManager skillManager;
 
+
     // Start is called before the first frame update
 
     public CharacterController playerController;
@@ -124,7 +125,6 @@ public class PlayerController : MonoBehaviour
         armor.SetActive(false);
         playerHasArmor = false;
 
-
     }
     public void Dash()
     {
@@ -144,15 +144,32 @@ public class PlayerController : MonoBehaviour
         if (!_bAbilityOn)
         {
             _bIsSkill = true;
-            skillColdBtn = GameObject.Find("AbilityCanvas").gameObject.transform.GetChild(1).gameObject;//dashColdTimeBtn_Get
-
-            skillColdBtn.SetActive(true);
+           
             playerManager.animator.SetTrigger("Skill");
             switch ((int)hash["Charactor"])
             {
                 case 1:
                     gameObject.transform.GetChild(4).gameObject.SetActive(true);
+                    skillManager._tLittleCandy.gameObject.SetActive(true);
                     _bAbilityOn = true;
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+            }
+        }
+        else
+        {
+            Debug.Log("Click");
+            switch ((int)hash["Charactor"])
+            {
+                case 1:
+                    skillManager._iLittleCandyNum -= 1;
+                    skillManager._tLittleCandy.text = skillManager._iLittleCandyNum.ToString();
+                    gameObject.transform.GetChild(4).gameObject.transform.GetChild(skillManager._iLittleCandyNum).GetComponent<Rigidbody>().AddForce(new Vector3(100,0,0));
                     break;
                 case 2:
                     break;
@@ -211,11 +228,19 @@ public class PlayerController : MonoBehaviour
 
                 }
             }
-
+            if (skillManager._iLittleCandyNum == 0)
+            {
+                _bIntoCold = true;
+                skillManager._iLittleCandyNum = 4;
+                skillManager._tLittleCandy.text = skillManager._iLittleCandyNum.ToString();
+                skillManager._tLittleCandy.gameObject.SetActive(false);//Candy's Ability num
+            }
             if (_bIsSkill == true)
             {
                 if (_bIntoCold) //Into cold time
                 {
+                    skillColdBtn = GameObject.Find("AbilityCanvas").gameObject.transform.GetChild(1).gameObject;//dashColdTimeBtn_Get
+                    skillColdBtn.SetActive(true);
                     skillCold += Time.deltaTime;
                     skillColdBtn.GetComponent<Image>().fillAmount += Time.deltaTime / 5.0f;
                     if (skillCold >= 5.0f)
@@ -235,7 +260,7 @@ public class PlayerController : MonoBehaviour
                     switch ((int)hash["Charactor"]) //everycharacter ability
                     {
                         case 1://Candy
-                           
+
                             break;
                         case 2://Chocolate
                             break;
