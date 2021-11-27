@@ -112,4 +112,5 @@ public class SkillManager : MonoBehaviour
         //PlayerController.Skill();
         Player.GetComponentInChildren<PlayerController>().Skill();
     }
+    
 }

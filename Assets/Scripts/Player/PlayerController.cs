@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     public float dashSpeed;// 冲刺速度
     //Skill
     bool _bIsSkill = false;
+    bool _bIntoCold = false;
+    bool _bAbilityOn = false;
     private float skillTime = 0.0f;
     private float skillCold = 0;
     private GameObject skillColdBtn;
@@ -139,22 +141,26 @@ public class PlayerController : MonoBehaviour
     }
     public void Skill()
     {
-        _bIsSkill = true;
-        skillColdBtn = GameObject.Find("AbilityCanvas").gameObject.transform.GetChild(1).gameObject;//dashColdTimeBtn_Get
-
-        skillColdBtn.SetActive(true);
-        playerManager.animator.SetTrigger("Skill");
-        switch ((int)hash["Charactor"])
+        if (!_bAbilityOn)
         {
-            case 1:
-                gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
+            _bIsSkill = true;
+            skillColdBtn = GameObject.Find("AbilityCanvas").gameObject.transform.GetChild(1).gameObject;//dashColdTimeBtn_Get
+
+            skillColdBtn.SetActive(true);
+            playerManager.animator.SetTrigger("Skill");
+            switch ((int)hash["Charactor"])
+            {
+                case 1:
+                    gameObject.transform.GetChild(4).gameObject.SetActive(true);
+                    _bAbilityOn = true;
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+            }
         }
 
     }
@@ -208,18 +214,38 @@ public class PlayerController : MonoBehaviour
 
             if (_bIsSkill == true)
             {
-                skillCold += Time.deltaTime;
-                skillColdBtn.GetComponent<Image>().fillAmount += Time.deltaTime / 5.0f;
-                if (skillCold >= 5.0f)
+                if (_bIntoCold) //Into cold time
                 {
+                    skillCold += Time.deltaTime;
+                    skillColdBtn.GetComponent<Image>().fillAmount += Time.deltaTime / 5.0f;
+                    if (skillCold >= 5.0f)
+                    {
 
-                    skillTime = 0.0f;
-                    _bIsSkill = false;
-                    TCKInput.SetControllerActive("skillBtn", true);
-                    skillColdBtn.GetComponent<Image>().fillAmount = 0;
-                    skillColdBtn.SetActive(false);
-                    skillCold = 0.0f;
+                        skillTime = 0.0f;
+                        _bIsSkill = false;
+                        TCKInput.SetControllerActive("skillBtn", true);
+                        skillColdBtn.GetComponent<Image>().fillAmount = 0;
+                        skillColdBtn.SetActive(false);
+                        skillCold = 0.0f;
+                        _bAbilityOn = false;
+                    }
                 }
+                else //open the ability 
+                {
+                    switch ((int)hash["Charactor"]) //everycharacter ability
+                    {
+                        case 1://Candy
+                           
+                            break;
+                        case 2://Chocolate
+                            break;
+                        case 3://Can
+                            break;
+                        case 4://Cream
+                            break;
+                    }
+                }
+               
 
             }
 
