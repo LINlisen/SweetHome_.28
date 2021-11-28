@@ -258,6 +258,7 @@ public class PlayerController : MonoBehaviour
                         skillCold = 0.0f;
                         _bAbilityOn = false;
                         _bIntoCold = false;
+                        gameObject.transform.GetChild(4).gameObject.SetActive(false);
                     }
                 }
                 else //open the ability 
