@@ -34,6 +34,14 @@ public class SkillManager : MonoBehaviour
     //Candy's ability
     public Text _tLittleCandy;
     public int _iLittleCandyNum = 4;
+    public bool _bLittleCandyOne;
+    public bool _bLittleCandyTwo;
+    public bool _bLittleCandyThree;
+    public bool _bLittleCandyZero;
+    public float _fCountOne = 0;
+    public float _fCountTwo = 0;
+    public float _fCountThree = 0;
+    public float _fCountZero = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +70,7 @@ public class SkillManager : MonoBehaviour
         }
         _tLittleCandy.text = "4";
         _tLittleCandy.gameObject.SetActive(false);
+        _bLittleCandyOne = _bLittleCandyTwo = _bLittleCandyThree = _bLittleCandyZero = false;
     }
 
     // Update is called once per frame

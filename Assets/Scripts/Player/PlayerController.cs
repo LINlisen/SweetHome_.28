@@ -144,11 +144,15 @@ public class PlayerController : MonoBehaviour
         if (!_bAbilityOn)
         {
             _bIsSkill = true;
-           
+            
             playerManager.animator.SetTrigger("Skill");
             switch ((int)hash["Charactor"])
             {
                 case 1:
+                    for(int i =0;i <4; i++)
+                    {
+                        gameObject.transform.GetChild(4).transform.GetChild(i).gameObject.SetActive(true);
+                    }
                     gameObject.transform.GetChild(4).gameObject.SetActive(true);
                     skillManager._tLittleCandy.gameObject.SetActive(true);
                     _bAbilityOn = true;
@@ -169,7 +173,7 @@ public class PlayerController : MonoBehaviour
                 case 1:
                     skillManager._iLittleCandyNum -= 1;
                     skillManager._tLittleCandy.text = skillManager._iLittleCandyNum.ToString();
-                    gameObject.transform.GetChild(4).gameObject.transform.GetChild(skillManager._iLittleCandyNum).GetComponent<Rigidbody>().AddForce(new Vector3(100,0,0));
+                    CandyShoot(skillManager._iLittleCandyNum);
                     break;
                 case 2:
                     break;
@@ -253,6 +257,7 @@ public class PlayerController : MonoBehaviour
                         skillColdBtn.SetActive(false);
                         skillCold = 0.0f;
                         _bAbilityOn = false;
+                        _bIntoCold = false;
                     }
                 }
                 else //open the ability 
@@ -337,8 +342,53 @@ public class PlayerController : MonoBehaviour
 
             PlayerMovement(move.x, move.y);
             /*Dash*/
+            
         }
-
+        /*Candy's shoot*/
+        if (skillManager._bLittleCandyZero && skillManager._fCountZero < 5)
+        {
+            gameObject.transform.GetChild(4).gameObject.transform.GetChild(0).position += new Vector3(10, 0, 0);
+            skillManager._fCountZero += Time.deltaTime;
+        }
+        else if(skillManager._fCountZero > 5)
+        {
+            skillManager._fCountZero = 0;
+            gameObject.transform.GetChild(4).gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            skillManager._bLittleCandyZero = false;
+        }
+        if (skillManager._bLittleCandyOne && skillManager._fCountOne< 5)
+        {
+            gameObject.transform.GetChild(4).gameObject.transform.GetChild(1).position += new Vector3(10, 0, 0);
+            skillManager._fCountOne += Time.deltaTime;
+        }
+        else if(skillManager._fCountOne > 5)
+        {
+            skillManager._fCountOne = 0;
+            gameObject.transform.GetChild(4).gameObject.transform.GetChild(1).gameObject.SetActive(false);
+            skillManager._bLittleCandyOne = false;
+        }
+        if (skillManager._bLittleCandyTwo && skillManager._fCountTwo < 5)
+        {
+            gameObject.transform.GetChild(4).gameObject.transform.GetChild(2).position += new Vector3(10, 0, 0);
+            skillManager._fCountTwo += Time.deltaTime;
+        }
+        else if (skillManager._fCountTwo > 5)
+        {
+            skillManager._fCountTwo = 0;
+            gameObject.transform.GetChild(4).gameObject.transform.GetChild(2).gameObject.SetActive(false);
+            skillManager._bLittleCandyTwo = false;
+        }
+        if (skillManager._bLittleCandyThree && skillManager._fCountThree < 5)
+        {
+            gameObject.transform.GetChild(4).gameObject.transform.GetChild(3).position += new Vector3(10, 0, 0);
+            skillManager._fCountThree += Time.deltaTime;
+        }
+        else if (skillManager._fCountThree > 5)
+        {
+            skillManager._fCountThree = 0;
+            gameObject.transform.GetChild(4).gameObject.transform.GetChild(3).gameObject.SetActive(false);
+            skillManager._bLittleCandyThree = false;
+        }
 
 
     }
@@ -520,6 +570,26 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(speedCooldown);
         walkSpeed = normalSpeed;
 
+    }
+    /*Candy's shoot*/
+    private void CandyShoot(int i)
+    {
+        switch (i)
+        {
+            case 0:
+                skillManager._bLittleCandyZero = true;
+                break;
+            case 1:
+                skillManager._bLittleCandyOne = true;
+                break;
+            case 2:
+                skillManager._bLittleCandyTwo= true;
+                break;
+            case 3:
+                skillManager._bLittleCandyThree = true;
+                break;
+
+        }
     }
 }
 
