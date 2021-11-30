@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.AI;
 using System.Linq;
 using Photon.Realtime;
+using System.IO;
 
 public class PlayerController : MonoBehaviour
 {
@@ -145,8 +146,10 @@ public class PlayerController : MonoBehaviour
         if (!_bAbilityOn)
         {
             _bIsSkill = true;
-            
-            playerManager.animator.SetTrigger("Skill");
+            if ((int)hash["Charactor"] != 2) //Chocolate技能施放動畫設定在按第二次技能鍵
+            {
+                playerManager.animator.SetTrigger("Skill");
+            }
             switch ((int)hash["Charactor"])
             {
                 case 1:
@@ -159,6 +162,8 @@ public class PlayerController : MonoBehaviour
                     _bAbilityOn = true;
                     break;
                 case 2:
+                    gameObject.transform.GetChild(4).gameObject.SetActive(true);
+                    _bAbilityOn = true;
                     break;
                 case 3:
                     break;
@@ -180,6 +185,10 @@ public class PlayerController : MonoBehaviour
                     shootDir[skillManager._iLittleCandyNum] = -directionXOZ;
                     break;
                 case 2:
+                    playerManager.animator.SetTrigger("Skill");
+                    gameObject.transform.GetChild(4).gameObject.SetActive(false);
+                    PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "chocolatewall"), gameObject.transform.GetChild(4).position, gameObject.transform.GetChild(4).rotation);
+                    _bIntoCold = true;
                     break;
                 case 3:
                     break;
@@ -236,13 +245,18 @@ public class PlayerController : MonoBehaviour
 
                 }
             }
-            if (skillManager._iLittleCandyNum == 0)
+            /*Candy Ability Setting*/
+            if ((int)hash["Charactor"] == 1)
             {
-                _bIntoCold = true;
-                skillManager._iLittleCandyNum = 4;
-                skillManager._tLittleCandy.text = skillManager._iLittleCandyNum.ToString();
-                skillManager._tLittleCandy.gameObject.SetActive(false);//Candy's Ability num
+                if (skillManager._iLittleCandyNum == 0)
+                {
+                    _bIntoCold = true;
+                    skillManager._iLittleCandyNum = 4;
+                    skillManager._tLittleCandy.text = skillManager._iLittleCandyNum.ToString();
+                    skillManager._tLittleCandy.gameObject.SetActive(false);//Candy's Ability num
+                }
             }
+
             if (_bIsSkill == true)
             {
                 if (_bIntoCold) //Into cold time
@@ -253,7 +267,6 @@ public class PlayerController : MonoBehaviour
                     skillColdBtn.GetComponent<Image>().fillAmount += Time.deltaTime / 5.0f;
                     if (skillCold >= 5.0f)
                     {
-
                         skillTime = 0.0f;
                         _bIsSkill = false;
                         TCKInput.SetControllerActive("skillBtn", true);
@@ -262,7 +275,12 @@ public class PlayerController : MonoBehaviour
                         skillCold = 0.0f;
                         _bAbilityOn = false;
                         _bIntoCold = false;
-                        gameObject.transform.GetChild(4).gameObject.SetActive(false);
+                        /*Candy Ability Setting*/
+                        if ((int)hash["Charactor"] == 1)
+                        {
+                            gameObject.transform.GetChild(4).gameObject.SetActive(false);
+                        }
+                        /*Candy Ability Setting*/
                     }
                 }
             }
