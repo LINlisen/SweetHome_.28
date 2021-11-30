@@ -141,6 +141,8 @@ public class PlayerController : MonoBehaviour
     }
     public void Skill()
     {
+        directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
+        directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
         if (!_bAbilityOn)
         {
             _bIsSkill = true;
@@ -348,7 +350,7 @@ public class PlayerController : MonoBehaviour
         /*Candy's shoot*/
         if (skillManager._bLittleCandyZero && skillManager._fCountZero < 5)
         {
-            gameObject.transform.GetChild(4).gameObject.transform.GetChild(0).position += new Vector3(10, 0, 0);
+            gameObject.transform.GetChild(4).gameObject.transform.GetChild(0).position += -directionXOZ;
             skillManager._fCountZero += Time.deltaTime;
         }
         else if(skillManager._fCountZero > 5)
@@ -359,7 +361,7 @@ public class PlayerController : MonoBehaviour
         }
         if (skillManager._bLittleCandyOne && skillManager._fCountOne< 5)
         {
-            gameObject.transform.GetChild(4).gameObject.transform.GetChild(1).position += new Vector3(10, 0, 0);
+            gameObject.transform.GetChild(4).gameObject.transform.GetChild(1).position += -directionXOZ;
             skillManager._fCountOne += Time.deltaTime;
         }
         else if(skillManager._fCountOne > 5)
@@ -370,7 +372,7 @@ public class PlayerController : MonoBehaviour
         }
         if (skillManager._bLittleCandyTwo && skillManager._fCountTwo < 5)
         {
-            gameObject.transform.GetChild(4).gameObject.transform.GetChild(2).position += new Vector3(10, 0, 0);
+            gameObject.transform.GetChild(4).gameObject.transform.GetChild(2).position += -directionXOZ;
             skillManager._fCountTwo += Time.deltaTime;
         }
         else if (skillManager._fCountTwo > 5)
@@ -381,7 +383,7 @@ public class PlayerController : MonoBehaviour
         }
         if (skillManager._bLittleCandyThree && skillManager._fCountThree < 5)
         {
-            gameObject.transform.GetChild(4).gameObject.transform.GetChild(3).position += new Vector3(10, 0, 0);
+            gameObject.transform.GetChild(4).gameObject.transform.GetChild(3).position += -directionXOZ;
             skillManager._fCountThree += Time.deltaTime;
         }
         else if (skillManager._fCountThree > 5)
