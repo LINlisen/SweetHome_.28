@@ -445,6 +445,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("SpeedBooster"))
         {
             walkSpeed = boostedSpeed;
+            gameObject.transform.GetChild(7).gameObject.SetActive(true);
             StartCoroutine("BoostDuration");
         }
         if (other.CompareTag("SlowDowner"))
@@ -595,7 +596,8 @@ public class PlayerController : MonoBehaviour
         //boost cooldown
         yield return new WaitForSeconds(speedCooldown);
         walkSpeed = normalSpeed;
-        gameObject.transform.GetChild(6).gameObject.SetActive(false);
+        gameObject.transform.GetChild(6).gameObject.SetActive(false);//slowPad
+        gameObject.transform.GetChild(7).gameObject.SetActive(false);//boostPad
     }
     /*Candy's shoot*/
     private void CandyShoot(int i)
