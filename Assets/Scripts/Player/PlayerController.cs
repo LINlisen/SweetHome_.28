@@ -571,6 +571,15 @@ public class PlayerController : MonoBehaviour
                 Debug.Log(hit.gameObject.name);
                 GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name);
             }
+
+            //hit by the dangerStick or object, add [dangerStick] tag to access
+            if (hit.gameObject.tag == "dangerStick" && _bWounded == false)
+            {
+                Debug.Log("Collider by ball and stick");
+                Debug.Log(hit.gameObject.name);
+                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(this.gameObject.name);
+            }
+
         }
     }
     public void ResetPost()
