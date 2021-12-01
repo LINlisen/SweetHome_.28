@@ -158,6 +158,7 @@ public class PlayerController : MonoBehaviour
                         gameObject.transform.GetChild(4).transform.GetChild(i).gameObject.SetActive(true);
                     }
                     gameObject.transform.GetChild(4).gameObject.SetActive(true);
+                    gameObject.transform.GetChild(5).gameObject.SetActive(true);
                     skillManager._tLittleCandy.gameObject.SetActive(true);
                     _bAbilityOn = true;
                     break;
@@ -254,6 +255,7 @@ public class PlayerController : MonoBehaviour
                     skillManager._iLittleCandyNum = 4;
                     skillManager._tLittleCandy.text = skillManager._iLittleCandyNum.ToString();
                     skillManager._tLittleCandy.gameObject.SetActive(false);//Candy's Ability num
+                    gameObject.transform.GetChild(5).gameObject.SetActive(false) ;
                 }
             }
 
@@ -448,6 +450,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("SlowDowner"))
         {
             walkSpeed = walkSpeed / 2;
+            gameObject.transform.GetChild(6).gameObject.SetActive(true);
             StartCoroutine("BoostDuration");
         }
 
@@ -583,7 +586,7 @@ public class PlayerController : MonoBehaviour
         //boost cooldown
         yield return new WaitForSeconds(speedCooldown);
         walkSpeed = normalSpeed;
-
+        gameObject.transform.GetChild(6).gameObject.SetActive(false);
     }
     /*Candy's shoot*/
     private void CandyShoot(int i)
