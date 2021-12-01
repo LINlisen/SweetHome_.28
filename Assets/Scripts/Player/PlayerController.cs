@@ -187,7 +187,7 @@ public class PlayerController : MonoBehaviour
                 case 2:
                     playerManager.animator.SetTrigger("Skill");
                     gameObject.transform.GetChild(4).gameObject.SetActive(false);
-                    PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "chocolatewall"), gameObject.transform.GetChild(4).position, gameObject.transform.GetChild(4).rotation);
+                    gameObject.transform.GetChild(5).gameObject.SetActive(true);
                     _bIntoCold = true;
                     break;
                 case 3:
@@ -605,6 +605,17 @@ public class PlayerController : MonoBehaviour
 
         }
     }
+    /*Chocolate's Put   Ability animation events*/
+    public void ChocolateWall_Put()
+    {
+        
+    }
+    public void Close_wall()
+    {
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "chocolatewall"), gameObject.transform.GetChild(4).position, gameObject.transform.GetChild(4).rotation);
+        gameObject.transform.GetChild(5).gameObject.SetActive(false);
+    }
+    
 }
 
 
