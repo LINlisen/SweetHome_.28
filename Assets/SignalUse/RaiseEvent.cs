@@ -6,6 +6,7 @@ using Photon.Realtime;
 using ExitGames.Client.Photon;
 using System.Threading;
 using UnityEngine.UI;
+using System.IO;
 
 public class RaiseEvent : MonoBehaviourPun
 {
@@ -24,6 +25,9 @@ public class RaiseEvent : MonoBehaviourPun
     private const byte POTION_OUT = 8;
     int TeamBlueExcaper = 0;
     int TeamRedExcaper = 0;
+
+    /* potion out bool*/
+    private bool _bPotionOut = false;
     void Start()
     {
        
@@ -79,7 +83,6 @@ public class RaiseEvent : MonoBehaviourPun
             string ObjTag = (string)datas[0];
             bool ObjState = (bool)datas[1];
             Animator anim =GameObject.FindWithTag(ObjTag).GetComponentInParent<Animator>();
-            //Debug.Log(GameObject.FindWithTag(ObjTag).name);
             anim.SetTrigger("moveOC2");
         }
         if (obj.Code == SEE_SAW_LEFT)
@@ -88,7 +91,6 @@ public class RaiseEvent : MonoBehaviourPun
             string ObjTag = (string)datas[0];
             bool ObjState = (bool)datas[1];
             Animator anim = GameObject.FindWithTag(ObjTag).GetComponentInParent<Animator>();
-            //Debug.Log(GameObject.FindWithTag(ObjTag).name);
             anim.SetTrigger("moveOC");
         }
         if (obj.Code == TREASURE_NORMAL)
@@ -130,11 +132,15 @@ public class RaiseEvent : MonoBehaviourPun
         }
         if(obj.Code == POTION_OUT)
         {
-            object[] datas = (object[])obj.CustomData;
-            string Playername = (string)datas[0];
-            GameObject.Find(Playername).transform.GetChild(3).gameObject.SetActive(true);
-            GameObject.Find(Playername).GetComponent<Animator>().SetTrigger("Wounded");
-            GameObject.Find(Playername).GetComponent<PlayerController>()._bWounded = false;
+            if (!_bPotionOut)
+            {
+                _bPotionOut = true;
+                object[] datas = (object[])obj.CustomData;
+                string Playername = (string)datas[0];
+                
+                GameObject.Find(Playername).GetComponent<Animator>().SetTrigger("Wounded");
+                StartCoroutine(PotionOut(3.0f, Playername));
+            }
         }
     }
 
@@ -232,6 +238,9 @@ public class RaiseEvent : MonoBehaviourPun
         object[] datas = new object[] { Name };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(POTION_OUT, datas, raiseEventOptions, SendOptions.SendReliable);
+        Vector3 iniPos = GameObject.Find(Name).gameObject.transform.position + new Vector3(10, 0, 10);
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Potion"), iniPos, GameObject.Find(Name).gameObject.transform.rotation);
+        _bPotionOut = false;
     }
     IEnumerator Coroutine(float sec)
     {
@@ -241,6 +250,19 @@ public class RaiseEvent : MonoBehaviourPun
         //yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(sec);
 
+        //After we have waited 5 seconds print the time again.
+        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
+    }
+    IEnumerator PotionOut(float sec,string Playername)
+    {
+        //Print the time of when the function is first called.
+        Debug.Log("Started Coroutine at timestamp : " + Time.time);
+
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(sec);
+        GameObject.Find(Playername).GetComponent<PlayerController>()._bWounded = false;
+        
+        Debug.Log("_bPotionOutfalse");
         //After we have waited 5 seconds print the time again.
         Debug.Log("Finished Coroutine at timestamp : " + Time.time);
     }

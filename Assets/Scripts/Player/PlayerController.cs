@@ -537,7 +537,7 @@ public class PlayerController : MonoBehaviour
             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().Excape((int)PhotonNetwork.LocalPlayer.CustomProperties["Charactor"], "", (int)PhotonNetwork.LocalPlayer.CustomProperties["WhichTeam"]);
         }
         /*PotionGet*/
-        if (other.gameObject.transform.parent.name == "PotionList" || other.gameObject.transform.tag == "Potion")
+        if (other.gameObject.transform.tag == "Potion")
         {
             PhotonView photonView = PhotonView.Get(UpInformation);
             hash = PhotonNetwork.LocalPlayer.CustomProperties;
@@ -569,17 +569,14 @@ public class PlayerController : MonoBehaviour
             if (hit.gameObject.tag == "Player" && playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash") &&_bWounded == false)
             {
                 _bWounded = true;
-                Debug.Log("Collider other players");
-                Debug.Log(hit.gameObject.name);
                 GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name);
             }
 
             //hit by the dangerStick or object, add [dangerStick] tag to access
             if (hit.gameObject.tag == "dangerStick" && _bWounded == false)
             {
-                Debug.Log("Collider by ball and stick");
-                Debug.Log(hit.gameObject.name);
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(this.gameObject.name);
+                _bWounded = true;
+                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name);
             }
 
         }
