@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1645,6 +1645,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Portal
       objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: c98be9ff8d0b99c4f8857faf470634cf, type: 3}
+      propertyPath: m_TagString
+      value: ExitPortal
+      objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: c98be9ff8d0b99c4f8857faf470634cf, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1729,6 +1733,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 152425589}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &152425591 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100010, guid: c98be9ff8d0b99c4f8857faf470634cf,
+    type: 3}
+  m_PrefabInstance: {fileID: 152425589}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &152425592
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152425591}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.9515457, y: 2.8532295, z: 2.990265}
+  m_Center: {x: -0.27331161, y: 1.5275631, z: 0.09742737}
 --- !u!1 &159968727
 GameObject:
   m_ObjectHideFlags: 0

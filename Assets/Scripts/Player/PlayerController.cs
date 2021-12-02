@@ -187,6 +187,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case 2:
                     playerManager.animator.SetTrigger("Skill");
+                    gameObject.transform.GetChild(8).gameObject.SetActive(true);
                     gameObject.transform.GetChild(4).gameObject.SetActive(false);
                     gameObject.transform.GetChild(5).gameObject.SetActive(true);
                     _bIntoCold = true;
@@ -627,6 +628,7 @@ public class PlayerController : MonoBehaviour
     public void Close_wall()
     {
         PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "chocolatewall"), gameObject.transform.GetChild(4).position, gameObject.transform.GetChild(4).rotation);
+        gameObject.transform.GetChild(8).gameObject.SetActive(false);
         gameObject.transform.GetChild(5).gameObject.SetActive(false);
     }
     
