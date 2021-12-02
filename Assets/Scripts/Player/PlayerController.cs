@@ -348,8 +348,19 @@ public class PlayerController : MonoBehaviour
             {
                 playerManager.animator.SetFloat("Speed", 0);
             }
-
-            PlayerMovement(move.x, move.y);
+            if (playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Wounded") || playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash") || playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Skill"))
+            {
+                if (playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Wounded"))
+                {
+                    gameObject.transform.GetChild(9).gameObject.SetActive(true);
+                }
+                Debug.Log("Can't Move");
+            }
+            else
+            {
+                gameObject.transform.GetChild(9).gameObject.SetActive(false);
+                PlayerMovement(move.x, move.y);
+            }
             /*Dash*/
             
         }

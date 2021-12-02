@@ -28,6 +28,7 @@ public class RaiseEvent : MonoBehaviourPun
 
     /* potion out bool*/
     private bool _bPotionOut = false;
+    private int _PotionNum = 0;
     void Start()
     {
        
@@ -236,10 +237,13 @@ public class RaiseEvent : MonoBehaviourPun
     {
         string Name = PlayerName;
         object[] datas = new object[] { Name };
+        GameObject Potion;
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(POTION_OUT, datas, raiseEventOptions, SendOptions.SendReliable);
         Vector3 iniPos = GameObject.Find(Name).gameObject.transform.position + new Vector3(10, 0, 10);
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Potion"), iniPos, GameObject.Find(Name).gameObject.transform.rotation);
+        Potion=PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Potion"), iniPos, GameObject.Find(Name).gameObject.transform.rotation);
+        _PotionNum++;
+        Potion.name = "00" + _PotionNum;
         _bPotionOut = false;
     }
     IEnumerator Coroutine(float sec)
