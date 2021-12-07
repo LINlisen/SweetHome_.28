@@ -36,6 +36,8 @@ public class TimeController : MonoBehaviour
     int countdown = 4;
     int timerIncrementValue;
     int startTime;
+    int BlindStartTime;
+    public GameObject BlindVision;
     Hashtable CustomeValue = new Hashtable();
 
     Player[] players = PhotonNetwork.PlayerList;
@@ -95,6 +97,18 @@ public class TimeController : MonoBehaviour
                 seconds = timerIncrementValue % 60;
 
                 text_Timmer.text = string.Format("{0}:{1}", minutes.ToString("00"), seconds.ToString("00"));
+                /*Can Skill*/
+                if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["Blind"] == true)
+                {
+                    BlindStartTime = (int)PhotonNetwork.Time;
+                    hash = PhotonNetwork.LocalPlayer.CustomProperties;
+                    hash["Blind"] = false;
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                }
+                if ((int)PhotonNetwork.Time - (int)BlindStartTime == 5)
+                {
+                    BlindVision.SetActive(false);
+                }
                 if (timerIncrementValue <= 0)
                 {
                     //Timer Completed

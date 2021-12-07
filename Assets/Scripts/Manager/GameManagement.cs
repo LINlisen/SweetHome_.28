@@ -13,6 +13,7 @@ public class GameManagement : MonoBehaviourPunCallbacks
     [SerializeField] GameObject PlayerListItemPrefab;
     [SerializeField] Transform BlueListContent;
     [SerializeField] Transform RedListContent;
+    [SerializeField] GameObject BlindVision;
     Hashtable hash = new Hashtable();
     Player[] players = PhotonNetwork.PlayerList;
     void Start()
@@ -91,6 +92,11 @@ public class GameManagement : MonoBehaviourPunCallbacks
         if (bluegetoutnumber == 2 || redgetoutnumber == 2)
         {
             PhotonNetwork.LoadLevel(2);
+        }
+        /*Can Skill*/
+        if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["Blind"] == true)
+        {
+            BlindVision.SetActive(true);
         }
     }
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)

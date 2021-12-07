@@ -167,6 +167,10 @@ public class PlayerController : MonoBehaviour
                     _bAbilityOn = true;
                     break;
                 case 3:
+                    /*Can Skill*/
+                    Debug.Log("Skill On");
+                    OnGetPlayer();
+                    _bAbilityOn = true;
                     break;
                 case 4:
                     break;
@@ -639,7 +643,47 @@ public class PlayerController : MonoBehaviour
         gameObject.transform.GetChild(8).gameObject.SetActive(false);
         gameObject.transform.GetChild(5).gameObject.SetActive(false);
     }
-    
+    /*Can Skill*/
+    public void OnGetPlayer()
+    {
+        _bIntoCold = true;
+        //獲取所有敵人
+        GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
+        float distance_range = 200;    //主角與怪物的最近距離
+        float distance = 0;            //當前怪物與主角的距離
+        Hashtable blind = new Hashtable();
+        Player[] players = PhotonNetwork.PlayerList;
+        //遍歷所有敵人,計算距離並比較
+        for (int i = 0; i < player.Length; i++)
+        {
+            if (player[i].activeSelf == true)
+            {
+                distance = Vector3.Distance(transform.position, player[i].transform.position);
+                if (distance < distance_range)
+                {
+                    for(int j = 0;j < players.Count(); j++)
+                    {
+                        blind = players[j].CustomProperties;
+                        if (player[i].name == "CandyCharactor(Clone)"&&(int)players[j].CustomProperties["Charactor"] == 1)
+                        {
+                            blind["Blind"] = true;
+                            players[j].SetCustomProperties(blind);
+                        }
+                        else if (player[i].name == "ChocolateCharactor(Clone)" && (int)players[j].CustomProperties["Charactor"] == 2)
+                        {
+                            blind["Blind"] = true;
+                            players[j].SetCustomProperties(blind);
+                        }
+                        else if (player[i].name == "IceCreamCharactor(Clone)" && (int)players[j].CustomProperties["Charactor"] == 4)
+                        {
+                            blind["Blind"] = true;
+                            players[j].SetCustomProperties(blind);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 
