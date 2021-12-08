@@ -5,7 +5,7 @@ using UnityEngine;
 public class FallPlat : MonoBehaviour
 {
 	public float fallTime = 0.5f;
-
+	public GameObject fallingPad;
 
 	void OnCollisionEnter(Collision collision)
 	{
@@ -22,6 +22,6 @@ public class FallPlat : MonoBehaviour
 	IEnumerator Fall(float time)
 	{
 		yield return new WaitForSeconds(time);
-		Destroy(gameObject);
+		Destroy(fallingPad);
 	}
 }
