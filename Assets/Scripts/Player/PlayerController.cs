@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] GameObject camerHolder;
     [SerializeField] float mouseSensitivity, walkSpeed, smoothTime;
+    [SerializeField] GameObject CanSkill;
+    [SerializeField] GameObject CanSkillEffect;
 
     private PlayerManager playerManager;
     float rotation;
@@ -171,7 +173,8 @@ public class PlayerController : MonoBehaviour
                     break;
                 case 3:
                     /*Can Skill*/
-                    Debug.Log("Skill On");
+                    CanSkill.SetActive(true);
+                    CanSkillEffect.SetActive(true);
                     OnGetPlayer();
                     _bAbilityOn = true;
                     break;
