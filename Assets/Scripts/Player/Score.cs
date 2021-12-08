@@ -49,7 +49,25 @@ public class Score : MonoBehaviour
             PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
         }
     }
-
+    [PunRPC]
+    void losePoint(int team)
+    {
+        Debug.Log("getPotion");
+        if (team == 1)
+        {
+            redpoint--;
+            teamredpoint.SetText(redpoint.ToString());
+            roomhash["RedScore"] = redpoint;
+            PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        }
+        else
+        {
+            bluepoint--;
+            teambluepoint.SetText(bluepoint.ToString());
+            roomhash["BlueScore"] = bluepoint;
+            PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        }
+    }
     //下面三行擺到在判斷拿到藥水的函式裡
     //Hashtable team = PhotonNetwork.LocalPlayer.CustomProperties;
     //PhotonView photonView = PhotonView.Get(this);

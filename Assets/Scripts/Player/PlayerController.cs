@@ -581,17 +581,40 @@ public class PlayerController : MonoBehaviour
     {
         if (PV.IsMine)
         {
+            PhotonView photonView = PhotonView.Get(UpInformation);
             if (hit.gameObject.tag == "Player" && playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash") &&_bWounded == false)
             {
-                _bWounded = true;
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name);
+                if ((int)hash["Point"] != 0)
+                {
+                    hash["Point"] = (int)hash["Point"] - 1;
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                    photonView.RPC("losePoint", RpcTarget.All, (int)team["WhichTeam"]);
+                    _bWounded = true;
+                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name,true);
+                }
+                else
+                {
+                    _bWounded = true;
+                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, false);
+                }
             }
 
             //hit by the dangerStick or object, add [dangerStick] tag to access
             if (hit.gameObject.tag == "dangerStick" && _bWounded == false)
             {
-                _bWounded = true;
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name);
+                if ((int)hash["Point"] != 0)
+                {
+                    hash["Point"] = (int)hash["Point"] - 1;
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                    photonView.RPC("losePoint", RpcTarget.All, (int)team["WhichTeam"]);
+                    _bWounded = true;
+                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name,true);
+                }
+                else
+                {
+                    _bWounded = true;
+                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name, false);
+                }
             }
 
         }
