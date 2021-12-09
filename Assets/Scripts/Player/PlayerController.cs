@@ -585,6 +585,11 @@ public class PlayerController : MonoBehaviour
         {
 
         }
+        /*ChocolateWallTrigger*/
+        if(other.gameObject.name == "ChocolateWallIsTrigger")
+        {
+            
+        }
 
     }
 
@@ -633,6 +638,23 @@ public class PlayerController : MonoBehaviour
                     _bWounded = true;
                     GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name, false);
                 }
+            }
+            if (hit.gameObject.tag == "Chocolate" && _bWounded == false)
+            {
+                if ((int)hash["Point"] != 0)
+                {
+                    hash["Point"] = (int)hash["Point"] - 1;
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                    photonView.RPC("losePoint", RpcTarget.All, (int)team["WhichTeam"]);
+                    _bWounded = true;
+                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name, true);
+                }
+                else
+                {
+                    _bWounded = true;
+                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name, false);
+                }
+                Destroy(hit.gameObject);
             }
 
         }
