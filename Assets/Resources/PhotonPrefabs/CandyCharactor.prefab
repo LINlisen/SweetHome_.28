@@ -57842,6 +57842,8 @@ MonoBehaviour:
   mouseSensitivity: 10
   walkSpeed: 20
   smoothTime: 0.15
+  CanSkill: {fileID: 0}
+  CanSkillEffect: {fileID: 0}
   dashDuration: 1
   dashSpeed: 1
   playerController: {fileID: 8488325058980157827}
