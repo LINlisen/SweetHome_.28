@@ -163,7 +163,10 @@ public class PlayerController : MonoBehaviour
                     //gameObject.transform.GetChild(4).gameObject.SetActive(true);
                     CandyShootList = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandySkill"), gameObject.transform.localPosition, gameObject.transform.rotation);
                     CandyShootList.transform.position = gameObject.transform.GetChild(0).position;
-                    gameObject.transform.GetChild(5).gameObject.SetActive(true);
+
+                    //gameObject.transform.GetChild(5).gameObject.SetActive(true);
+                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandySkillOn(gameObject.name);
+
                     skillManager._tLittleCandy.gameObject.SetActive(true);
                     _bAbilityOn = true;
                     break;
@@ -228,7 +231,9 @@ public class PlayerController : MonoBehaviour
                 {
                     if (playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash"))
                     {
-                        GameObject.Find(playerName).gameObject.transform.GetChild(1).gameObject.SetActive(true);
+                        //GameObject.Find(playerName).gameObject.transform.GetChild(1).gameObject.SetActive(true);
+                        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().DashParticleOn(playerName);
+
                         dahsColdBtn = GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(5).gameObject;//dashColdTimeBtn_Get
                         dahsColdBtn.SetActive(true);
                         dashTime += Time.deltaTime;
@@ -243,7 +248,9 @@ public class PlayerController : MonoBehaviour
                     playerManager.animator.SetBool("Dash", false);
 
 
-                    GameObject.Find(playerName).gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                    //GameObject.Find(playerName).gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().DashParticleOff(playerName);
+
                     if (dashCold >= 5.0f)
                     {
 
@@ -266,7 +273,10 @@ public class PlayerController : MonoBehaviour
                     skillManager._iLittleCandyNum = 4;
                     skillManager._tLittleCandy.text = skillManager._iLittleCandyNum.ToString();
                     skillManager._tLittleCandy.gameObject.SetActive(false);//Candy's Ability num
-                    gameObject.transform.GetChild(5).gameObject.SetActive(false) ;
+
+                    //gameObject.transform.GetChild(5).gameObject.SetActive(false);
+                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandySkillOff(gameObject.name);
+
                 }
             }
 
@@ -368,13 +378,15 @@ public class PlayerController : MonoBehaviour
             {
                 if (playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Wounded"))
                 {
-                    gameObject.transform.GetChild(9).gameObject.SetActive(true);
+                    //gameObject.transform.GetChild(9).gameObject.SetActive(true);
+                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().WoundedOn(gameObject.name);
                 }
                 Debug.Log("Can't Move");
             }
             else
             {
-                gameObject.transform.GetChild(9).gameObject.SetActive(false);
+                //gameObject.transform.GetChild(9).gameObject.SetActive(false);
+                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().WoundedOff(gameObject.name);
                 PlayerMovement(move.x, move.y);
             }
             /*Dash*/
@@ -488,13 +500,19 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("SpeedBooster"))
         {
             walkSpeed = boostedSpeed;
-            gameObject.transform.GetChild(7).gameObject.SetActive(true);
+
+            //gameObject.transform.GetChild(7).gameObject.SetActive(true);
+            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SpeedUpOn(gameObject.name);
+
             StartCoroutine("BoostDuration");
         }
         if (other.CompareTag("SlowDowner"))
         {
             walkSpeed = walkSpeed / 2;
-            gameObject.transform.GetChild(6).gameObject.SetActive(true);
+
+            //gameObject.transform.GetChild(6).gameObject.SetActive(true);
+            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SpeedDwonOn(gameObject.name);
+
             StartCoroutine("BoostDuration");
         }
 
@@ -685,8 +703,12 @@ public class PlayerController : MonoBehaviour
         //boost cooldown
         yield return new WaitForSeconds(speedCooldown);
         walkSpeed = normalSpeed;
-        gameObject.transform.GetChild(6).gameObject.SetActive(false);//slowPad
-        gameObject.transform.GetChild(7).gameObject.SetActive(false);//boostPad
+
+        //gameObject.transform.GetChild(6).gameObject.SetActive(false);//slowPad
+        //gameObject.transform.GetChild(7).gameObject.SetActive(false);//boostPad
+        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SpeedDwonOff(gameObject.name);
+        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SpeedUpOff(gameObject.name);
+
     }
     /*Candy's shoot*/
     private void CandyShoot(int i)

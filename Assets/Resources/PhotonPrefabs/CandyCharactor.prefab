@@ -97520,7 +97520,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100006, guid: 9d9788338b7ea814dae35d23d4cdd819, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100008, guid: 9d9788338b7ea814dae35d23d4cdd819, type: 3}
       propertyPath: m_Name

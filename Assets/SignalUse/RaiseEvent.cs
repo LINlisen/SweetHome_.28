@@ -23,9 +23,23 @@ public class RaiseEvent : MonoBehaviourPun
     private const byte GET_ARMOR = 6;
     private const byte EXCAPE = 7;
     private const byte POTION_OUT = 8;
-    private const byte CANDYSHOOT_PON = 9;
-    private const byte CANDYSHOOT_POFF = 10;
-    private const byte CANDYSHOOT_DELETE = 11;
+
+    /*共同特效部分*/
+    private const byte DASH_ON = 9; //衝撞特效 index 1
+    private const byte DASH_OFF = 10;
+    private const byte SPEEDDOWN_GROUND_ON = 11; //緩速地板特效 index 6
+    private const byte SPEEDDOWN_GROUND_OFF = 12; //緩速地板特效 index 6 
+    private const byte SPEEDUP_GROUND_ON = 13; //加速地板特效 index 7
+    private const byte SPEEDUP_GROUND_OFF = 14; //加速地板特效 index 7
+    private const byte WOUNDED_ON = 15; //被撞倒暈眩特效 index 9
+    private const byte WOUNDED_OFF = 16; //被撞倒暈眩特效 index 9 
+    /*Candy Area*/
+    private const byte CANDYSHOOT_PON = 17;
+    private const byte CANDYSHOOT_POFF = 18;
+    private const byte CANDYSHOOT_DELETE = 19;
+    private const byte CANDY_SKILL_ON = 20; //Candy 施放技能特效 index 5
+    private const byte CANDY_SKILL_OFF = 21; //Candy 施放技能特效 index 5
+
     int TeamBlueExcaper = 0;
     int TeamRedExcaper = 0;
 
@@ -170,7 +184,74 @@ public class RaiseEvent : MonoBehaviourPun
         {
             Destroy(GameObject.Find("CandySkill(Clone)"));
         }
+        /*共同特效部分*/
+        if(obj.Code == DASH_ON)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            GameObject.Find(Name).gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        }
+        if (obj.Code == DASH_OFF)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            GameObject.Find(Name).gameObject.transform.GetChild(1).gameObject.SetActive(false);
+        }
+        if(obj.Code == SPEEDDOWN_GROUND_ON)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            GameObject.Find(Name).gameObject.transform.GetChild(6).gameObject.SetActive(true);
+        }
+        if (obj.Code == SPEEDDOWN_GROUND_OFF)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            GameObject.Find(Name).gameObject.transform.GetChild(6).gameObject.SetActive(false);
+        }
+        if (obj.Code == SPEEDUP_GROUND_ON)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            GameObject.Find(Name).gameObject.transform.GetChild(7).gameObject.SetActive(true);
+        }
+        if (obj.Code == SPEEDUP_GROUND_OFF)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            GameObject.Find(Name).gameObject.transform.GetChild(7).gameObject.SetActive(false);
+        }
+        if (obj.Code == WOUNDED_ON)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            GameObject.Find(Name).gameObject.transform.GetChild(9).gameObject.SetActive(true);
+        }
+        if (obj.Code == WOUNDED_OFF)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            GameObject.Find(Name).gameObject.transform.GetChild(9).gameObject.SetActive(false);
+        }
+
+        /*糖果特效*/
+        if(obj.Code == CANDY_SKILL_ON)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            GameObject.Find(Name).gameObject.transform.GetChild(5).gameObject.SetActive(true);
+        }
+        if (obj.Code == CANDY_SKILL_OFF)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            GameObject.Find(Name).gameObject.transform.GetChild(5).gameObject.SetActive(false);
+        }
+
     }
+
+
+
     public void getPotion(string name)
     {
         //Debug.Log("GetPostion");
@@ -295,6 +376,70 @@ public class RaiseEvent : MonoBehaviourPun
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(CANDYSHOOT_DELETE, datas, raiseEventOptions, SendOptions.SendReliable);
     }
+    /*角色共同特效區*/
+    public void DashParticleOn(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(DASH_ON, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void DashParticleOff(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(DASH_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void SpeedDwonOn(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(SPEEDDOWN_GROUND_ON, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void SpeedDwonOff(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(SPEEDDOWN_GROUND_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void SpeedUpOn(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(SPEEDUP_GROUND_ON, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void SpeedUpOff(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(SPEEDUP_GROUND_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void WoundedOn(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(WOUNDED_ON, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void WoundedOff(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(WOUNDED_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+
+    /*糖果技能施放特效*/
+    public void CandySkillOn(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(CANDY_SKILL_ON, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void CandySkillOff(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(CANDY_SKILL_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+
     IEnumerator Coroutine(float sec)
     {
         //Print the time of when the function is first called.
