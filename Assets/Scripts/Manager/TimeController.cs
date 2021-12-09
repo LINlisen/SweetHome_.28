@@ -87,7 +87,7 @@ public class TimeController : MonoBehaviour
             text_Countdown.text = (timerIncrementValue % 60).ToString();
             if (timerIncrementValue == 0)
             {
-                text_Countdown.text = "Start!";
+                text_Countdown.text = "Start !!";
             }
             else if (timerIncrementValue < 0)
             {

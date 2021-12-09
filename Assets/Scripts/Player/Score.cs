@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class Score : MonoBehaviour
 {
     //C#檔放在兩隊分數的Canvas裡
 
-    [SerializeField] TMP_Text teambluepoint;
-    [SerializeField] TMP_Text teamredpoint;
+    [SerializeField] Text teambluepoint;
+    [SerializeField] Text teamredpoint;
     int redpoint;
     int bluepoint;
     Hashtable roomhash;
@@ -19,8 +20,8 @@ public class Score : MonoBehaviour
     {
         redpoint = 0;
         bluepoint = 0;
-        teamredpoint.SetText(redpoint.ToString());
-        teambluepoint.SetText(bluepoint.ToString());
+        teamredpoint.text = redpoint.ToString();
+        teambluepoint.text = bluepoint.ToString();
         roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
     }
 
@@ -37,14 +38,14 @@ public class Score : MonoBehaviour
         if (team == 1)
         {
             redpoint++;
-            teamredpoint.SetText(redpoint.ToString());
+            teamredpoint.text = redpoint.ToString();
             roomhash["RedScore"] = redpoint;
             PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
         }
         else
         {
             bluepoint++;
-            teambluepoint.SetText(bluepoint.ToString());
+            teambluepoint.text = bluepoint.ToString();
             roomhash["BlueScore"] = bluepoint;
             PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
         }
@@ -56,14 +57,14 @@ public class Score : MonoBehaviour
         if (team == 2)
         {
             redpoint--;
-            teamredpoint.SetText(redpoint.ToString());
+            teamredpoint.text = redpoint.ToString();
             roomhash["RedScore"] = redpoint;
             PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
         }
         else
         {
             bluepoint--;
-            teambluepoint.SetText(bluepoint.ToString());
+            teambluepoint.text = bluepoint.ToString();
             roomhash["BlueScore"] = bluepoint;
             PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
         }
