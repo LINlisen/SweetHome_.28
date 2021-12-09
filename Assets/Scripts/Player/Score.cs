@@ -53,7 +53,7 @@ public class Score : MonoBehaviour
     void losePoint(int team)
     {
         Debug.Log("getPotion");
-        if (team == 1)
+        if (team == 2)
         {
             redpoint--;
             teamredpoint.SetText(redpoint.ToString());

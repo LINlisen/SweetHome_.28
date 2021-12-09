@@ -19,7 +19,7 @@ public class GameManagement : MonoBehaviourPunCallbacks
     void Start()
     {
 
-        PlayerLeaderBoardInfoPlayerList();
+
     }
 
     // Update is called once per frame
@@ -27,32 +27,6 @@ public class GameManagement : MonoBehaviourPunCallbacks
     {
 
 
-    }
-
-    public void PlayerLeaderBoardInfoPlayerList()
-    {
-        Player[] players = PhotonNetwork.PlayerList;
-
-        foreach (Transform child in BlueListContent)
-        {
-            Destroy(child.gameObject);
-        }
-        foreach (Transform child in RedListContent)
-        {
-            Destroy(child.gameObject);
-        }
-        for (int i = 0; i < PhotonNetwork.PlayerList.Count(); i++)
-        {
-            hash = players[i].CustomProperties;
-            if ((int)hash["WhichTeam"] == 1)
-            {
-                Instantiate(PlayerListItemPrefab, RedListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
-            }
-            else
-            {
-                Instantiate(PlayerListItemPrefab, BlueListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
-            }
-        }
     }
     public void QuitGameSingle()
     {
@@ -69,7 +43,7 @@ public class GameManagement : MonoBehaviourPunCallbacks
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
-        //PhotonNetwork.LoadLevel(0);
+        PhotonNetwork.LoadLevel(0);
         //MenuManager.Instance.OpenMenu("title");
     }
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
