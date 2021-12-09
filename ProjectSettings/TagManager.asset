@@ -17,6 +17,7 @@ TagManager:
   - dangerStick
   - Wall
   - CandyShoot
+  - ChocolateWall
   layers:
   - Default
   - TransparentFX
