@@ -69,6 +69,7 @@ public class GameManagement : MonoBehaviourPunCallbacks
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
+        //PhotonNetwork.LoadLevel(0);
         //MenuManager.Instance.OpenMenu("title");
     }
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)

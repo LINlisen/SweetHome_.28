@@ -229,7 +229,7 @@ public class PlayerController : MonoBehaviour
                     if (playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash"))
                     {
                         GameObject.Find(playerName).gameObject.transform.GetChild(1).gameObject.SetActive(true);
-                        dahsColdBtn = GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(6).gameObject;//dashColdTimeBtn_Get
+                        dahsColdBtn = GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(5).gameObject;//dashColdTimeBtn_Get
                         dahsColdBtn.SetActive(true);
                         dashTime += Time.deltaTime;
                         playerController.Move(-directionXOZ * dashTime * dashSpeed);
@@ -278,6 +278,11 @@ public class PlayerController : MonoBehaviour
                     skillColdBtn.SetActive(true);
                     skillCold += Time.deltaTime;
                     skillColdBtn.GetComponent<Image>().fillAmount += Time.deltaTime / 5.0f;
+                    if((int)hash["Charactor"] == 3)
+                    {
+                        CanSkill.SetActive(false);
+                        CanSkillEffect.SetActive(false);
+                    }
                     if (skillCold >= 5.0f)
                     {
                         skillTime = 0.0f;
