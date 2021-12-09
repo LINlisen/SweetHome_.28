@@ -151,9 +151,6 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         MenuManager.Instance.OpenMenu("room");
         RoomNameText.text = PhotonNetwork.CurrentRoom.Name;
-
-        ColorBlock cb = startGameButton.GetComponent<Button>().colors;
-        Color color = new Color(0, 1, 0.004989f, 1);
         Player[] players = PhotonNetwork.PlayerList;
 
         foreach (Transform child in BlueListContent)
@@ -191,8 +188,6 @@ public class Launcher : MonoBehaviourPunCallbacks
         else
         {
             startGameButtonText.text = "準備";
-            cb.selectedColor = color;
-            startGameButton.GetComponent<Button>().colors = cb;
         }
         ChooseButton.SetActive(PhotonNetwork.IsMasterClient);
         startGameButton.SetActive(true);
@@ -215,9 +210,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         int pready = 0;
         Player[] players = PhotonNetwork.PlayerList;
+        Color color = new Color(0, 1, 0.004989f, 1);
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
-            startGameHint.CrossFadeAlpha(1.0f, 0.00f, false);
             for (int i = 0; i < players.Count(); i++)
             {
                 if ((bool)players[i].CustomProperties["Ready"] == true)
@@ -235,11 +230,13 @@ public class Launcher : MonoBehaviourPunCallbacks
             }
             else
             {
+                startGameHint.CrossFadeAlpha(1.0f, 0.00f, false);
                 startGameHint.CrossFadeAlpha(0.0f, 0.8f, false);
             }
         }
         else
         {
+            startGameButton.GetComponent<Image>().color = color;
             hash["Ready"] = true;
             PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
         }

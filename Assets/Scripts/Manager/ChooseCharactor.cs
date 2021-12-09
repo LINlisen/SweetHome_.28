@@ -59,83 +59,90 @@ public class ChooseCharactor : MonoBehaviour
     }
     private void Update()
     {
-        switch (Input.charactor_id)
+        if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["Ready"] == false)
         {
-            case 1:
-                hash["Charactor"] = 1;
-                CandyButton.GetComponent<Image>().color = Color.white;
-                ChocolateButton.GetComponent<Image>().color = Color.gray;
-                CanButton.GetComponent<Image>().color = Color.gray;
-                IceCreamButton.GetComponent<Image>().color = Color.gray;
-                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-                UserChoose.Id = Candy.Id;
-                UserChoose.Name.text = "史帝夫‧哈靈頓";
-                UserChoose.Introduction.text = "技能效果：小糖果追蹤敵人5秒，當被追到時，小糖果會黏上去，並緩速敵人2秒。技能增強：小糖果會變快。";
-                if (!_bCreated)
-                {
-                    if (UserChoose.CharactorModel.childCount != 0)
+            switch (Input.charactor_id)
+            {
+                case 1:
+                    hash["Charactor"] = 1;
+                    CandyButton.GetComponent<Image>().color = Color.white;
+                    ChocolateButton.GetComponent<Image>().color = Color.gray;
+                    CanButton.GetComponent<Image>().color = Color.gray;
+                    IceCreamButton.GetComponent<Image>().color = Color.gray;
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                    UserChoose.Id = Candy.Id;
+                    UserChoose.Name.text = "史帝夫‧哈靈頓";
+                    UserChoose.Introduction.text = "技能效果：小糖果追蹤敵人5秒，當被追到時，小糖果會黏上去，並緩速敵人2秒。技能增強：小糖果會變快。";
+                    if (!_bCreated)
                     {
-                        GameObject pre = UserChoose.CharactorModel.GetChild(0).gameObject;
-                        Destroy(pre);
+                        if (UserChoose.CharactorModel.childCount != 0)
+                        {
+                            GameObject pre = UserChoose.CharactorModel.GetChild(0).gameObject;
+                            Destroy(pre);
+                        }
+                        Vector3 newobjectPos = new Vector3(0f, 0f, 0f);
+                        Debug.Log(1);
+                        Instantiate(Models.CandyModel, UserChoose.CharactorModel.position, UserChoose.CharactorModel.rotation, UserChoose.CharactorModel);
+                        UserChoose.CharactorModel.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+                        UserChoose.CharactorModel.transform.position = new Vector3(1.5f, -0.5f, 10.3f);
+                        _bCreated = true;
                     }
-                    Vector3 newobjectPos = new Vector3(0f,0f,0f);
-                    Debug.Log(1);
-                    Instantiate(Models.CandyModel, UserChoose.CharactorModel.position, UserChoose.CharactorModel.rotation,UserChoose.CharactorModel);
-                    UserChoose.CharactorModel.transform.localScale = new Vector3(0.3f,0.3f,0.3f);
-                    UserChoose.CharactorModel.transform.position = new Vector3(1.5f, -0.5f, 10.3f);
-                    _bCreated = true;
-                }           
-                break;
-            case 2:
-                hash["Charactor"] = 2;
-                CandyButton.GetComponent<Image>().color = Color.gray;
-                ChocolateButton.GetComponent<Image>().color = Color.white;
-                CanButton.GetComponent<Image>().color = Color.gray;
-                IceCreamButton.GetComponent<Image>().color = Color.gray;
-                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-                UserChoose.Id = Chocolate.Id;
-                UserChoose.Name.text = "傑克‧威爾森";
-                UserChoose.Introduction.text = "技能效果：放置巧克力牆，當敵人接近時，蓋下來壓住敵人，造成敵人暈眩2秒。技能增強：巧克力牆有隱形效果。";
-                if (!_bCreated)
-                {
-                    if (UserChoose.CharactorModel.childCount != 0)
+                    break;
+                case 2:
+                    hash["Charactor"] = 2;
+                    CandyButton.GetComponent<Image>().color = Color.gray;
+                    ChocolateButton.GetComponent<Image>().color = Color.white;
+                    CanButton.GetComponent<Image>().color = Color.gray;
+                    IceCreamButton.GetComponent<Image>().color = Color.gray;
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                    UserChoose.Id = Chocolate.Id;
+                    UserChoose.Name.text = "傑克‧威爾森";
+                    UserChoose.Introduction.text = "技能效果：放置巧克力牆，當敵人接近時，蓋下來壓住敵人，造成敵人暈眩2秒。技能增強：巧克力牆有隱形效果。";
+                    if (!_bCreated)
                     {
-                        GameObject pre =UserChoose.CharactorModel.GetChild(0).gameObject;
-                        Destroy(pre);
+                        if (UserChoose.CharactorModel.childCount != 0)
+                        {
+                            GameObject pre = UserChoose.CharactorModel.GetChild(0).gameObject;
+                            Destroy(pre);
+                        }
+                        Debug.Log(2);
+                        Instantiate(Models.ChocolateModel, UserChoose.CharactorModel.position, UserChoose.CharactorModel.rotation, UserChoose.CharactorModel);
+                        UserChoose.CharactorModel.transform.localScale = new Vector3(6, 6, 6);
+                        UserChoose.CharactorModel.transform.position = new Vector3(10.7f, 1.6f, 83.6f);
+                        _bCreated = true;
                     }
-                    Debug.Log(2);
-                    Instantiate(Models.ChocolateModel, UserChoose.CharactorModel.position, UserChoose.CharactorModel.rotation, UserChoose.CharactorModel);
-                    UserChoose.CharactorModel.transform.localScale = new Vector3(6,6,6);
-                    UserChoose.CharactorModel.transform.position = new Vector3(10.7f, 1.6f, 83.6f);                   
-                    _bCreated = true;
-                }
-                break;
-            case 3:
-                hash["Charactor"] = 3;
-                CandyButton.GetComponent<Image>().color = Color.gray;
-                ChocolateButton.GetComponent<Image>().color = Color.gray;
-                CanButton.GetComponent<Image>().color = Color.white;
-                IceCreamButton.GetComponent<Image>().color = Color. gray;
-                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-                UserChoose.Id = Can.Id;
-                UserChoose.Name.text = "南西‧梅森";
-                UserChoose.Introduction.text = "技能效果：從玩家自身方圓5米內噴射一攤飲料，範圍內的敵人進入障目狀態。技能增強：增加緩速5秒效果。";
-                if (!_bCreated)
-                {
-                    if (UserChoose.CharactorModel.childCount != 0)
+                    break;
+                case 3:
+                    hash["Charactor"] = 3;
+                    CandyButton.GetComponent<Image>().color = Color.gray;
+                    ChocolateButton.GetComponent<Image>().color = Color.gray;
+                    CanButton.GetComponent<Image>().color = Color.white;
+                    IceCreamButton.GetComponent<Image>().color = Color.gray;
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                    UserChoose.Id = Can.Id;
+                    UserChoose.Name.text = "南西‧梅森";
+                    UserChoose.Introduction.text = "技能效果：從玩家自身方圓5米內噴射一攤飲料，範圍內的敵人進入障目狀態。技能增強：增加緩速5秒效果。";
+                    if (!_bCreated)
                     {
-                        GameObject pre = UserChoose.CharactorModel.GetChild(0).gameObject;
-                        Destroy(pre);
+                        if (UserChoose.CharactorModel.childCount != 0)
+                        {
+                            GameObject pre = UserChoose.CharactorModel.GetChild(0).gameObject;
+                            Destroy(pre);
+                        }
+                        Debug.Log(2);
+                        Instantiate(Models.CanModel, UserChoose.CharactorModel.position, UserChoose.CharactorModel.rotation, UserChoose.CharactorModel);
+                        UserChoose.CharactorModel.transform.localScale = new Vector3(25, 25, 25);
+                        UserChoose.CharactorModel.transform.position = new Vector3(10.7f, 1.6f, 83.6f);
+                        _bCreated = true;
                     }
-                    Debug.Log(2);
-                    Instantiate(Models.CanModel, UserChoose.CharactorModel.position, UserChoose.CharactorModel.rotation, UserChoose.CharactorModel);
-                    UserChoose.CharactorModel.transform.localScale = new Vector3(25, 25, 25);
-                    UserChoose.CharactorModel.transform.position = new Vector3(10.7f, 1.6f, 83.6f);
-                    _bCreated = true;
-                }
-                break;
+                    break;
+            }
         }
-           
+        else
+        {
+
+        }
+
     }
     private void setCandyInfo()
     {
