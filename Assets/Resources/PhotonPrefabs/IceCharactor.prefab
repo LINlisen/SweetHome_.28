@@ -148320,10 +148320,8 @@ MonoBehaviour:
   mouseSensitivity: 10
   walkSpeed: 20
   smoothTime: 0.15
-  CanSkill: {fileID: 7541615677004418494}
-  CanSkillEffect: {fileID: 6952718582954359763}
-  dashDuration: 1.2
-  dashSpeed: 0.8
+  dashDuration: 1
+  dashSpeed: 1
   playerController: {fileID: 537034343479880314}
   boostedSpeed: 22
   speedCooldown: 2

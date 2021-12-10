@@ -3914,13 +3914,13 @@ MonoBehaviour:
     CharactorModel: {fileID: 476779920}
     ModelsParent: {fileID: 476779919}
   Models:
-    CandyModel: {fileID: 919132149155446097, guid: ba7e22a7087ac4201b2e5f919a463824,
+    CandyModel: {fileID: 6344112292578313481, guid: b0f5837e25a8746169033d035f9c3bbc,
       type: 3}
-    ChocolateModel: {fileID: 919132149155446097, guid: d2fd825debfda40e3a52cdfaf659d5a5,
+    ChocolateModel: {fileID: 5332370729013828092, guid: c1b442d6777b947608b668c76b415b3b,
       type: 3}
-    CanModel: {fileID: 919132149155446097, guid: 2ed75d142b4b4436896f4d6f2dc20265,
+    CanModel: {fileID: 783879235333450997, guid: 5f69c8a7e09d849a5894eae686b6802a,
       type: 3}
-    IceModel: {fileID: 919132149155446097, guid: fdd999ec7c11b46898c7dffeb3b9018b,
+    IceModel: {fileID: 1830703410017799530, guid: 67744fba2ce26458db76db2a26c882bb,
       type: 3}
   cb: {r: 183, g: 183, b: 183, a: 255}
 --- !u!4 &792257425

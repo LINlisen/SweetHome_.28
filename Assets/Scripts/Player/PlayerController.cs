@@ -18,8 +18,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] GameObject camerHolder;
     [SerializeField] float mouseSensitivity, walkSpeed, smoothTime;
-    [SerializeField] GameObject CanSkill;
-    [SerializeField] GameObject CanSkillEffect;
+
 
     private PlayerManager playerManager;
     float rotation;
@@ -176,8 +175,12 @@ public class PlayerController : MonoBehaviour
                     break;
                 case 3:
                     /*Can Skill*/
-                    CanSkill.SetActive(true);
-                    CanSkillEffect.SetActive(true);
+                    //CanSkill.SetActive(true);
+                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CanSkillOn(gameObject.name);
+                    Debug.Log("CanOn");
+                    //CanSkillEffect.SetActive(true);
+                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CanSkillEffectOn(gameObject.name);
+                    Debug.Log("CanEffectOn");
                     OnGetPlayer();
                     _bAbilityOn = true;
                     break;
@@ -200,7 +203,10 @@ public class PlayerController : MonoBehaviour
                     break;
                 case 2:
                     playerManager.animator.SetTrigger("Skill");
-                    gameObject.transform.GetChild(8).gameObject.SetActive(true);
+
+                    //gameObject.transform.GetChild(8).gameObject.SetActive(true);
+                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().ChocolateSkillOn(gameObject.name);
+
                     gameObject.transform.GetChild(4).gameObject.SetActive(false);
                     gameObject.transform.GetChild(5).gameObject.SetActive(true);
                     _bIntoCold = true;
@@ -288,11 +294,6 @@ public class PlayerController : MonoBehaviour
                     skillColdBtn.SetActive(true);
                     skillCold += Time.deltaTime;
                     skillColdBtn.GetComponent<Image>().fillAmount += Time.deltaTime / 5.0f;
-                    if((int)hash["Charactor"] == 3)
-                    {
-                        CanSkill.SetActive(false);
-                        CanSkillEffect.SetActive(false);
-                    }
                     if (skillCold >= 5.0f)
                     {
                         skillTime = 0.0f;
@@ -738,7 +739,10 @@ public class PlayerController : MonoBehaviour
     public void Close_wall()
     {
         PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "chocolatewall"), gameObject.transform.GetChild(4).position, gameObject.transform.GetChild(4).rotation);
-        gameObject.transform.GetChild(8).gameObject.SetActive(false);
+
+        //gameObject.transform.GetChild(8).gameObject.SetActive(false);
+        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().ChocolateSkillOff(gameObject.name);
+
         gameObject.transform.GetChild(5).gameObject.SetActive(false);
     }
     /*Can Skill*/
@@ -781,6 +785,14 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+    public void CanEffectClose()
+    {
+        //CanSkill.SetActive(false);
+        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CanSkillOff(gameObject.name);
+
+        //CanSkillEffect.SetActive(false);
+        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CanSkillEffectOff(gameObject.name);
     }
 }
 

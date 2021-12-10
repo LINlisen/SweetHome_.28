@@ -32,13 +32,24 @@ public class RaiseEvent : MonoBehaviourPun
     private const byte SPEEDUP_GROUND_ON = 13; //加速地板特效 index 7
     private const byte SPEEDUP_GROUND_OFF = 14; //加速地板特效 index 7
     private const byte WOUNDED_ON = 15; //被撞倒暈眩特效 index 9
-    private const byte WOUNDED_OFF = 16; //被撞倒暈眩特效 index 9 
+    private const byte WOUNDED_OFF = 16; //被撞倒暈眩特效 index 9
+
     /*Candy Area*/
     private const byte CANDYSHOOT_PON = 17;
     private const byte CANDYSHOOT_POFF = 18;
     private const byte CANDYSHOOT_DELETE = 19;
     private const byte CANDY_SKILL_ON = 20; //Candy 施放技能特效 index 5
     private const byte CANDY_SKILL_OFF = 21; //Candy 施放技能特效 index 5
+
+    /*Chocolate Area*/
+    private const byte CHOCOLATE_SKILL_ON = 22;  //Chocolate 施放技能特效 index 8
+    private const byte CHOCOLATE_SKILL_OFF = 23; //Chocolate 施放技能特效 index 8
+
+    /*Can Area*/
+    private const byte CAN_SKILL_ON = 24;  //Can 施放技能特效 index 4
+    private const byte CAN_SKILL_OFF = 25; //Can 施放技能特效 index 4
+    private const byte CAN_SKILL_EFFECT_ON = 26;  //Can 施放技能特效 index 5
+    private const byte CAN_SKILL_EFFECT_OFF = 27; //Can 施放技能特效 index 5
 
     int TeamBlueExcaper = 0;
     int TeamRedExcaper = 0;
@@ -248,6 +259,46 @@ public class RaiseEvent : MonoBehaviourPun
             GameObject.Find(Name).gameObject.transform.GetChild(5).gameObject.SetActive(false);
         }
 
+        /*巧克力特效*/
+        if (obj.Code == CHOCOLATE_SKILL_ON)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            GameObject.Find(Name).gameObject.transform.GetChild(8).gameObject.SetActive(true);
+        }
+        if (obj.Code == CHOCOLATE_SKILL_OFF)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            GameObject.Find(Name).gameObject.transform.GetChild(8).gameObject.SetActive(false);
+        }
+
+        /*巧克力特效*/
+        if (obj.Code == CAN_SKILL_ON)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            GameObject.Find(Name).gameObject.transform.GetChild(4).gameObject.SetActive(true);
+        }
+        if (obj.Code == CAN_SKILL_OFF)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            GameObject.Find(Name).gameObject.transform.GetChild(4).gameObject.SetActive(false);
+        }
+        if (obj.Code == CAN_SKILL_EFFECT_ON)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            GameObject.Find(Name).gameObject.transform.GetChild(5).gameObject.SetActive(true);
+        }
+        if (obj.Code == CAN_SKILL_EFFECT_OFF)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            GameObject.Find(Name).gameObject.transform.GetChild(5).gameObject.SetActive(false);
+        }
+
     }
 
 
@@ -438,6 +489,46 @@ public class RaiseEvent : MonoBehaviourPun
         object[] datas = new object[] { PlayerName };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(CANDY_SKILL_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+
+    /*巧克力技能施放特效*/
+    public void ChocolateSkillOn(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(CHOCOLATE_SKILL_ON, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void ChocolateSkillOff(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(CHOCOLATE_SKILL_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+
+    /*易開罐技能施放特效*/
+    public void CanSkillOn(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(CAN_SKILL_ON, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void CanSkillOff(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(CAN_SKILL_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void CanSkillEffectOn(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(CAN_SKILL_EFFECT_ON, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void CanSkillEffectOff(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(CAN_SKILL_EFFECT_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
     }
 
     IEnumerator Coroutine(float sec)

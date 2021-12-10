@@ -29,7 +29,8 @@ public class ChooseCharactor : MonoBehaviour
                 public GameObject ChocolateModel;
                 public GameObject CanModel;
                 public GameObject IceModel;
-            }   
+            }
+    private GameObject Model;
     private Charactor Candy;
     private Charactor Chocolate;
     private Charactor Can;
@@ -83,7 +84,7 @@ public class ChooseCharactor : MonoBehaviour
                         }
                         Vector3 newobjectPos = new Vector3(0f, 0f, 0f);
                         Debug.Log(1);
-                        Instantiate(Models.CandyModel, UserChoose.CharactorModel.position, UserChoose.CharactorModel.rotation, UserChoose.CharactorModel);
+                        Model=Instantiate(Models.CandyModel, UserChoose.CharactorModel.position, UserChoose.CharactorModel.rotation, UserChoose.CharactorModel);
                         UserChoose.CharactorModel.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
                         UserChoose.CharactorModel.transform.position = new Vector3(1.5f, -0.5f, 10.3f);
                         _bCreated = true;
@@ -156,7 +157,7 @@ public class ChooseCharactor : MonoBehaviour
                         }
                         Debug.Log(3);
                         Instantiate(Models.IceModel, UserChoose.CharactorModel.position, UserChoose.CharactorModel.rotation, UserChoose.CharactorModel);
-                        UserChoose.CharactorModel.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                        UserChoose.CharactorModel.transform.localScale = new Vector3(1.4f, 1.4f, 1.4f);
                         UserChoose.CharactorModel.transform.position = new Vector3(10.7f, 1.6f, 83.6f);
                         _bCreated = true;
                     }
