@@ -11,42 +11,42 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material.001
-    second: {fileID: 2100000, guid: 4370daec8a6484ccc844c484e1f46ca8, type: 2}
+    second: {fileID: 2100000, guid: 56139456f0a064932856b05b91f5a299, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material.005
-    second: {fileID: 2100000, guid: 977eaa5c582e54f8a8565053a5b81b14, type: 2}
+    second: {fileID: 2100000, guid: 73c0b2e9f07f0424a9a9d4575cc1dfbf, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material.013
-    second: {fileID: 2100000, guid: a6eb8a9d5e570466da8bef944f060d51, type: 2}
+    second: {fileID: 2100000, guid: dac2e56fa959c4ea88582e0a73401070, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material.014
-    second: {fileID: 2100000, guid: 88a09ca55bb1f47e2aa3a094008fd440, type: 2}
+    second: {fileID: 2100000, guid: b38ac0634c69a4c65819bccf5a2b8aab, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material.015
-    second: {fileID: 2100000, guid: a9c944985e0214385a982de46da2aa9e, type: 2}
+    second: {fileID: 2100000, guid: 0dbf62a10cd3244038fbf212282bfa33, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material.016
-    second: {fileID: 2100000, guid: 8ed60445a362e4615ae337dc5233151d, type: 2}
+    second: {fileID: 2100000, guid: f635bb1bb7e46408e9dc51b0e41a1344, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material.017
-    second: {fileID: 2100000, guid: 053a4ca77a63b43dc8933ac4b4d32d4d, type: 2}
+    second: {fileID: 2100000, guid: 1d96cab471d4a4701b44a2a639459160, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: cone.001
-    second: {fileID: 2100000, guid: 9b3664080a7f5455899843044c1264db, type: 2}
+    second: {fileID: 2100000, guid: e2771301d66864f4b962cd15db71806b, type: 2}
   materials:
     materialImportMode: 1
     materialName: 2
@@ -73,7 +73,36 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Armature|icecreamidle
+      takeName: Armature|icecreamidle
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 79
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []

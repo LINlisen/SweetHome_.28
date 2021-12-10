@@ -42,7 +42,7 @@ public class MysticShot : MonoBehaviour
                 player = GameObject.Find("CanCharactor(Clone)").transform;
                 break;
             case 4:
-                player = GameObject.Find("CreamCharactor(Clone)").transform;
+                player = GameObject.Find("IceCharactor(Clone)").transform;
                 break;
         }
     }

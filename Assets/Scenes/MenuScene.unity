@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1868,7 +1868,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 792257424}
-        m_MethodName: 
+        m_MethodName: IceChoosed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1892,7 +1892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3919,6 +3919,8 @@ MonoBehaviour:
     ChocolateModel: {fileID: 919132149155446097, guid: d2fd825debfda40e3a52cdfaf659d5a5,
       type: 3}
     CanModel: {fileID: 919132149155446097, guid: 2ed75d142b4b4436896f4d6f2dc20265,
+      type: 3}
+    IceModel: {fileID: 919132149155446097, guid: fdd999ec7c11b46898c7dffeb3b9018b,
       type: 3}
   cb: {r: 183, g: 183, b: 183, a: 255}
 --- !u!4 &792257425

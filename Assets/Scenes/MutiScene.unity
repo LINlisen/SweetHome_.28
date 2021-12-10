@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12481,7 +12481,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 916981571}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -14194,7 +14194,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 916981571}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -14880,6 +14880,7 @@ RectTransform:
   m_Children:
   - {fileID: 100708784}
   - {fileID: 1814501942}
+  - {fileID: 1018167165}
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14906,6 +14907,7 @@ MonoBehaviour:
   ChocolateSprite: {fileID: 21300000, guid: 152f539373e2a4d238b538a663f8354a, type: 3}
   CanSprite: {fileID: 21300000, guid: 7f7447d5b73174f0196b19313b68ece7, type: 3}
   CreamSprite: {fileID: 21300000, guid: 56ae3ddbe22b7450fbd8e158a966a4b2, type: 3}
+  IceSprite: {fileID: 21300000, guid: 56ae3ddbe22b7450fbd8e158a966a4b2, type: 3}
   DashSprite: {fileID: 21300000, guid: 66015938d99324ccf812c6c46fa33ec6, type: 3}
 --- !u!1 &786406615
 GameObject:
@@ -16337,7 +16339,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 131862026}
-  - {fileID: 1018167165}
   - {fileID: 651492613}
   - {fileID: 2117436858}
   - {fileID: 2018957149}
@@ -16370,6 +16371,7 @@ MonoBehaviour:
   ChocolateSprite: {fileID: 21300000, guid: 152f539373e2a4d238b538a663f8354a, type: 3}
   CanSprite: {fileID: 21300000, guid: 7f7447d5b73174f0196b19313b68ece7, type: 3}
   CreamSprite: {fileID: 21300000, guid: 56ae3ddbe22b7450fbd8e158a966a4b2, type: 3}
+  IceSprite: {fileID: 0}
   DashSprite: {fileID: 21300000, guid: 66015938d99324ccf812c6c46fa33ec6, type: 3}
 --- !u!1 &939042192
 GameObject:
@@ -17105,15 +17107,15 @@ RectTransform:
   m_GameObject: {fileID: 1018167162}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6, y: 1.6, z: 1.6}
+  m_LocalScale: {x: 0.29629633, y: 0.29629633, z: 0.29629633}
   m_Children: []
-  m_Father: {fileID: 916981571}
-  m_RootOrder: 1
+  m_Father: {fileID: 785550146}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -94}
-  m_SizeDelta: {x: 0, y: -188}
+  m_AnchoredPosition: {x: -896, y: -431.4074}
+  m_SizeDelta: {x: 545.3911, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1018167166
 Animator:
@@ -20125,7 +20127,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 916981571}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -27274,7 +27276,7 @@ Transform:
   m_GameObject: {fileID: 2016979978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 4.6, z: -87}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.14222, y: 2, z: 1.7778}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 17
@@ -27404,7 +27406,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 916981571}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -27714,7 +27716,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 916981571}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -28550,7 +28552,7 @@ RectTransform:
   m_Children:
   - {fileID: 251155473}
   m_Father: {fileID: 916981571}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

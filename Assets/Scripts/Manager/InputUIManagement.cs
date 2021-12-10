@@ -23,6 +23,8 @@ public class InputUIManagement : MonoBehaviour
     [SerializeField]
     public Sprite CreamSprite;
     [SerializeField]
+    public Sprite IceSprite;
+    [SerializeField]
     public Sprite DashSprite;
 
     void Awake()
@@ -48,6 +50,10 @@ public class InputUIManagement : MonoBehaviour
             case 3:
                 skillImg.sprite = CanSprite;
                 coldBtn.sprite = CanSprite;
+                break;
+            case 4:
+                skillImg.sprite = IceSprite;
+                coldBtn.sprite = IceSprite;
                 break;
         }
     }

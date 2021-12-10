@@ -28,11 +28,12 @@ public class ChooseCharactor : MonoBehaviour
                 public GameObject CandyModel;
                 public GameObject ChocolateModel;
                 public GameObject CanModel;
-                //public GameObject CandyModel;
+                public GameObject IceModel;
             }   
     private Charactor Candy;
     private Charactor Chocolate;
     private Charactor Can;
+    private Charactor Ice;
     public Button CandyButton;
     public Button ChocolateButton;
     public Button CanButton;
@@ -136,6 +137,30 @@ public class ChooseCharactor : MonoBehaviour
                         _bCreated = true;
                     }
                     break;
+                case 4:
+                    hash["Charactor"] = 4;
+                    CandyButton.GetComponent<Image>().color = Color.gray;
+                    ChocolateButton.GetComponent<Image>().color = Color.gray;
+                    CanButton.GetComponent<Image>().color = Color.gray;
+                    IceCreamButton.GetComponent<Image>().color = Color.white;
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                    UserChoose.Id = Ice.Id;
+                    UserChoose.Name.text = "莉莉安";
+                    UserChoose.Introduction.text = "技能效果：玩家擁有三發冰淇淋,當15秒內連續擊中敵人兩發時會造成緩速2秒,在三發射完後進入冷卻。技能增強：緩速效果變成暈眩效果。";
+                    if (!_bCreated)
+                    {
+                        if (UserChoose.CharactorModel.childCount != 0)
+                        {
+                            GameObject pre = UserChoose.CharactorModel.GetChild(0).gameObject;
+                            Destroy(pre);
+                        }
+                        Debug.Log(3);
+                        Instantiate(Models.IceModel, UserChoose.CharactorModel.position, UserChoose.CharactorModel.rotation, UserChoose.CharactorModel);
+                        UserChoose.CharactorModel.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                        UserChoose.CharactorModel.transform.position = new Vector3(10.7f, 1.6f, 83.6f);
+                        _bCreated = true;
+                    }
+                    break;
             }
         }
         else
@@ -180,10 +205,16 @@ public class ChooseCharactor : MonoBehaviour
         //Debug.Log("Choose 3");
         _bCreated = false;
     }
+    public void IceChoosed()
+    {
+        Input.charactor_id = 4;
+        //Debug.Log("Choose 3");
+        _bCreated = false;
+    }
     public void NextBtn()
     {
         _bCreated = false;
-        if (Input.charactor_id == 3)
+        if (Input.charactor_id == 4)
         {
             Input.charactor_id = 1;
         }
@@ -197,7 +228,7 @@ public class ChooseCharactor : MonoBehaviour
         _bCreated = false;
         if (Input.charactor_id == 1)
         {
-            Input.charactor_id = 3;
+            Input.charactor_id = 4;
         }
         else
         {
