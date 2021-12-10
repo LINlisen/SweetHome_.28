@@ -40,7 +40,7 @@ public class DoorTrigger : MonoBehaviour
         else
         {
             //Debug.Log((bool)isopen["DoorState"]);
-            if ((bool)isopen["DoorState"])
+            if ((bool)isopen["DoorState"] && playerHere == true)
             {
                 if (Door.transform.position.y < maxOpen)//move LeftRight
                 {
@@ -67,6 +67,7 @@ public class DoorTrigger : MonoBehaviour
             dooropen["DoorState"] = true;
             PhotonNetwork.CurrentRoom.SetCustomProperties(dooropen);
         }
+        
     }
     private void OnTriggerExit(Collider col)
     {
