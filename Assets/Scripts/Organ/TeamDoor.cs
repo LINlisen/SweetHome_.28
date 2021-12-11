@@ -6,15 +6,32 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class TeamDoor : MonoBehaviour
 {
 
-
     private bool IsRedTeam;
+    private bool IsBlueTeam;
+
+    [SerializeField] public bool BlueDoor;
+
     public GameObject theDoor;
     Hashtable hash;
     void Start()
     {
 
         hash = PhotonNetwork.LocalPlayer.CustomProperties;
-        IsRedTeam = false;
+        switch ((int)hash["WhichTeam"])
+        {
+            case 0://blue team
+                
+                
+                break;
+
+            case 1://red team
+                
+                
+                break;
+
+        }
+        
+
     }
 
     
@@ -23,9 +40,18 @@ public class TeamDoor : MonoBehaviour
         //Debug.Log(IsRedTeam);
         if (IsRedTeam==true)
         {
-            
-            theDoor.GetComponent<BoxCollider>().enabled = false;
-
+            if (!BlueDoor)
+            {
+                theDoor.GetComponent<BoxCollider>().enabled = false;
+            }
+        }
+        if (IsBlueTeam == true)
+        {
+            if (BlueDoor)
+            {
+                theDoor.GetComponent<BoxCollider>().enabled = false;
+            }
+           
         }
     }
 
@@ -37,7 +63,11 @@ public class TeamDoor : MonoBehaviour
             {
                 IsRedTeam = true;
             }
-           
+            if ((int)hash["WhichTeam"] == 0)
+            {
+                IsBlueTeam = true;
+            }
+
         }
     }
 }
