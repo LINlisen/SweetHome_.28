@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     public float dashDuration;// 控制冲刺时间
     private Vector3 directionXOZ;
     public float dashSpeed;// 冲刺速度
+    public AudioSource DashSound;
     //Skill
     bool _bIsSkill = false;
     bool _bIntoCold = false;
@@ -42,6 +43,8 @@ public class PlayerController : MonoBehaviour
     private float skillDuration;
     private SkillManager skillManager;
     public AudioSource SkillSound;
+    public AudioSource SkillGenerateSound;
+    public AudioSource SkillShootSound;
     /*Candy Ability*/
     private Vector3[] CandyShootDir = new Vector3[4];
     private GameObject[] CandyShootList = new GameObject[4];
@@ -145,7 +148,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Dash()
     {
-
+        DashSound.Play();
         _bIsDash = true;
         playerManager.animator.SetBool("Dash", true);
         directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
@@ -165,7 +168,9 @@ public class PlayerController : MonoBehaviour
             switch ((int)hash["Charactor"])
             {
                 case 1:
-                    for(int i = 0; i<4; i++)
+                    SkillSound.Play();
+                    SkillGenerateSound.Play();
+                    for (int i = 0; i<4; i++)
                     {
                         CandyShootList[i] = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Candy_Shoot"), gameObject.transform.GetChild(4).GetChild(i).position, gameObject.transform.GetChild(4).GetChild(i).rotation);
                         CandyShoot[i] = false;
@@ -194,7 +199,8 @@ public class PlayerController : MonoBehaviour
                     _bAbilityOn = true;
                     break;
                 case 4:
-                    for(int i = 0; i<3; i++)
+                    SkillSound.Play();
+                    for (int i = 0; i<3; i++)
                     {
                         IceBall[i] = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "IceBall"), gameObject.transform.GetChild(4).position + new Vector3(0,i*2,0), gameObject.transform.rotation);
                         IceBallShoot[i] = false;
@@ -210,6 +216,7 @@ public class PlayerController : MonoBehaviour
             switch ((int)hash["Charactor"])
             {
                 case 1:
+                    SkillShootSound.Play();
                     directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
                     directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
                     CandyShoot[CandyShootNum] = true;
@@ -233,6 +240,7 @@ public class PlayerController : MonoBehaviour
                 case 3:
                     break;
                 case 4:
+                    SkillShootSound.Play();
                     directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
                     directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
                     IceBallShoot[IceBallShootNum] = true;
