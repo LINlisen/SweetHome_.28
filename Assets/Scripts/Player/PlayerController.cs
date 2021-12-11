@@ -43,9 +43,10 @@ public class PlayerController : MonoBehaviour
     private SkillManager skillManager;
     public AudioSource SkillSound;
     /*Candy Ability*/
-    private Vector3[] shootDir = new Vector3[4];
-    private GameObject CandyShootList;
-
+    private Vector3[] CandyShootDir = new Vector3[4];
+    private GameObject[] CandyShootList = new GameObject[4];
+    private bool[] CandyShoot = new bool[4];
+    private int CandyShootNum = 0;
     /*Chocolate Ability*/
     private int WallNum = 0;
 
@@ -53,7 +54,7 @@ public class PlayerController : MonoBehaviour
     private GameObject[] IceBall = new GameObject[3];
     private Vector3[] IceShootDir = new Vector3[3];
     private bool[] IceBallShoot = new bool[3];
-    private int IceBallNotShootNum = 0;
+    private int IceBallShootNum = 0;
     // Start is called before the first frame update
 
     public CharacterController playerController;
@@ -164,18 +165,16 @@ public class PlayerController : MonoBehaviour
             switch ((int)hash["Charactor"])
             {
                 case 1:
-                    for(int i =0;i <4; i++)
+                    for(int i = 0; i<4; i++)
                     {
-                        gameObject.transform.GetChild(4).transform.GetChild(i).gameObject.SetActive(true);
+                        CandyShootList[i] = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Candy_Shoot"), gameObject.transform.GetChild(4).GetChild(i).position, gameObject.transform.GetChild(4).GetChild(i).rotation);
+                        CandyShoot[i] = false;
                     }
-                    //gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                    CandyShootList = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandySkill"), gameObject.transform.localPosition, gameObject.transform.rotation);
-                    CandyShootList.transform.position = gameObject.transform.GetChild(0).position;
-
-                    //gameObject.transform.GetChild(5).gameObject.SetActive(true);
+                    for(int i = 1; i< 4; i++)
+                    {
+                        CandyShootList[i].gameObject.SetActive(false);
+                    }
                     GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandySkillOn(gameObject.name);
-
-                    skillManager._tLittleCandy.gameObject.SetActive(true);
                     _bAbilityOn = true;
                     break;
                 case 2:
@@ -211,12 +210,15 @@ public class PlayerController : MonoBehaviour
             switch ((int)hash["Charactor"])
             {
                 case 1:
-                    skillManager._iLittleCandyNum -= 1;
-                    skillManager._tLittleCandy.text = skillManager._iLittleCandyNum.ToString();
-                    CandyShoot(skillManager._iLittleCandyNum);
                     directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
                     directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
-                    shootDir[skillManager._iLittleCandyNum] = -directionXOZ;
+                    CandyShoot[CandyShootNum] = true;
+                    CandyShootDir[CandyShootNum] = -directionXOZ;
+                    CandyShootNum++;
+                    if(CandyShootNum < 4)
+                    {
+                        CandyShootList[CandyShootNum].gameObject.SetActive(true);
+                    }
                     break;
                 case 2:
                     playerManager.animator.SetTrigger("Skill");
@@ -233,10 +235,10 @@ public class PlayerController : MonoBehaviour
                 case 4:
                     directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
                     directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
-                    IceBallShoot[IceBallNotShootNum] = true;
-                    IceShootDir[IceBallNotShootNum] = -directionXOZ;
+                    IceBallShoot[IceBallShootNum] = true;
+                    IceShootDir[IceBallShootNum] = -directionXOZ;
                     playerManager.animator.SetTrigger("Skill");
-                    IceBallNotShootNum++;
+                    IceBallShootNum++;
                     break;
             }
         }
@@ -296,14 +298,10 @@ public class PlayerController : MonoBehaviour
             /*Candy Ability Setting*/
             if ((int)hash["Charactor"] == 1)
             {
-                if (skillManager._iLittleCandyNum == 0)
+                if (CandyShootNum == 4)
                 {
                     _bIntoCold = true;
-                    skillManager._iLittleCandyNum = 4;
-                    skillManager._tLittleCandy.text = skillManager._iLittleCandyNum.ToString();
-                    skillManager._tLittleCandy.gameObject.SetActive(false);//Candy's Ability num
-
-                    //gameObject.transform.GetChild(5).gameObject.SetActive(false);
+                    CandyShootNum = 0;
                     GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandySkillOff(gameObject.name);
 
                 }
@@ -312,10 +310,10 @@ public class PlayerController : MonoBehaviour
             /*Ice Ability Setting*/
             if((int)hash["Charactor"] == 4)
             {
-                if(IceBallNotShootNum == 3)
+                if(IceBallShootNum == 3)
                 {
                     _bIntoCold = true;
-                    IceBallNotShootNum = 0;
+                    IceBallShootNum = 0;
                     GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceSkillOff(gameObject.name);
                 }
             }
@@ -338,13 +336,6 @@ public class PlayerController : MonoBehaviour
                         skillCold = 0.0f;
                         _bAbilityOn = false;
                         _bIntoCold = false;
-                        /*Candy Ability Setting*/
-                        if ((int)hash["Charactor"] == 1)
-                        {
-                            //gameObject.transform.GetChild(4).gameObject.SetActive(false);
-                            
-                        }
-                        /*Candy Ability Setting*/
                     }
                 }
             }
@@ -424,74 +415,64 @@ public class PlayerController : MonoBehaviour
             }
             /*Dash*/
             /*Candy's shoot open?*/
-            if(CandyShootList != null)
-            {
-                CandyShootList.transform.position = gameObject.transform.GetChild(0).position; 
-                CandyShootList.transform.rotation = gameObject.transform.rotation;
-            }
-            /*Candy's shoot*/
-            if (skillManager._bLittleCandyZero && skillManager._fCountZero < 5)
-            {
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootParticleOn("CandyShootList", 0);
-                //CandyShootList.transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(true);
-                CandyShootList.transform.GetChild(0).position += shootDir[0];
-                skillManager._fCountZero += Time.deltaTime;
-            }
-            else if (skillManager._fCountZero > 5)
-            {
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootParticleOff("CandyShootList", 0);
-                //CandyShootList.transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(false);
-                skillManager._fCountZero = 0;
-                CandyShootList.transform.GetChild(0).gameObject.SetActive(false);
-                skillManager._bLittleCandyZero = false;
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandShootDelete();
-            }
-            if (skillManager._bLittleCandyOne && skillManager._fCountOne < 5)
-            {
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootParticleOn("CandyShootList", 1);
-                //CandyShootList.transform.GetChild(1).transform.GetChild(0).gameObject.SetActive(true);
-                CandyShootList.transform.GetChild(1).position += shootDir[1];
-                skillManager._fCountOne += Time.deltaTime;
-            }
-            else if (skillManager._fCountOne > 5)
-            {
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootParticleOff("CandyShootList", 1);
-                //CandyShootList.transform.GetChild(1).transform.GetChild(0).gameObject.SetActive(false);
-                skillManager._fCountOne = 0;
-                CandyShootList.transform.GetChild(1).gameObject.SetActive(false);
-                skillManager._bLittleCandyOne = false;
-            }
-            if (skillManager._bLittleCandyTwo && skillManager._fCountTwo < 5)
-            {
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootParticleOn("CandyShootList", 2);
-                //CandyShootList.transform.GetChild(2).transform.GetChild(0).gameObject.SetActive(true);
-                CandyShootList.transform.GetChild(2).position += shootDir[2];
-                skillManager._fCountTwo += Time.deltaTime;
-            }
-            else if (skillManager._fCountTwo > 5)
-            {
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootParticleOff("CandyShootList", 2);
-                //CandyShootList.transform.GetChild(2).transform.GetChild(0).gameObject.SetActive(false);
-                skillManager._fCountTwo = 0;
-                CandyShootList.transform.GetChild(2).gameObject.SetActive(false);
-                skillManager._bLittleCandyTwo = false;
-            }
-            if (skillManager._bLittleCandyThree && skillManager._fCountThree < 5)
-            {
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootParticleOn("CandyShootList", 3);
-                //CandyShootList.transform.GetChild(3).transform.GetChild(0).gameObject.SetActive(true);
-                CandyShootList.transform.GetChild(3).position += shootDir[3];
-                skillManager._fCountThree += Time.deltaTime;
-            }
-            else if (skillManager._fCountThree > 5)
-            {
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootParticleOff("CandyShootList", 3);
-                //CandyShootList.transform.GetChild(3).transform.GetChild(0).gameObject.SetActive(false);
-                skillManager._fCountThree = 0;
-                CandyShootList.transform.GetChild(3).gameObject.SetActive(false);
-                skillManager._bLittleCandyThree = false;
-            }
 
+            /*Candy's shoot*/
+            if (CandyShoot[0])
+            {
+                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootParticleOn(CandyShootList[0].name);
+                CandyShootList[0].transform.position += CandyShootDir[0];
+                StartCoroutine(CandyShootFun(0));
+            }
+            else
+            {
+                if (CandyShootList[0] != null)
+                {
+                    CandyShootList[0].transform.position = gameObject.transform.GetChild(4).GetChild(0).position;
+                    CandyShootList[0].transform.rotation = gameObject.transform.GetChild(4).GetChild(0).rotation;
+                }
+            }
+            if (CandyShoot[1])
+            {
+                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootParticleOn(CandyShootList[1].name);
+                CandyShootList[1].transform.position += CandyShootDir[1];
+                StartCoroutine(CandyShootFun(1));
+            }
+            else
+            {
+                if (CandyShootList[1] != null)
+                {
+                    CandyShootList[1].transform.position = gameObject.transform.GetChild(4).GetChild(1).position;
+                    CandyShootList[1].transform.rotation = gameObject.transform.GetChild(4).GetChild(1).rotation;
+                }
+            }
+            if (CandyShoot[2])
+            {
+                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootParticleOn(CandyShootList[2].name);
+                CandyShootList[2].transform.position += CandyShootDir[2];
+                StartCoroutine(CandyShootFun(2));
+            }
+            else
+            {
+                if (CandyShootList[2] != null)
+                {
+                    CandyShootList[2].transform.position = gameObject.transform.GetChild(4).GetChild(2).position;
+                    CandyShootList[2].transform.rotation = gameObject.transform.GetChild(4).GetChild(2).rotation;
+                }
+            }
+            if (CandyShoot[3])
+            {
+                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootParticleOn(CandyShootList[3].name);
+                CandyShootList[3].transform.position += CandyShootDir[3];
+                StartCoroutine(CandyShootFun(3));
+            }
+            else
+            {
+                if (CandyShootList[3] != null)
+                {
+                    CandyShootList[3].transform.position = gameObject.transform.GetChild(4).GetChild(3).position;
+                    CandyShootList[3].transform.rotation = gameObject.transform.GetChild(4).GetChild(3).rotation;
+                }
+            }
             /*Ice Ability Setting*/
             if (IceBallShoot[0])
             {
@@ -823,26 +804,6 @@ public class PlayerController : MonoBehaviour
         playerController.Move(new Vector3(0, 100, 0));
         
     }
-    /*Candy's shoot*/
-    private void CandyShoot(int i)
-    {
-        switch (i)
-        {
-            case 0:
-                skillManager._bLittleCandyZero = true;
-                break;
-            case 1:
-                skillManager._bLittleCandyOne = true;
-                break;
-            case 2:
-                skillManager._bLittleCandyTwo= true;
-                break;
-            case 3:
-                skillManager._bLittleCandyThree = true;
-                break;
-
-        }
-    }
     /*Chocolate's Put   Ability animation events*/
     public void ChocolateWall_Put()
     {
@@ -944,7 +905,13 @@ public class PlayerController : MonoBehaviour
         GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SpeedUpOff(gameObject.name);
 
     }
-
+    IEnumerator CandyShootFun(int index)
+    {
+        //boost cooldown
+        yield return new WaitForSeconds(2);
+        Destroy(CandyShootList[index].gameObject);
+        CandyShoot[index] = false;
+    }
     IEnumerator IceBallShootFun(int index)
     {
         //boost cooldown
