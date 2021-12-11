@@ -20,13 +20,10 @@ public class TeamDoor : MonoBehaviour
         switch ((int)hash["WhichTeam"])
         {
             case 0://blue team
-                
-                
+                //Debug.Log("blueTeam");
                 break;
 
             case 1://red team
-                
-                
                 break;
 
         }
