@@ -51,6 +51,10 @@ public class RaiseEvent : MonoBehaviourPun
     private const byte CAN_SKILL_EFFECT_ON = 26;  //Can 施放技能特效 index 5
     private const byte CAN_SKILL_EFFECT_OFF = 27; //Can 施放技能特效 index 5
 
+    /*Ice Area*/
+    private const byte ICE_SKILL_ON = 28; //ICE 技能施放 index 5 
+    private const byte ICE_SKILL_OFF = 29; //ICE 技能施放 index 5 
+
     int TeamBlueExcaper = 0;
     int TeamRedExcaper = 0;
 
@@ -168,7 +172,8 @@ public class RaiseEvent : MonoBehaviourPun
                 string Playername = (string)datas[0];
 
                 GameObject.Find(Playername).GetComponent<Animator>().SetTrigger("Wounded");
-                StartCoroutine(SetWoundedFalse(3.0f, Playername));
+                //GameObject.Find(Playername).GetComponent<PlayerController>()._bWounded = false;
+                //StartCoroutine(SetWoundedFalse(3.0f, Playername));
             }
         }
         if (obj.Code == CANDYSHOOT_PON)
@@ -273,7 +278,7 @@ public class RaiseEvent : MonoBehaviourPun
             GameObject.Find(Name).gameObject.transform.GetChild(8).gameObject.SetActive(false);
         }
 
-        /*巧克力特效*/
+        /*易開罐特效*/
         if (obj.Code == CAN_SKILL_ON)
         {
             object[] datas = (object[])obj.CustomData;
@@ -299,6 +304,19 @@ public class RaiseEvent : MonoBehaviourPun
             GameObject.Find(Name).gameObject.transform.GetChild(5).gameObject.SetActive(false);
         }
 
+        /*冰淇淋特效*/
+        if (obj.Code == ICE_SKILL_ON)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            GameObject.Find(Name).gameObject.transform.GetChild(5).gameObject.SetActive(true);
+        }
+        if (obj.Code == ICE_SKILL_OFF)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            GameObject.Find(Name).gameObject.transform.GetChild(5).gameObject.SetActive(false);
+        }
     }
 
 
@@ -531,6 +549,20 @@ public class RaiseEvent : MonoBehaviourPun
         PhotonNetwork.RaiseEvent(CAN_SKILL_EFFECT_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
     }
 
+    /*冰淇淋技能施放特效*/
+    public void IceSkillOn(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(ICE_SKILL_ON, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void IceSkillOff(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(ICE_SKILL_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+
     IEnumerator Coroutine(float sec)
     {
         //Print the time of when the function is first called.
@@ -550,7 +582,7 @@ public class RaiseEvent : MonoBehaviourPun
         //yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(sec);
 
-        GameObject.Find(Playername).GetComponent<PlayerController>()._bWounded = false;
+        
         
         Debug.Log("_bPotionOutfalse");
         //After we have waited 5 seconds print the time again.

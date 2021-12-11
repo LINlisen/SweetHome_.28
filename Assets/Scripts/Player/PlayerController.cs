@@ -10,6 +10,7 @@ using UnityEngine.AI;
 using System.Linq;
 using Photon.Realtime;
 using System.IO;
+using UnityEngine.Playables;
 
 public class PlayerController : MonoBehaviour
 {
@@ -43,6 +44,15 @@ public class PlayerController : MonoBehaviour
     /*Candy Ability*/
     private Vector3[] shootDir = new Vector3[4];
     private GameObject CandyShootList;
+
+    /*Chocolate Ability*/
+    private int WallNum = 0;
+
+    /*Ice Ability*/
+    private GameObject[] IceBall = new GameObject[3];
+    private Vector3[] IceShootDir = new Vector3[3];
+    private bool[] IceBallShoot = new bool[3];
+    private int IceBallNotShootNum = 0;
     // Start is called before the first frame update
 
     public CharacterController playerController;
@@ -136,10 +146,6 @@ public class PlayerController : MonoBehaviour
         playerManager.animator.SetBool("Dash", true);
         directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
         directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
-
-
-
-
         TCKInput.SetControllerActive("dashBtn", false);
     }
     public void Skill()
@@ -148,7 +154,7 @@ public class PlayerController : MonoBehaviour
         if (!_bAbilityOn)
         {
             _bIsSkill = true;
-            if ((int)hash["Charactor"] != 2) //Chocolate技能施放動畫設定在按第二次技能鍵
+            if ((int)hash["Charactor"] != 2  && (int)hash["Charactor"] != 4) //Chocolate技能施放動畫設定在按第二次技能鍵
             {
                 playerManager.animator.SetTrigger("Skill");
             }
@@ -185,6 +191,13 @@ public class PlayerController : MonoBehaviour
                     _bAbilityOn = true;
                     break;
                 case 4:
+                    for(int i = 0; i<3; i++)
+                    {
+                        IceBall[i] = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "IceBall"), gameObject.transform.GetChild(4).position + new Vector3(0,i*2,0), gameObject.transform.rotation);
+                        IceBallShoot[i] = false;
+                    }
+                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceSkillOn(gameObject.name);
+                    _bAbilityOn = true;
                     break;
             }
         }
@@ -214,6 +227,12 @@ public class PlayerController : MonoBehaviour
                 case 3:
                     break;
                 case 4:
+                    directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
+                    directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
+                    IceBallShoot[IceBallNotShootNum] = true;
+                    IceShootDir[IceBallNotShootNum] = -directionXOZ;
+                    playerManager.animator.SetTrigger("Skill");
+                    IceBallNotShootNum++;
                     break;
             }
         }
@@ -286,6 +305,17 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
+            /*Ice Ability Setting*/
+            if((int)hash["Charactor"] == 4)
+            {
+                if(IceBallNotShootNum == 3)
+                {
+                    _bIntoCold = true;
+                    IceBallNotShootNum = 0;
+                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceSkillOff(gameObject.name);
+                }
+            }
+
             if (_bIsSkill == true)
             {
                 if (_bIntoCold) //Into cold time
@@ -314,8 +344,6 @@ public class PlayerController : MonoBehaviour
                     }
                 }
             }
-
-
             //Move();
 
             PlayerRotation(look.x, look.y);
@@ -459,6 +487,61 @@ public class PlayerController : MonoBehaviour
                 CandyShootList.transform.GetChild(3).gameObject.SetActive(false);
                 skillManager._bLittleCandyThree = false;
             }
+
+            /*Ice Ability Setting*/
+            if (IceBallShoot[0])
+            {
+                IceBall[0].transform.position += IceShootDir[0];
+                StartCoroutine(IceBallShootFun(0));
+            }
+            else
+            {
+                if(IceBall[0] != null)
+                {
+                    IceBall[0].transform.position = gameObject.transform.GetChild(4).position;
+                }
+            }
+            if (IceBallShoot[1])
+            {
+                IceBall[1].transform.position += IceShootDir[1];
+                StartCoroutine(IceBallShootFun(1));
+            }
+            else
+            {
+                if (IceBall[1] != null)
+                {
+                    if (IceBallShoot[0])
+                    {
+                        IceBall[1].transform.position = gameObject.transform.GetChild(4).position;
+                    }
+                    else
+                    {
+                        IceBall[1].transform.position = gameObject.transform.GetChild(4).position + new Vector3(0, 2, 0);
+                    }
+                    
+                }
+            }
+
+            if (IceBallShoot[2])
+            {
+                IceBall[2].transform.position += IceShootDir[2];
+                StartCoroutine(IceBallShootFun(2));
+            }
+            else
+            {
+                if (IceBall[2] != null)
+                {
+                    if (IceBallShoot[1])
+                    {
+                        IceBall[2].transform.position = gameObject.transform.GetChild(4).position;
+                    }
+                    else
+                    {
+                        IceBall[2].transform.position = gameObject.transform.GetChild(4).position + new Vector3(0, 4, 0);
+                    }
+                    
+                }
+            }
         }
         
 
@@ -473,7 +556,11 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-
+        /*ChocolateWallTrigger*/
+        if (other.gameObject.name == "ChocolateWallIsTrigger")
+        {
+            other.gameObject.GetComponentInParent<PlayableDirector>().Play();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -615,14 +702,31 @@ public class PlayerController : MonoBehaviour
         /*Candy Shoot*/
         if(other.gameObject.transform.tag == "CandyShoot")
         {
-
+            walkSpeed -= 5;
+            StartCoroutine("WalkSppedReset");
         }
-        /*ChocolateWallTrigger*/
-        if(other.gameObject.name == "ChocolateWallIsTrigger")
+        if (other.gameObject.tag == "ChocolateWall")
         {
-            
+            PhotonView photonView = PhotonView.Get(UpInformation);
+            if ((int)hash["Point"] != 0)
+            {
+                hash["Point"] = (int)hash["Point"] - 1;
+                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                photonView.RPC("losePoint", RpcTarget.All, (int)team["WhichTeam"]);
+                _bWounded = true;
+                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name, true);
+            }
+            else
+            {
+                _bWounded = true;
+                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name, false);
+            }
         }
-
+        if (other.gameObject.tag == "IceBall")
+        {
+            walkSpeed -= 5;
+            StartCoroutine("WalkSppedReset");
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -634,8 +738,6 @@ public class PlayerController : MonoBehaviour
     }
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (PV.IsMine)
-        {
             PhotonView photonView = PhotonView.Get(UpInformation);
             if (hit.gameObject.tag == "Player" && playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash") &&_bWounded == false)
             {
@@ -689,7 +791,7 @@ public class PlayerController : MonoBehaviour
                 Destroy(hit.gameObject);
             }
 
-        }
+        
     }
     public void ResetPost()
     {
@@ -697,19 +799,6 @@ public class PlayerController : MonoBehaviour
         Debug.Log("resetPos");
         playerController.Move(new Vector3(0, 100, 0));
         
-    }
-    /*Organ*/
-    IEnumerator BoostDuration()
-    {
-        //boost cooldown
-        yield return new WaitForSeconds(speedCooldown);
-        walkSpeed = normalSpeed;
-
-        //gameObject.transform.GetChild(6).gameObject.SetActive(false);//slowPad
-        //gameObject.transform.GetChild(7).gameObject.SetActive(false);//boostPad
-        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SpeedDwonOff(gameObject.name);
-        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SpeedUpOff(gameObject.name);
-
     }
     /*Candy's shoot*/
     private void CandyShoot(int i)
@@ -738,12 +827,35 @@ public class PlayerController : MonoBehaviour
     }
     public void Close_wall()
     {
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "chocolatewall"), gameObject.transform.GetChild(4).position, gameObject.transform.GetChild(4).rotation);
-
+        GameObject Wall;
+        Wall = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "chocolatewall"), gameObject.transform.GetChild(4).position, gameObject.transform.GetChild(4).rotation);
+        Wall.name = "wall" + WallNum.ToString();
+        WallNum++;
         //gameObject.transform.GetChild(8).gameObject.SetActive(false);
         GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().ChocolateSkillOff(gameObject.name);
 
         gameObject.transform.GetChild(5).gameObject.SetActive(false);
+    }
+
+    public void CA_WoundedSetFalse()
+    {
+        Debug.Log("callreset");
+        StartCoroutine(WoundedSetFalseCount());
+    }
+    public void CH_WoundedSetFalse()
+    {
+        Debug.Log("callreset");
+        StartCoroutine(WoundedSetFalseCount());
+    }
+    public void CAN_WoundedSetFalse()
+    {
+        Debug.Log("callreset");
+        StartCoroutine(WoundedSetFalseCount());
+    }
+    public void IC_WoundedSetFalse()
+    {
+        Debug.Log("callreset");
+        StartCoroutine(WoundedSetFalseCount());
     }
     /*Can Skill*/
     public void OnGetPlayer()
@@ -793,6 +905,44 @@ public class PlayerController : MonoBehaviour
 
         //CanSkillEffect.SetActive(false);
         GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CanSkillEffectOff(gameObject.name);
+    }
+    
+
+
+    IEnumerator BoostDuration()
+    {
+        //boost cooldown
+        yield return new WaitForSeconds(speedCooldown);
+        walkSpeed = normalSpeed;
+
+        //gameObject.transform.GetChild(6).gameObject.SetActive(false);//slowPad
+        //gameObject.transform.GetChild(7).gameObject.SetActive(false);//boostPad
+        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SpeedDwonOff(gameObject.name);
+        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SpeedUpOff(gameObject.name);
+
+    }
+
+    IEnumerator IceBallShootFun(int index)
+    {
+        //boost cooldown
+        yield return new WaitForSeconds(2);
+        Destroy(IceBall[index].gameObject);
+        IceBallShoot[index] = false;
+    }
+    IEnumerator WalkSppedReset(int index)
+    {
+        //boost cooldown
+        yield return new WaitForSeconds(3);
+        walkSpeed = normalSpeed;
+    }
+    IEnumerator WoundedSetFalseCount()
+    {
+        yield return new WaitForSeconds(3);
+        if (PV.IsMine)
+        {
+            _bWounded = false;
+            Debug.Log("reset");
+        }
     }
 }
 
