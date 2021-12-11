@@ -51,6 +51,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         roomhash.Add("LoadingProgress", 0);
         roomhash.Add("Choose", 0);
         roomhash.Add("StartGame", false);
+        roomhash.Add("GameOver", false);
         roomhash.Add("StartTime", 0);
         roomhash.Add("Player1", 0);
         roomhash.Add("Player2", 0);

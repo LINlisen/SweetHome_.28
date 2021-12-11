@@ -63,6 +63,7 @@ public class DoorTrigger : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
+            GameObject.Find("Audios/DoorOpen").GetComponent<AudioSource>().Play();
             playerHere = true;
             dooropen["DoorState"] = true;
             PhotonNetwork.CurrentRoom.SetCustomProperties(dooropen);

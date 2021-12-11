@@ -81,5 +81,9 @@ public class GameManagement : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LoadLevel(2);
         }
+        else if((bool)PhotonNetwork.CurrentRoom.CustomProperties["GameOver"] == true)
+        {
+            PhotonNetwork.LoadLevel(2);
+        }
     }
 }

@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     private GameObject skillColdBtn;
     private float skillDuration;
     private SkillManager skillManager;
+    public AudioSource SkillSound;
     /*Candy Ability*/
     private Vector3[] shootDir = new Vector3[4];
     private GameObject CandyShootList;
@@ -189,6 +190,7 @@ public class PlayerController : MonoBehaviour
                     //CanSkillEffect.SetActive(true);
                     GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CanSkillEffectOn(gameObject.name);
                     Debug.Log("CanEffectOn");
+                    SkillSound.Play();
                     OnGetPlayer();
                     _bAbilityOn = true;
                     break;
@@ -221,7 +223,7 @@ public class PlayerController : MonoBehaviour
 
                     //gameObject.transform.GetChild(8).gameObject.SetActive(true);
                     GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().ChocolateSkillOn(gameObject.name);
-
+                    SkillSound.Play();
                     gameObject.transform.GetChild(4).gameObject.SetActive(false);
                     gameObject.transform.GetChild(5).gameObject.SetActive(true);
                     _bIntoCold = true;
@@ -590,6 +592,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("SpeedBooster"))
         {
             walkSpeed = boostedSpeed;
+            GameObject.Find("Audios/SpeedBooster").GetComponent<AudioSource>().Play();
 
             //gameObject.transform.GetChild(7).gameObject.SetActive(true);
             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SpeedUpOn(gameObject.name);
@@ -642,6 +645,10 @@ public class PlayerController : MonoBehaviour
         //armor
         if (other.gameObject.tag == "armorTG")
         {
+            if (playerHasArmor == false)
+            {
+                GameObject.Find("Audios/Shield").GetComponent<AudioSource>().Play();
+            }
             playerHasArmor = true;
         }
         //jump Pad
@@ -719,6 +726,7 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.tag == "ChocolateWall")
         {
+            GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
             PhotonView photonView = PhotonView.Get(UpInformation);
             if ((int)hash["Point"] != 0)
             {
@@ -753,6 +761,7 @@ public class PlayerController : MonoBehaviour
             PhotonView photonView = PhotonView.Get(UpInformation);
             if (hit.gameObject.tag == "Player" && playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash") &&_bWounded == false)
             {
+                GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
                 if ((int)hash["Point"] != 0)
                 {
                     hash["Point"] = (int)hash["Point"] - 1;
@@ -771,6 +780,7 @@ public class PlayerController : MonoBehaviour
             //hit by the dangerStick or object, add [dangerStick] tag to access
             if (hit.gameObject.tag == "dangerStick" && _bWounded == false)
             {
+                GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
                 if ((int)hash["Point"] != 0)
                 {
                     hash["Point"] = (int)hash["Point"] - 1;
@@ -787,6 +797,7 @@ public class PlayerController : MonoBehaviour
             }
             if (hit.gameObject.tag == "ChocolateWall" && _bWounded == false)
             {
+                GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
                 if ((int)hash["Point"] != 0)
                 {
                     hash["Point"] = (int)hash["Point"] - 1;

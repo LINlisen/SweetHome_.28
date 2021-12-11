@@ -28,7 +28,7 @@ public class TimeController : MonoBehaviour
     private int BlueTeam;
 
     Hashtable time = new Hashtable();
-    Hashtable ctime = new Hashtable();
+    Hashtable roomhash = new Hashtable();
     Hashtable hash = new Hashtable();
 
     // Start is called before the first frame update
@@ -49,6 +49,7 @@ public class TimeController : MonoBehaviour
         CustomeValue.Add("TimerReady", true);
         PhotonNetwork.CurrentRoom.SetCustomProperties(time);
         PhotonNetwork.LocalPlayer.SetCustomProperties(CustomeValue);
+        roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
         RedTeam = 0;
         BlueTeam = 0;
         allSeconds = (minutes * 60) + seconds;
@@ -116,6 +117,11 @@ public class TimeController : MonoBehaviour
                     text_Timmer.gameObject.SetActive(false);
 
                     gameOver.SetActive(true);
+                    if(timerIncrementValue <= -2)
+                    {
+                        roomhash["GameOver"] = true;
+                        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+                    }
                 }
             }
         }
