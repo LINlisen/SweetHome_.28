@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] GameObject camerHolder;
     [SerializeField] float mouseSensitivity, walkSpeed, smoothTime;
-
+    
 
     private PlayerManager playerManager;
     float rotation;
@@ -81,7 +81,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject armor;
     //[SerializeField] private GameObject armorTag;
     private bool playerHasArmor;
-
+    //jump pad
+    [SerializeField] public float jumpPadHeight;
     //pad
     private GameObject plat;
     //rock
@@ -137,7 +138,8 @@ public class PlayerController : MonoBehaviour
         //armor
         armor.SetActive(false);
         playerHasArmor = false;
-
+        //jumpPad
+        jumpPadHeight = 5;
     }
     public void Dash()
     {
@@ -642,6 +644,16 @@ public class PlayerController : MonoBehaviour
         {
             playerHasArmor = true;
         }
+        //jump Pad
+        if (other.gameObject.tag == "JumpPad")
+        {
+            gameObject.transform.position = Vector3.zero;
+            Debug.Log("jumpPad");
+            playerController.Move(new Vector3(0, jumpPadHeight, 0));
+        }
+
+
+
         //Excape
         if (other.gameObject.tag == "ExitPortal")
         {

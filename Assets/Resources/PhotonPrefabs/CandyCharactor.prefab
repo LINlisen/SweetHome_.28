@@ -57850,6 +57850,7 @@ MonoBehaviour:
   maxAngle: 350
   minAngle: 15
   armor: {fileID: 7360618131214421170}
+  jumpPadHeight: 0
   rock: {fileID: 2316141889199578944, guid: 8552273b1f8994953818dcd15f8df05d, type: 3}
   TeamMate: {fileID: 0}
   Excaper: {fileID: 5721917780382347800}
