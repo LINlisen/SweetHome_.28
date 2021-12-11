@@ -169,7 +169,6 @@ public class PlayerController : MonoBehaviour
             {
                 case 1:
                     SkillSound.Play();
-                    SkillGenerateSound.Play();
                     for (int i = 0; i<4; i++)
                     {
                         CandyShootList[i] = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Candy_Shoot"), gameObject.transform.GetChild(4).GetChild(i).position, gameObject.transform.GetChild(4).GetChild(i).rotation);

@@ -117,7 +117,7 @@ public class TimeController : MonoBehaviour
                     text_Timmer.gameObject.SetActive(false);
 
                     gameOver.SetActive(true);
-                    if(timerIncrementValue <= -2)
+                    if(timerIncrementValue <= -1.6)
                     {
                         roomhash["GameOver"] = true;
                         PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);

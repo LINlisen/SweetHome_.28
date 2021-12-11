@@ -8311,9 +8311,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac67e1d353b34943a9fcdba348b93b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allSeconds: 30
-  minutes: 0
-  seconds: 30
+  allSeconds: 300
+  minutes: 5
+  seconds: 0
   text_Timmer: {fileID: 1734331292}
   text_Countdown: {fileID: 299072106}
   text_Waiting: {fileID: 2140508633}
@@ -15930,7 +15930,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8a777d6d66d1a3f46b751bf188786743, type: 3}
+  m_audioClip: {fileID: 8300000, guid: fdb7b452f5fc2ff46b7df963d713a8b1, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

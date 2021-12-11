@@ -14,11 +14,17 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         if (Instance)
         {
-            Destroy(gameObject);
-            return;
+            if (Instance != this)
+            {
+                Destroy(gameObject);
+                Instance = this;
+            }
+        }
+        else
+        {
+            Instance = this;
         }
         DontDestroyOnLoad(gameObject);
-        Instance = this;
     }
 
     public override void OnEnable()

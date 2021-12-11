@@ -48,30 +48,40 @@ public class Launcher : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        roomhash.Add("LoadingProgress", 0);
-        roomhash.Add("Choose", 0);
-        roomhash.Add("StartGame", false);
-        roomhash.Add("GameOver", false);
-        roomhash.Add("StartTime", 0);
-        roomhash.Add("Player1", 0);
-        roomhash.Add("Player2", 0);
-        roomhash.Add("Player3", 0);
-        roomhash.Add("Player4", 0);
-        roomhash.Add("BlueScore", 0);
-        roomhash.Add("RedScore", 0);
-        hash.Add("TimerReady", false);
-        hash.Add("Nickname", null);
-        hash.Add("WhichTeam", null); // 0為藍隊，1為紅隊
-        hash.Add("Loading", false);
-        hash.Add("Ready", false);
-        hash.Add("GetOut", false);
-        hash.Add("Blind", false);
-        hash.Add("Point", 0);
+        
         //MenuManager.Instance.OpenMenu("nickname");
         Debug.Log("Connecting To Master");
-        PhotonNetwork.ConnectUsingSettings();
-        InvokeRepeating("showHide", 1, 0.5f);
-        startGameHint.CrossFadeAlpha(0.0f, 0.0f, false);
+        if (!PhotonNetwork.IsConnected)
+        {
+            roomhash.Add("LoadingProgress", 0);
+            roomhash.Add("Choose", 0);
+            roomhash.Add("StartGame", false);
+            roomhash.Add("GameOver", false);
+            roomhash.Add("StartTime", 0);
+            roomhash.Add("Player1", 0);
+            roomhash.Add("Player2", 0);
+            roomhash.Add("Player3", 0);
+            roomhash.Add("Player4", 0);
+            roomhash.Add("BlueScore", 0);
+            roomhash.Add("RedScore", 0);
+            hash.Add("TimerReady", false);
+            hash.Add("Nickname", null);
+            hash.Add("WhichTeam", null); // 0為藍隊，1為紅隊
+            hash.Add("Loading", false);
+            hash.Add("Ready", false);
+            hash.Add("GetOut", false);
+            hash.Add("Blind", false);
+            hash.Add("Point", 0);
+            PhotonNetwork.ConnectUsingSettings();
+            InvokeRepeating("showHide", 1, 0.5f);
+            startGameHint.CrossFadeAlpha(0.0f, 0.0f, false);
+        }
+        else
+        {
+            Debug.Log(PhotonNetwork.InRoom);
+            OnJoinedRoom();
+        }
+        
     }
 
     void showHide()
