@@ -547,7 +547,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 102122, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_Name
-      value: Torch
+      value: Torch3
       objectReference: {fileID: 0}
     - target: {fileID: 102122, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_IsActive
@@ -936,15 +936,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a3e05bc930ad4e1789d5eb3addb5d90, type: 3}
---- !u!1 &6599326560812386904 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6a3e05bc930ad4e1789d5eb3addb5d90,
-    type: 3}
-  m_PrefabInstance: {fileID: 6292915555280680713}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5827187491336458466 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6a3e05bc930ad4e1789d5eb3addb5d90,
+    type: 3}
+  m_PrefabInstance: {fileID: 6292915555280680713}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6599326560812386904 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6a3e05bc930ad4e1789d5eb3addb5d90,
     type: 3}
   m_PrefabInstance: {fileID: 6292915555280680713}
   m_PrefabAsset: {fileID: 0}
@@ -957,7 +957,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 102122, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_Name
-      value: Torch
+      value: Torch1
       objectReference: {fileID: 0}
     - target: {fileID: 102122, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_IsActive
@@ -1034,7 +1034,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 102122, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_Name
-      value: Torch
+      value: Torch2
       objectReference: {fileID: 0}
     - target: {fileID: 102122, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_IsActive
@@ -1111,7 +1111,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 102122, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_Name
-      value: Torch
+      value: Torch4
       objectReference: {fileID: 0}
     - target: {fileID: 102122, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_IsActive
