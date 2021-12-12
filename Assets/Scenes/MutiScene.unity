@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11548,8 +11548,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2079.0002, y: 1031.4005}
-  m_SizeDelta: {x: 2849.037, y: 1268.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1018167166
 Animator:
@@ -11630,8 +11630,8 @@ Transform:
   - {fileID: 235675503}
   - {fileID: 52491651}
   - {fileID: 1793052876}
-  - {fileID: 543450651812583917}
   - {fileID: 1329420062}
+  - {fileID: 543450651812583917}
   - {fileID: 117118246}
   - {fileID: 1235907989}
   - {fileID: 997309122}
@@ -14546,7 +14546,7 @@ Transform:
   m_Children:
   - {fileID: 2044735134}
   m_Father: {fileID: 1023321776}
-  m_RootOrder: 34
+  m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1329420063
 BoxCollider:
