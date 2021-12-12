@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             Destroy(GetComponentInChildren<Camera>().gameObject);
-            Destroy(GetComponentInChildren<PlayerController>());
+            //Destroy(GetComponentInChildren<PlayerController>());
             //Destroy(playerController);
             //Destroy(rb);
         }
@@ -174,7 +174,10 @@ public class PlayerController : MonoBehaviour
                         CandyShootList[i] = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Candy_Shoot"), gameObject.transform.GetChild(4).GetChild(i).position, gameObject.transform.GetChild(4).GetChild(i).rotation);
                         CandyShoot[i] = false;
                     }
-                    
+                    for(int i = 1; i< 4; i++)
+                    {
+                        CandyShootList[i].gameObject.SetActive(false);
+                    }
                     GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandySkillOn(gameObject.name);
                     _bAbilityOn = true;
                     break;
