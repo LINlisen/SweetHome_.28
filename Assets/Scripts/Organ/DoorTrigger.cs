@@ -11,10 +11,12 @@ public class DoorTrigger : MonoBehaviour
     [SerializeField]
 
     public GameObject Door;
+    public GameObject doorSmoke;
 
     public float maxOpen = 5f;//max door height
     public float maxClose = 0f;
     public float doorSpeed = 5f;
+   
 
     bool playerHere;
     bool isOpened;
@@ -64,6 +66,7 @@ public class DoorTrigger : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             GameObject.Find("Audios/DoorOpen").GetComponent<AudioSource>().Play();
+            doorSmoke.SetActive(true);
             playerHere = true;
             dooropen["DoorState"] = true;
             PhotonNetwork.CurrentRoom.SetCustomProperties(dooropen);
@@ -76,6 +79,7 @@ public class DoorTrigger : MonoBehaviour
         {
             playerHere = false;
             dooropen["DoorState"] = false;
+            doorSmoke.SetActive(false);
             PhotonNetwork.CurrentRoom.SetCustomProperties(dooropen);
         }
     }
