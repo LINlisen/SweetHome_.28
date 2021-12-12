@@ -243,7 +243,7 @@ public class PlayerController : MonoBehaviour
                     directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
                     directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
                     IceBallShoot[IceBallShootNum] = true;
-                    IceShootDir[IceBallShootNum] = -directionXOZ;
+                    IceShootDir[IceBallShootNum] = -directionXOZ - new Vector3(0,1,0);
                     playerManager.animator.SetTrigger("Skill");
                     IceBallShootNum++;
                     break;
