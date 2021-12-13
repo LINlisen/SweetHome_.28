@@ -16,6 +16,7 @@ public class Result : MonoBehaviour
     [SerializeField] Text TeamWon;
 
     Hashtable roomhash = new Hashtable();
+    Hashtable hash = new Hashtable();
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +26,8 @@ public class Result : MonoBehaviour
         int redscore = 0;
         Player[] players = PhotonNetwork.PlayerList;
         roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
-        for(int i = 0; i < players.Count(); i++)
+        hash = PhotonNetwork.LocalPlayer.CustomProperties;
+        for (int i = 0; i < players.Count(); i++)
         {
             if ((int)players[i].CustomProperties["WhichTeam"] == 1)
             {
@@ -43,7 +45,7 @@ public class Result : MonoBehaviour
                     bluegetoutnumber++;
                 }
             }
-            
+
         }
         Debug.Log(bluescore);
         TeamBlueScore.text = bluescore.ToString();
@@ -60,7 +62,7 @@ public class Result : MonoBehaviour
         }
         else
         {
-            if ((int)roomhash["BlueScore"] > (int)roomhash["RedScore"]|| (int)roomhash["BlueScore"] == 25)
+            if ((int)roomhash["BlueScore"] > (int)roomhash["RedScore"] || (int)roomhash["BlueScore"] == 25)
             {
                 TeamWon.text = "藍隊";
             }
@@ -69,11 +71,29 @@ public class Result : MonoBehaviour
                 TeamWon.text = "紅隊";
             }
         }
+        roomhash["LoadingProgress"] = 0;
+        roomhash["Choose"] = 0;
+        roomhash["StartGame"] = false;
+        roomhash["GameOver"] = false;
+        roomhash["StartTime"] = 0;
+        roomhash["Player1"] = 0;
+        roomhash["Player2"] = 0;
+        roomhash["Player3"] = 0;
+        roomhash["Player4"] = 0;
+        roomhash["BlueScore"] = 0;
+        roomhash["RedScore"] = 0;
+        hash["TimerReady"] = false;
+        hash["Loading"] = false;
+        hash["Ready"] = false;
+        hash["GetOut"] = false;
+        hash["Point"] = 0;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        Destroy(RoomManager.Instance.gameObject);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

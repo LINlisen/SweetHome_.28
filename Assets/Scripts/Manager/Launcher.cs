@@ -78,12 +78,30 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
         else
         {
-            Debug.Log(PhotonNetwork.InRoom);
-            OnJoinedRoom();
+            RoomInfoRefresh();
+
         }
         
     }
 
+    void RoomInfoRefresh()
+    {
+        Debug.Log("Refresh RoomInfo");
+        MenuManager.Instance.OpenMenu("room");
+        Player[] players = PhotonNetwork.PlayerList;
+        for (int i = 0; i < PhotonNetwork.PlayerList.Count(); i++)
+        {
+            if ((int)players[i].CustomProperties["WhichTeam"] == 1)
+            {
+                Instantiate(PlayerListItemPrefab, RedListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
+            }
+            else
+            {
+                Instantiate(PlayerListItemPrefab, BlueListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
+            }
+        }
+        RoomNameText.text = PhotonNetwork.CurrentRoom.Name;
+    }
     void showHide()
     {
         if (ClickText.text == "")

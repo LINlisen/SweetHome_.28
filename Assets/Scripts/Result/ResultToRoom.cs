@@ -19,7 +19,6 @@ public class ResultToRoom : MonoBehaviour
 
     public void BackToRoom()
     {
-        Destroy(RoomManager.Instance.gameObject);
         PhotonNetwork.LoadLevel(0);
     }
 }
