@@ -58129,7 +58129,7 @@ MonoBehaviour:
   rotateVelocity: 0
   camerHolder: {fileID: 1968711252, guid: 32bdc632978528045814ca8dc2893c56, type: 3}
   mouseSensitivity: 10
-  walkSpeed: 20
+  walkSpeed: 22
   smoothTime: 0.15
   dashDuration: 1
   dashSpeed: 1.5
