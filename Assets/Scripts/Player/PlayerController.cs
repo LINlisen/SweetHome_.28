@@ -350,7 +350,7 @@ public class PlayerController : MonoBehaviour
             //Move();
             if (_bWounded)
             {
-                    playerManager.animator.SetTrigger("Wounded");
+              playerManager.animator.SetTrigger("Wounded");
             }
             PlayerRotation(look.x, look.y);
             //armor
@@ -958,7 +958,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator WoundedSetFalseCount(string name)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
         GameObject.Find(name).GetComponent<PlayerController>()._bWounded = false;
         if (GameObject.Find(name).GetComponent<PlayerController>()._bWounded)
         {
