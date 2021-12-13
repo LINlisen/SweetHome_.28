@@ -89,6 +89,7 @@ public class TimeController : MonoBehaviour
             if (timerIncrementValue == 0)
             {
                 text_Countdown.text = "Start !!";
+                GameObject.Find("Audios/AudioSourceBGM").GetComponent<AudioSource>().Play();
             }
             else if (timerIncrementValue < 0)
             {

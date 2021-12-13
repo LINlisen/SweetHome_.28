@@ -581,6 +581,8 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("SpeedBooster"))
         {
             walkSpeed = boostedSpeed;
+            
+            GameObject.Find("Audios/SpeedBooster").GetComponent<Transform>().position = other.gameObject.transform.position;
             GameObject.Find("Audios/SpeedBooster").GetComponent<AudioSource>().Play();
 
             //gameObject.transform.GetChild(7).gameObject.SetActive(true);

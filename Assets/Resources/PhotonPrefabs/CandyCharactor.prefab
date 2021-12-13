@@ -58138,7 +58138,7 @@ MonoBehaviour:
   SkillGenerateSound: {fileID: 7700776387468887470}
   SkillShootSound: {fileID: 7501056467473512357}
   playerController: {fileID: 8488325058980157827}
-  boostedSpeed: 22
+  boostedSpeed: 30
   speedCooldown: 2
   maxAngle: 350
   minAngle: 15
