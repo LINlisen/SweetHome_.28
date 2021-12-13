@@ -226,7 +226,7 @@ public class RaiseEvent : MonoBehaviourPun
             object[] datas = (object[])obj.CustomData;
             string Name = (string)datas[0];
             GameObject.Find(Name).gameObject.transform.GetChild(9).gameObject.SetActive(false);
-            SetWoundedFalse(5,Name);
+            
         }
         if(obj.Code == WOUNDED_TRIGGER_ON)
         {
@@ -288,7 +288,10 @@ public class RaiseEvent : MonoBehaviourPun
         }
         if (obj.Code == CANDYSHOOT_DELETE)
         {
-            Destroy(GameObject.Find("CandySkill(Clone)"));
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            int index = (int)datas[1];
+            Destroy(GameObject.Find(Name).GetComponent<PlayerController>().CandyShootList[index].gameObject);
         }
         /*巧克力特效*/
         if (obj.Code == CHOCOLATE_SKILL_ON)
@@ -502,7 +505,7 @@ public class RaiseEvent : MonoBehaviourPun
         object[] datas = new object[] { PlayerName };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(WOUNDED_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
-       
+        //SetWoundedFalse(5, PlayerName);
     }
     public void WoundedTriggerOn(string PlayerName)
     {
@@ -541,9 +544,9 @@ public class RaiseEvent : MonoBehaviourPun
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(CANDYSHOOT_POFF, datas, raiseEventOptions, SendOptions.SendReliable);
     }
-    public void CandyShootDelete()
+    public void CandyShootDelete(string Name ,int index)
     {
-        object[] datas = new object[] { };
+        object[] datas = new object[] {Name, index };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(CANDYSHOOT_DELETE, datas, raiseEventOptions, SendOptions.SendReliable);
     }
@@ -613,18 +616,18 @@ public class RaiseEvent : MonoBehaviourPun
         //After we have waited 5 seconds print the time again.
         Debug.Log("Finished Coroutine at timestamp : " + Time.time);
     }
-    IEnumerator SetWoundedFalse(float sec,string Playername)
-    {
-        //Print the time of when the function is first called.
-        Debug.Log("Started Coroutine at timestamp : " + Time.time);
+    //IEnumerator SetWoundedFalse(float sec,string Playername)
+    //{
+    //    //Print the time of when the function is first called.
+    //    Debug.Log("Started Coroutine at timestamp : " + Time.time);
 
-        //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(sec);
-        GameObject.Find(Playername).GetComponent<PlayerController>()._bWounded = false;
+    //    //yield on a new YieldInstruction that waits for 5 seconds.
+    //    yield return new WaitForSeconds(sec);
+    //    GameObject.Find(Playername).GetComponent<PlayerController>()._bWounded = false;
         
         
-        Debug.Log("_bPotionOutfalse");
-        //After we have waited 5 seconds print the time again.
-        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
-    }
+    //    Debug.Log("_bPotionOutfalse");
+    //    //After we have waited 5 seconds print the time again.
+    //    Debug.Log("Finished Coroutine at timestamp : " + Time.time);
+    //}
 }
