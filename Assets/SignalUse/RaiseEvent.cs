@@ -172,7 +172,7 @@ public class RaiseEvent : MonoBehaviourPun
                 object[] datas = (object[])obj.CustomData;
                 string Playername = (string)datas[0];
 
-                GameObject.Find(Playername).GetComponent<Animator>().SetTrigger("Wounded");
+                //GameObject.Find(Playername).GetComponent<Animator>().SetTrigger("Wounded");
                 //GameObject.Find(Playername).GetComponent<PlayerController>()._bWounded = false;
                 //StartCoroutine(SetWoundedFalse(3.0f, Playername));
             }

@@ -316,9 +316,9 @@ public class PlayerController : MonoBehaviour
             }
 
             /*Ice Ability Setting*/
-            if((int)hash["Charactor"] == 4)
+            if ((int)hash["Charactor"] == 4)
             {
-                if(IceBallShootNum == 3)
+                if (IceBallShootNum == 3)
                 {
                     _bIntoCold = true;
                     IceBallShootNum = 0;
@@ -348,7 +348,10 @@ public class PlayerController : MonoBehaviour
                 }
             }
             //Move();
-
+            if (_bWounded)
+            {
+                playerManager.animator.SetTrigger("Wounded");
+            }
             PlayerRotation(look.x, look.y);
             //armor
             if (playerHasArmor == true)
@@ -716,7 +719,7 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.transform.tag == "CandyShoot")
         {
             walkSpeed -= 5;
-            StartCoroutine("WalkSppedReset");
+            StartCoroutine("WalkSpeedReset");
         }
         if (other.gameObject.tag == "ChocolateWall")
         {
@@ -947,7 +950,7 @@ public class PlayerController : MonoBehaviour
         Destroy(IceBall[index].gameObject);
         IceBallShoot[index] = false;
     }
-    IEnumerator WalkSppedReset(int index)
+    IEnumerator WalkSpeedReset()
     {
         //boost cooldown
         yield return new WaitForSeconds(3);
