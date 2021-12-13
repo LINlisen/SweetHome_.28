@@ -33,7 +33,8 @@ public class RaiseEvent : MonoBehaviourPun
     private const byte SPEEDUP_GROUND_OFF = 14; //加速地板特效 index 7
     private const byte WOUNDED_ON = 15; //被撞倒暈眩特效 index 9
     private const byte WOUNDED_OFF = 16; //被撞倒暈眩特效 index 9
-
+    private const byte WOUNDED_TRIGGER_ON = 30; //被撞範圍設定 index
+    private const byte WOUNDED_TRIGGER_OFF = 31; //被撞範圍設定 index 
     /*Candy Area*/
     private const byte CANDYSHOOT_PON = 17;
     private const byte CANDYSHOOT_POFF = 18;
@@ -225,10 +226,37 @@ public class RaiseEvent : MonoBehaviourPun
             object[] datas = (object[])obj.CustomData;
             string Name = (string)datas[0];
             GameObject.Find(Name).gameObject.transform.GetChild(9).gameObject.SetActive(false);
+            SetWoundedFalse(5,Name);
         }
-
+        if(obj.Code == WOUNDED_TRIGGER_ON)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            if(Name == "IceCharactor(Clone)")
+            {
+                GameObject.Find(Name).gameObject.transform.GetChild(12).gameObject.SetActive(true);
+            }
+            else
+            {
+                GameObject.Find(Name).gameObject.transform.GetChild(10).gameObject.SetActive(true);
+            }
+            
+        }
+        if (obj.Code == WOUNDED_TRIGGER_OFF)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Name = (string)datas[0];
+            if (Name == "IceCharactor(Clone)")
+            {
+                GameObject.Find(Name).gameObject.transform.GetChild(12).gameObject.SetActive(false);
+            }
+            else
+            {
+                GameObject.Find(Name).gameObject.transform.GetChild(10).gameObject.SetActive(false);
+            }
+        }
         /*糖果特效*/
-        if(obj.Code == CANDY_SKILL_ON)
+        if (obj.Code == CANDY_SKILL_ON)
         {
             object[] datas = (object[])obj.CustomData;
             string Name = (string)datas[0];
@@ -474,8 +502,20 @@ public class RaiseEvent : MonoBehaviourPun
         object[] datas = new object[] { PlayerName };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(WOUNDED_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
+       
     }
-
+    public void WoundedTriggerOn(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(WOUNDED_TRIGGER_ON, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void WoundedTriggerOff(string PlayerName)
+    {
+        object[] datas = new object[] { PlayerName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(WOUNDED_TRIGGER_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
     /*糖果技能施放特效*/
     public void CandySkillOn(string PlayerName)
     {
@@ -580,7 +620,7 @@ public class RaiseEvent : MonoBehaviourPun
 
         //yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(sec);
-
+        GameObject.Find(Playername).GetComponent<PlayerController>()._bWounded = false;
         
         
         Debug.Log("_bPotionOutfalse");

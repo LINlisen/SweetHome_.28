@@ -154,6 +154,7 @@ public class PlayerController : MonoBehaviour
         directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
         directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
         TCKInput.SetControllerActive("dashBtn", false);
+        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().WoundedTriggerOn(gameObject.name);
     }
     public void Skill()
     {
@@ -277,6 +278,10 @@ public class PlayerController : MonoBehaviour
                         dahsColdBtn.SetActive(true);
                         dashTime += Time.deltaTime;
                         playerController.Move(-directionXOZ * dashTime * dashSpeed);
+                    }
+                    else
+                    {
+                        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().WoundedTriggerOff(gameObject.name);
                     }
                 }
                 else
@@ -741,61 +746,11 @@ public class PlayerController : MonoBehaviour
             walkSpeed -= 5;
             StartCoroutine("WalkSppedReset");
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.name == "toast")
+        if (other.gameObject.tag == "WoundedTrigger"  && _bWounded == false)
         {
-            GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(5).gameObject.SetActive(false);
-        }
-        /*Stop Icon set false*/
-        if (other.gameObject.name == "StopIconTrigger")
-        {
-            GameObject.Find("UpInformationCanvas").gameObject.transform.GetChild(11).gameObject.SetActive(false); 
-        }
-    }
-    void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-            PhotonView photonView = PhotonView.Get(UpInformation);
-            if (hit.gameObject.tag == "Player" && playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash") &&_bWounded == false)
-            {
-                GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
-                if ((int)hash["Point"] != 0)
-                {
-                    hash["Point"] = (int)hash["Point"] - 1;
-                    PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-                    photonView.RPC("losePoint", RpcTarget.All, (int)team["WhichTeam"]);
-                    _bWounded = true;
-                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name,true);
-                }
-                else
-                {
-                    _bWounded = true;
-                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, false);
-                }
-            }
-
-            //hit by the dangerStick or object, add [dangerStick] tag to access
-            if (hit.gameObject.tag == "dangerStick" && _bWounded == false)
-            {
-                GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
-                if ((int)hash["Point"] != 0)
-                {
-                    hash["Point"] = (int)hash["Point"] - 1;
-                    PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-                    photonView.RPC("losePoint", RpcTarget.All, (int)team["WhichTeam"]);
-                    _bWounded = true;
-                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name,true);
-                }
-                else
-                {
-                    _bWounded = true;
-                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name, false);
-                }
-            }
-            if (hit.gameObject.tag == "ChocolateWall" && _bWounded == false)
-            {
+            
+                PhotonView photonView = PhotonView.Get(UpInformation);
                 GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
                 if ((int)hash["Point"] != 0)
                 {
@@ -810,11 +765,82 @@ public class PlayerController : MonoBehaviour
                     _bWounded = true;
                     GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name, false);
                 }
-                Destroy(hit.gameObject);
-            }
-
+         }
         
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name == "toast")
+        {
+            GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(5).gameObject.SetActive(false);
+        }
+        /*Stop Icon set false*/
+        if (other.gameObject.name == "StopIconTrigger")
+        {
+            GameObject.Find("UpInformationCanvas").gameObject.transform.GetChild(11).gameObject.SetActive(false); 
+        }
+    }
+    //void OnControllerColliderHit(ControllerColliderHit hit)
+    //{
+    //        PhotonView photonView = PhotonView.Get(UpInformation);
+    //        if (hit.gameObject.tag == "Player" && playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash") &&_bWounded == false)
+    //        {
+    //            GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
+    //            if ((int)hash["Point"] != 0)
+    //            {
+    //                hash["Point"] = (int)hash["Point"] - 1;
+    //                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+    //                photonView.RPC("losePoint", RpcTarget.All, (int)team["WhichTeam"]);
+    //                _bWounded = true;
+    //                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name,true);
+    //            }
+    //            else
+    //            {
+    //                _bWounded = true;
+    //                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, false);
+    //            }
+    //        }
+
+    //        //hit by the dangerStick or object, add [dangerStick] tag to access
+    //        if (hit.gameObject.tag == "dangerStick" && _bWounded == false)
+    //        {
+    //            GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
+    //            if ((int)hash["Point"] != 0)
+    //            {
+    //                hash["Point"] = (int)hash["Point"] - 1;
+    //                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+    //                photonView.RPC("losePoint", RpcTarget.All, (int)team["WhichTeam"]);
+    //                _bWounded = true;
+    //                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name,true);
+    //            }
+    //            else
+    //            {
+    //                _bWounded = true;
+    //                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name, false);
+    //            }
+    //        }
+    //        if (hit.gameObject.tag == "ChocolateWall" && _bWounded == false)
+    //        {
+    //            GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
+    //            if ((int)hash["Point"] != 0)
+    //            {
+    //                hash["Point"] = (int)hash["Point"] - 1;
+    //                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+    //                photonView.RPC("losePoint", RpcTarget.All, (int)team["WhichTeam"]);
+    //                _bWounded = true;
+    //                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name, true);
+    //            }
+    //            else
+    //            {
+    //                _bWounded = true;
+    //                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name, false);
+    //            }
+    //            Destroy(hit.gameObject);
+    //        }
+
+        
+    //}
     public void ResetPost()
     {
         gameObject.transform.position = Vector3.zero;

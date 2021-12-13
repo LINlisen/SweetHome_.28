@@ -20,6 +20,7 @@ TagManager:
   - ChocolateWall
   - IceBall
   - jumpPad
+  - WoundedTrigger
   layers:
   - Default
   - TransparentFX
