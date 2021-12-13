@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour
         armor.SetActive(false);
         playerHasArmor = false;
         //jumpPad
-        jumpPadHeight = 5;
+        jumpPadHeight = 60;
     }
     public void Dash()
     {
@@ -582,7 +582,7 @@ public class PlayerController : MonoBehaviour
         {
             walkSpeed = boostedSpeed;
             
-            GameObject.Find("Audios/SpeedBooster").GetComponent<Transform>().position = other.gameObject.transform.position;
+            
             GameObject.Find("Audios/SpeedBooster").GetComponent<AudioSource>().Play();
 
             //gameObject.transform.GetChild(7).gameObject.SetActive(true);
@@ -643,7 +643,7 @@ public class PlayerController : MonoBehaviour
             playerHasArmor = true;
         }
         //jump Pad
-        if (other.gameObject.tag == "JumpPad")
+        if (other.gameObject.tag == "jumpPad")
         {
             gameObject.transform.position = Vector3.zero;
             Debug.Log("jumpPad");
