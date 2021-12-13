@@ -765,7 +765,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("撞到"+hit.gameObject.name);
                 if (playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash"))
                 {
-                    Debug.Log(playerManager.transform.parent.name + "被判斷是否dash");
+                    //Debug.Log(playerManager.transform.parent.name + "被判斷是否dash");
                     if (GameObject.Find(hit.gameObject.name).GetComponent<PlayerController>()._bWounded == false)
                     {
                         Debug.Log("_bWounded是false");
