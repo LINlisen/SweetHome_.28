@@ -65,6 +65,7 @@ public class DoorTrigger : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
+            GameObject.Find("Audios/DoorOpen").gameObject.transform.position = gameObject.transform.position;
             GameObject.Find("Audios/DoorOpen").GetComponent<AudioSource>().Play();
             doorSmoke.SetActive(true);
             playerHere = true;
