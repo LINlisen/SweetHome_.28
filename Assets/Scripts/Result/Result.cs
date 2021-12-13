@@ -88,6 +88,7 @@ public class Result : MonoBehaviour
         hash["GetOut"] = false;
         hash["Point"] = 0;
         PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
         Destroy(RoomManager.Instance.gameObject);
     }
 
