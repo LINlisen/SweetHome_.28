@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
     private int WallNum = 0;
 
     /*Ice Ability*/
-    private GameObject[] IceBall = new GameObject[3];
+    public GameObject[] IceBall = new GameObject[3];
     private Vector3[] IceShootDir = new Vector3[3];
     private bool[] IceBallShoot = new bool[3];
     private int IceBallShootNum = 0;
@@ -345,10 +345,12 @@ public class PlayerController : MonoBehaviour
                 }
             }
             //Move();
-            if (_bWounded)
-            {
-              playerManager.animator.SetTrigger("Wounded");
-            }
+            
+            //if (_bWounded)
+            //{
+            //  playerManager.animator.SetTrigger("Wounded");
+            //}
+
             PlayerRotation(look.x, look.y);
             //armor
             if (playerHasArmor == true)
@@ -958,14 +960,15 @@ public class PlayerController : MonoBehaviour
     {
         //boost cooldown
         yield return new WaitForSeconds(2);
-        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootDelete(gameObject.name,index);
+        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootDelete(CandyShootList[index].gameObject);
         CandyShoot[index] = false;
     }
     IEnumerator IceBallShootFun(int index)
     {
         //boost cooldown
         yield return new WaitForSeconds(2);
-        Destroy(IceBall[index].gameObject);
+        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceShootDelete(IceBall[index].gameObject);
+        
         IceBallShoot[index] = false;
     }
     IEnumerator WalkSpeedReset()
