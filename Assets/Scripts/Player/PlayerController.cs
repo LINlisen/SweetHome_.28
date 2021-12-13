@@ -350,7 +350,7 @@ public class PlayerController : MonoBehaviour
             //Move();
             if (_bWounded)
             {
-                playerManager.animator.SetTrigger("Wounded");
+                    playerManager.animator.SetTrigger("Wounded");
             }
             PlayerRotation(look.x, look.y);
             //armor
@@ -778,12 +778,12 @@ public class PlayerController : MonoBehaviour
                             hash["Point"] = (int)hash["Point"] - 1;
                             PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
                             photonView.RPC("losePoint", RpcTarget.All, (int)team["WhichTeam"]);
-                            _bWounded = true;
+                            GameObject.Find(hit.gameObject.name).GetComponent<PlayerController>()._bWounded = true;
                             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, true);
                         }
                         else
                         {
-                            _bWounded = true;
+                            GameObject.Find(hit.gameObject.name).GetComponent<PlayerController>()._bWounded = true;
                             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, false);
                         }
                     }
@@ -958,7 +958,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator WoundedSetFalseCount(string name)
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(0.5f);
         GameObject.Find(name).GetComponent<PlayerController>()._bWounded = false;
         if (GameObject.Find(name).GetComponent<PlayerController>()._bWounded)
         {
