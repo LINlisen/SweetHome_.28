@@ -69,19 +69,21 @@ public class DoorTrigger : MonoBehaviour
             {
                 case 1:
                     GameObject.Find("Audios/DoorOpen1").gameObject.transform.position = gameObject.transform.position;
+                    GameObject.Find("Audios/DoorOpen1").GetComponent<AudioSource>().Play();
                     break;
                 case 2:
                     GameObject.Find("Audios/DoorOpen2").gameObject.transform.position = gameObject.transform.position;
+                    GameObject.Find("Audios/DoorOpen2").GetComponent<AudioSource>().Play();
                     break;
                 case 3:
                     GameObject.Find("Audios/DoorOpen3").gameObject.transform.position = gameObject.transform.position;
+                    GameObject.Find("Audios/DoorOpen3").GetComponent<AudioSource>().Play();
                     break;
                 case 4:
                     GameObject.Find("Audios/DoorOpen4").gameObject.transform.position = gameObject.transform.position;
+                    GameObject.Find("Audios/DoorOpen4").GetComponent<AudioSource>().Play();
                     break;
             }
-            GameObject.Find("Audios/DoorOpen").gameObject.transform.position = gameObject.transform.position;
-            GameObject.Find("Audios/DoorOpen").GetComponent<AudioSource>().Play();
             doorSmoke.SetActive(true);
             playerHere = true;
             dooropen["DoorState"] = true;
