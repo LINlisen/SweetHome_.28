@@ -174,10 +174,6 @@ public class PlayerController : MonoBehaviour
                         CandyShootList[i] = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Candy_Shoot"), gameObject.transform.GetChild(4).GetChild(i).position, gameObject.transform.GetChild(4).GetChild(i).rotation);
                         CandyShoot[i] = false;
                     }
-                    for(int i = 1; i< 4; i++)
-                    {
-                        CandyShootList[i].gameObject.SetActive(false);
-                    }
                     GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandySkillOn(gameObject.name);
                     _bAbilityOn = true;
                     break;
@@ -256,6 +252,7 @@ public class PlayerController : MonoBehaviour
     {
         if (PV.IsMine)
         {
+            _bWounded = (bool)PhotonNetwork.LocalPlayer.CustomProperties["Wounded"];
             Vector2 look = TCKInput.GetAxis("Touchpad");
 
             if (TCKInput.GetAction("dashBtn", EActionEvent.Down))
@@ -363,7 +360,7 @@ public class PlayerController : MonoBehaviour
                 ExcaperCamera.transform.position = TeamMate.transform.position;
                 ExcaperCamera.transform.rotation = TeamMate.transform.rotation;
             }
-            _bWounded = (bool)PhotonNetwork.LocalPlayer.CustomProperties["Wounded"];
+            
         }
         else
         {
@@ -766,10 +763,8 @@ public class PlayerController : MonoBehaviour
             PhotonView photonView = PhotonView.Get(UpInformation);
             if (hit.gameObject.tag == "Player" /*&& playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash") &&_bWounded == false*/)
             {
-                Debug.Log("撞到"+hit.gameObject.name);
                 if (playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash"))
                 {
-                    //Debug.Log(playerManager.transform.parent.name + "被判斷是否dash");
                     if (GameObject.Find(hit.gameObject.name).GetComponent<PlayerController>()._bWounded == false)
                     {
                         GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
@@ -790,12 +785,23 @@ public class PlayerController : MonoBehaviour
                                     Wounded["Wounded"] = true;
                                     players[j].SetCustomProperties(Wounded);
                                 }
-                                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, true);
                             }
+                            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, true);
                         }
                         else
                         {
-                            GameObject.Find(hit.gameObject.name).GetComponent<PlayerController>()._bWounded = true;
+                            Hashtable Wounded = new Hashtable();
+                            Player[] players = PhotonNetwork.PlayerList;
+                            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                            for (int j = 0; j < players.Count(); j++)
+                            {
+                                Wounded = players[j].CustomProperties;
+                                if (player[j].name == hit.gameObject.name)
+                                {
+                                    Wounded["Wounded"] = true;
+                                    players[j].SetCustomProperties(Wounded);
+                                }
+                            }
                             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, false);
                         }
                     }
@@ -970,7 +976,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator WoundedSetFalseCount(string name)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3);
         GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
         Hashtable Wounded = new Hashtable();
         Player[] players = PhotonNetwork.PlayerList;
