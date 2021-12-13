@@ -762,11 +762,11 @@ public class PlayerController : MonoBehaviour
             PhotonView photonView = PhotonView.Get(UpInformation);
             if (hit.gameObject.tag == "Player" /*&& playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash") &&_bWounded == false*/)
             {
-                Debug.Log(hit.gameObject + "撞的");
+                Debug.Log("撞到"+hit.gameObject.name);
                 if (playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash"))
                 {
-                    Debug.Log(playerManager.name + "被判斷是否dash");
-                    if (_bWounded == false)
+                    Debug.Log(playerManager.transform.parent.name + "被判斷是否dash");
+                    if (GameObject.Find(hit.gameObject.name).GetComponent<PlayerController>()._bWounded == false)
                     {
                         Debug.Log("_bWounded是false");
                         GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
