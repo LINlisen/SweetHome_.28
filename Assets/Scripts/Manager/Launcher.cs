@@ -72,6 +72,7 @@ public class Launcher : MonoBehaviourPunCallbacks
             hash.Add("GetOut", false);
             hash.Add("Blind", false);
             hash.Add("Point", 0);
+            hash.Add("Wounded", false);
             PhotonNetwork.ConnectUsingSettings();
             InvokeRepeating("showHide", 1, 0.5f);
             startGameHint.CrossFadeAlpha(0.0f, 0.0f, false);

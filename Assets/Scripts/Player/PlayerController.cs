@@ -363,6 +363,7 @@ public class PlayerController : MonoBehaviour
                 ExcaperCamera.transform.position = TeamMate.transform.position;
                 ExcaperCamera.transform.rotation = TeamMate.transform.rotation;
             }
+            _bWounded = (bool)PhotonNetwork.LocalPlayer.CustomProperties["Wounded"];
         }
         else
         {
@@ -771,15 +772,26 @@ public class PlayerController : MonoBehaviour
                     //Debug.Log(playerManager.transform.parent.name + "被判斷是否dash");
                     if (GameObject.Find(hit.gameObject.name).GetComponent<PlayerController>()._bWounded == false)
                     {
+                        GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
                         Debug.Log("_bWounded是false");
                         GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
                         if ((int)hash["Point"] != 0)
                         {
+                            Hashtable Wounded = new Hashtable();
+                            Player[] players = PhotonNetwork.PlayerList;
                             hash["Point"] = (int)hash["Point"] - 1;
                             PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
                             photonView.RPC("losePoint", RpcTarget.All, (int)team["WhichTeam"]);
-                            GameObject.Find(hit.gameObject.name).GetComponent<PlayerController>()._bWounded = true;
-                            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, true);
+                            for (int j = 0; j < players.Count(); j++)
+                            {
+                                Wounded = players[j].CustomProperties;
+                                if (player[j].name == hit.gameObject.name)
+                                {
+                                    Wounded["Wounded"] = true;
+                                    players[j].SetCustomProperties(Wounded);
+                                }
+                                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, true);
+                            }
                         }
                         else
                         {
@@ -959,16 +971,20 @@ public class PlayerController : MonoBehaviour
     IEnumerator WoundedSetFalseCount(string name)
     {
         yield return new WaitForSeconds(2f);
-        GameObject.Find(name).GetComponent<PlayerController>()._bWounded = false;
-        if (GameObject.Find(name).GetComponent<PlayerController>()._bWounded)
+        GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
+        Hashtable Wounded = new Hashtable();
+        Player[] players = PhotonNetwork.PlayerList;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        for (int j = 0; j < players.Count(); j++)
         {
-            Debug.Log(name+"noreset");
+            Wounded = players[j].CustomProperties;
+            if (player[j].name == name)
+            {
+                Wounded["Wounded"] = false;
+                players[j].SetCustomProperties(Wounded);
+            }
         }
-        else
-        {
-            Debug.Log(name + "reset");
-        }
-        
+
     }
 }
 
