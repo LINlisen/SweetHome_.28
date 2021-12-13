@@ -58131,8 +58131,8 @@ MonoBehaviour:
   mouseSensitivity: 10
   walkSpeed: 20
   smoothTime: 0.15
-  dashDuration: 1.5
-  dashSpeed: 1
+  dashDuration: 1
+  dashSpeed: 1.5
   DashSound: {fileID: 6592838806203366578}
   SkillSound: {fileID: 9092444287960692419}
   SkillGenerateSound: {fileID: 7700776387468887470}
