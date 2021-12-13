@@ -90,6 +90,7 @@ public class Result : MonoBehaviour
         PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
         Destroy(RoomManager.Instance.gameObject);
+        PhotonNetwork.Disconnect();
     }
 
     // Update is called once per frame

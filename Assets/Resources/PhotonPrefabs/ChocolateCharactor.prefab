@@ -107419,6 +107419,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  IceBall:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   playerController: {fileID: 1078051825160143480}
   boostedSpeed: 30
   speedCooldown: 2

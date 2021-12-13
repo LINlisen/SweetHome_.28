@@ -584,9 +584,9 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("SpeedBooster"))
         {
             walkSpeed = boostedSpeed;
-            
-            
-            GameObject.Find("Audios/SpeedBooster").GetComponent<AudioSource>().Play();
+
+
+            other.gameObject.gameObject.GetComponent<AudioSource>().Play();
 
             //gameObject.transform.GetChild(7).gameObject.SetActive(true);
             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SpeedUpOn(gameObject.name);
@@ -641,7 +641,25 @@ public class PlayerController : MonoBehaviour
         {
             if (playerHasArmor == false)
             {
-                GameObject.Find("Audios/Shield").GetComponent<AudioSource>().Play();
+                switch ((int)PhotonNetwork.LocalPlayer.CustomProperties["Charactor"])
+                {
+                    case 1:
+                        GameObject.Find("Audios/Shield1").gameObject.transform.position = other.gameObject.transform.position;
+                        GameObject.Find("Audios/Shield1").GetComponent<AudioSource>().Play();
+                        break;
+                    case 2:
+                        GameObject.Find("Audios/Shield2").gameObject.transform.position = other.gameObject.transform.position;
+                        GameObject.Find("Audios/Shield2").GetComponent<AudioSource>().Play();
+                        break;
+                    case 3:
+                        GameObject.Find("Audios/Shield3").gameObject.transform.position = other.gameObject.transform.position;
+                        GameObject.Find("Audios/Shield3").GetComponent<AudioSource>().Play();
+                        break;
+                    case 4:
+                        GameObject.Find("Audios/Shield4").gameObject.transform.position = other.gameObject.transform.position;
+                        GameObject.Find("Audios/Shield4").GetComponent<AudioSource>().Play();
+                        break;
+                }
             }
             playerHasArmor = true;
         }

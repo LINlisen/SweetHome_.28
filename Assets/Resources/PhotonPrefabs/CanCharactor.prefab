@@ -53251,6 +53251,15 @@ MonoBehaviour:
   SkillSound: {fileID: 5986741267230423370}
   SkillGenerateSound: {fileID: 0}
   SkillShootSound: {fileID: 0}
+  CandyShootList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  IceBall:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   playerController: {fileID: 4113776674854652899}
   boostedSpeed: 30
   speedCooldown: 2

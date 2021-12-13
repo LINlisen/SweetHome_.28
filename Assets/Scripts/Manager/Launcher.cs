@@ -79,8 +79,8 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
         else
         {
-            RoomInfoRefresh();
-
+            //RoomInfoRefresh();
+            
         }
         
     }
