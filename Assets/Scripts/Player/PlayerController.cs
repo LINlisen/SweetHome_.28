@@ -650,8 +650,11 @@ public class PlayerController : MonoBehaviour
             playerController.Move(new Vector3(0, jumpPadHeight, 0));
         }
 
-
-
+        /*禁止icon*/
+        if(other.gameObject.name == "StopIconTrigger")
+        {
+            GameObject.Find("UpInformationCanvas").gameObject.transform.GetChild(11).gameObject.SetActive(true);
+        }
         //Excape
         if (other.gameObject.tag == "ExitPortal")
         {
@@ -745,6 +748,11 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.name == "toast")
         {
             GameObject.Find("_TCKCanvas").gameObject.transform.GetChild(5).gameObject.SetActive(false);
+        }
+        /*Stop Icon set false*/
+        if (other.gameObject.name == "StopIconTrigger")
+        {
+            GameObject.Find("UpInformationCanvas").gameObject.transform.GetChild(11).gameObject.SetActive(false); 
         }
     }
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -882,7 +890,7 @@ public class PlayerController : MonoBehaviour
                             blind["Blind"] = true;
                             players[j].SetCustomProperties(blind);
                         }
-                        else if (player[i].name == "IceCreamCharactor(Clone)" && (int)players[j].CustomProperties["Charactor"] == 4)
+                        else if (player[i].name == "IceCharactor(Clone)" && (int)players[j].CustomProperties["Charactor"] == 4)
                         {
                             blind["Blind"] = true;
                             players[j].SetCustomProperties(blind);
