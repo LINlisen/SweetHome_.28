@@ -45,7 +45,7 @@ public class RaiseEvent : MonoBehaviourPun
     /*Chocolate Area*/
     private const byte CHOCOLATE_SKILL_ON = 22;  //Chocolate 施放技能特效 index 8
     private const byte CHOCOLATE_SKILL_OFF = 23; //Chocolate 施放技能特效 index 8
-
+    private const byte CHOCOLATE_DELETE = 33;
     /*Can Area*/
     private const byte CAN_SKILL_ON = 24;  //Can 施放技能特效 index 4
     private const byte CAN_SKILL_OFF = 25; //Can 施放技能特效 index 4
@@ -307,7 +307,12 @@ public class RaiseEvent : MonoBehaviourPun
             string Name = (string)datas[0];
             GameObject.Find(Name).gameObject.transform.GetChild(8).gameObject.SetActive(false);
         }
-
+        if(obj.Code == CHOCOLATE_DELETE)
+        {
+            object[] datas = (object[])obj.CustomData;
+            GameObject DeObj = (GameObject)datas[0];
+            Destroy(DeObj);
+        }
         /*易開罐特效*/
         if (obj.Code == CAN_SKILL_ON)
         {
@@ -572,7 +577,12 @@ public class RaiseEvent : MonoBehaviourPun
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(CHOCOLATE_SKILL_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
     }
-
+    public void ChocolateDelete(GameObject deobj)
+    {
+        object[] datas = new object[] { deobj };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(CHOCOLATE_DELETE, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
     /*易開罐技能施放特效*/
     public void CanSkillOn(string PlayerName)
     {

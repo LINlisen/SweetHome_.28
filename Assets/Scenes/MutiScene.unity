@@ -37,8 +37,8 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_Sun: {fileID: 1477737263}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -22523,6 +22523,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MAPP
+      objectReference: {fileID: 0}
+    - target: {fileID: 5422065357712578049, guid: 436f2e863897d4deaa4ef778d27f547a,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5422065357712578049, guid: 436f2e863897d4deaa4ef778d27f547a,
         type: 3}

@@ -756,6 +756,7 @@ public class PlayerController : MonoBehaviour
                 _bWounded = true;
                 GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name, false);
             }
+            GameObject.Find("RauiseEvent").GetComponent<RaiseEvent>().ChocolateDelete(other.gameObject);
         }
         if (other.gameObject.tag == "IceBall")
         {
@@ -886,7 +887,6 @@ public class PlayerController : MonoBehaviour
         WallNum++;
         //gameObject.transform.GetChild(8).gameObject.SetActive(false);
         GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().ChocolateSkillOff(gameObject.name);
-
         gameObject.transform.GetChild(5).gameObject.SetActive(false);
     }
 
