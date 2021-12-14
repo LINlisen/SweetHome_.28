@@ -22524,6 +22524,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MAPP
       objectReference: {fileID: 0}
+    - target: {fileID: 2703282102653636809, guid: 436f2e863897d4deaa4ef778d27f547a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5422065357712578049, guid: 436f2e863897d4deaa4ef778d27f547a,
         type: 3}
       propertyPath: m_ReceiveShadows
