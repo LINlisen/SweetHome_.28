@@ -71,24 +71,24 @@ public class Result : MonoBehaviour
                 TeamWon.text = "紅隊";
             }
         }
-        roomhash["LoadingProgress"] = 0;
-        roomhash["Choose"] = 0;
-        roomhash["StartGame"] = false;
-        roomhash["GameOver"] = false;
-        roomhash["StartTime"] = 0;
-        roomhash["Player1"] = 0;
-        roomhash["Player2"] = 0;
-        roomhash["Player3"] = 0;
-        roomhash["Player4"] = 0;
-        roomhash["BlueScore"] = 0;
-        roomhash["RedScore"] = 0;
-        hash["TimerReady"] = false;
-        hash["Loading"] = false;
-        hash["Ready"] = false;
-        hash["GetOut"] = false;
-        hash["Point"] = 0;
-        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
-        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        //roomhash["LoadingProgress"] = 0;
+        //roomhash["Choose"] = 0;
+        //roomhash["StartGame"] = false;
+        //roomhash["GameOver"] = false;
+        //roomhash["StartTime"] = 0;
+        //roomhash["Player1"] = 0;
+        //roomhash["Player2"] = 0;
+        //roomhash["Player3"] = 0;
+        //roomhash["Player4"] = 0;
+        //roomhash["BlueScore"] = 0;
+        //roomhash["RedScore"] = 0;
+        //hash["TimerReady"] = false;
+        //hash["Loading"] = false;
+        //hash["Ready"] = false;
+        //hash["GetOut"] = false;
+        //hash["Point"] = 0;
+        //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        //PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
         Destroy(RoomManager.Instance.gameObject);
         PhotonNetwork.Disconnect();
     }
