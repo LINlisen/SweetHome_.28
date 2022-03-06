@@ -21,6 +21,7 @@ TagManager:
   - IceBall
   - jumpPad
   - WoundedTrigger
+  - Pendulum
   layers:
   - Default
   - TransparentFX

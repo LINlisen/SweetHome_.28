@@ -841,9 +841,10 @@ GameObject:
   m_Component:
   - component: {fileID: 52491651}
   - component: {fileID: 52491652}
+  - component: {fileID: 52491653}
   m_Layer: 0
   m_Name: Pendulum3
-  m_TagString: Untagged
+  m_TagString: Pendulum
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -879,6 +880,19 @@ MonoBehaviour:
   speed: 2
   limit: 75
   randomStart: 1
+--- !u!135 &52491653
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52491650}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: -2.4, z: 0}
 --- !u!1001 &54046071
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3637,9 +3651,10 @@ GameObject:
   m_Component:
   - component: {fileID: 235675503}
   - component: {fileID: 235675504}
+  - component: {fileID: 235675505}
   m_Layer: 0
   m_Name: Pendulum2
-  m_TagString: Untagged
+  m_TagString: Pendulum
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3675,6 +3690,19 @@ MonoBehaviour:
   speed: 2
   limit: 75
   randomStart: 1
+--- !u!135 &235675505
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235675502}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: -2.4, z: 0}
 --- !u!1 &237608194
 GameObject:
   m_ObjectHideFlags: 0
@@ -30959,9 +30987,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1793052876}
   - component: {fileID: 1793052877}
+  - component: {fileID: 1793052878}
   m_Layer: 0
   m_Name: Pendulum4
-  m_TagString: Untagged
+  m_TagString: Pendulum
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30997,6 +31026,19 @@ MonoBehaviour:
   speed: 2
   limit: 75
   randomStart: 1
+--- !u!135 &1793052878
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793052875}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: -2.4, z: 0}
 --- !u!1 &1793620794
 GameObject:
   m_ObjectHideFlags: 0
@@ -36640,13 +36682,27 @@ GameObject:
   m_Component:
   - component: {fileID: 5263193849621079254}
   - component: {fileID: 5263193849621079255}
+  - component: {fileID: 5263193849621079250}
   m_Layer: 0
   m_Name: Pendulum1
-  m_TagString: Untagged
+  m_TagString: Pendulum
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!135 &5263193849621079250
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5263193849621079249}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: -2.4, z: 0}
 --- !u!4 &5263193849621079254
 Transform:
   m_ObjectHideFlags: 0
