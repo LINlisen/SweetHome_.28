@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bounce : MonoBehaviour
 {
-	public float force = 1f; //Force 10000f
+	public float force = 100f; //Force 10000f
 	public float stunTime = 1.5f;
 	private Vector3 hitDir;
 
@@ -16,7 +16,8 @@ public class Bounce : MonoBehaviour
 			if (collision.gameObject.tag == "Player")
 			{
 				hitDir = contact.normal;
-				collision.gameObject.GetComponent<CharacterControls>().HitPlayer(-hitDir * force, stunTime);
+				//collision.gameObject.GetComponent<CharacterControls>().HitPlayer(-hitDir * force, stunTime);
+				collision.gameObject.GetComponent<PlayerController>().Punched(-hitDir * force);
 				return;
 			}
 		}

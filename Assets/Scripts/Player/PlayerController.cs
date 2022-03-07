@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     //Punched
     bool _bPunched = false;
     float _fPunchedCount = 0.0f;
+    Vector3 _VecPunched;
     //Skill
     bool _bIsSkill = false;
     bool _bIntoCold = false;
@@ -366,22 +367,21 @@ public class PlayerController : MonoBehaviour
                 ExcaperCamera.transform.position = TeamMate.transform.position;
                 ExcaperCamera.transform.rotation = TeamMate.transform.rotation;
             }
-            //if (_bPunched)
-            //{
-            //    _fPunchedCount += Time.deltaTime;
-            //    if (_fPunchedCount <= 2.5f)
-            //    {
-            //        Debug.Log("forward"+gameObject.transform.forward);
-            //        playerController.Move(-transform.forward * Time.deltaTime*35);
-                    
-            //    }
-            //    else
-            //    {
-            //        _bPunched = false;
-            //        _fPunchedCount = 0;
-            //    }
-            //}
-            
+            if (_bPunched)
+            {
+                _fPunchedCount += Time.deltaTime;
+                if (_fPunchedCount <= 2.5f)
+                {
+                    playerController.Move(_VecPunched * Time.deltaTime * 35);
+
+                }
+                else
+                {
+                    _bPunched = false;
+                    _fPunchedCount = 0;
+                }
+            }
+
         }
         else
         {
@@ -562,7 +562,13 @@ public class PlayerController : MonoBehaviour
 
 
     }
-
+    //Ball hit player
+    public void Punched(Vector3 dir)
+    {
+        _VecPunched = dir;
+        Debug.Log("Punch");
+        _bPunched = true;
+    }
     private void OnCollisionEnter(Collision col)
     {
 
@@ -782,15 +788,7 @@ public class PlayerController : MonoBehaviour
             walkSpeed -= 5;
             StartCoroutine("WalkSppedReset");
         }
-        //Ball hit player
-        //if (other.gameObject.tag == "Pendulum")
-        //{
-        //    Debug.Log("Punch");
-        //    _bPunched = true;
-        //}
-
     }
-
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.name == "toast")

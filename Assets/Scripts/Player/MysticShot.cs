@@ -50,26 +50,26 @@ public class MysticShot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PV.IsMine)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //if (PV.IsMine)
+        //{
+        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-            {
-                position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
-            }
+        //    if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        //    {
+        //        position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+        //    }
 
-            //Ability 1 Canvas Input
-            Quaternion transRot = Quaternion.LookRotation(position - player.transform.position);
-            transRot.eulerAngles = new Vector3(0, transRot.eulerAngles.y, transRot.eulerAngles.z) * 5f;
+        //    //Ability 1 Canvas Input
+        //    Quaternion transRot = Quaternion.LookRotation(position - player.transform.position);
+        //    transRot.eulerAngles = new Vector3(0, transRot.eulerAngles.y, transRot.eulerAngles.z) * 5f;
 
-            abilityCanvas.transform.rotation = Quaternion.Lerp(transRot, abilityCanvas.transform.rotation, 0f);
-            abilityCanvas.transform.position = player.transform.GetChild(0).position;
-        }
-        else
-        {
-            return;
-        }
+        //    abilityCanvas.transform.rotation = Quaternion.Lerp(transRot, abilityCanvas.transform.rotation, 0f);
+        //    abilityCanvas.transform.position = player.transform.GetChild(0).position;
+        //}
+        //else
+        //{
+        //    return;
+        //}
         
     }
 
