@@ -366,21 +366,21 @@ public class PlayerController : MonoBehaviour
                 ExcaperCamera.transform.position = TeamMate.transform.position;
                 ExcaperCamera.transform.rotation = TeamMate.transform.rotation;
             }
-            if (_bPunched)
-            {
-                _fPunchedCount += Time.deltaTime;
-                if (_fPunchedCount <= 2.5f)
-                {
-                    Debug.Log("forward"+gameObject.transform.forward);
-                    playerController.Move(-transform.forward * Time.deltaTime*35);
+            //if (_bPunched)
+            //{
+            //    _fPunchedCount += Time.deltaTime;
+            //    if (_fPunchedCount <= 2.5f)
+            //    {
+            //        Debug.Log("forward"+gameObject.transform.forward);
+            //        playerController.Move(-transform.forward * Time.deltaTime*35);
                     
-                }
-                else
-                {
-                    _bPunched = false;
-                    _fPunchedCount = 0;
-                }
-            }
+            //    }
+            //    else
+            //    {
+            //        _bPunched = false;
+            //        _fPunchedCount = 0;
+            //    }
+            //}
             
         }
         else
@@ -783,11 +783,11 @@ public class PlayerController : MonoBehaviour
             StartCoroutine("WalkSppedReset");
         }
         //Ball hit player
-        if (other.gameObject.tag == "Pendulum")
-        {
-            Debug.Log("Punch");
-            _bPunched = true;
-        }
+        //if (other.gameObject.tag == "Pendulum")
+        //{
+        //    Debug.Log("Punch");
+        //    _bPunched = true;
+        //}
 
     }
 
