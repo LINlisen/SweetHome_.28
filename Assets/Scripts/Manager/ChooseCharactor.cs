@@ -45,6 +45,7 @@ public class ChooseCharactor : MonoBehaviour
     public Color cb = new Color(0.72f, 0.72f, 0.72f, 1);
 
     private bool _bCreated = false;
+    public GameObject PropertiesManager;
     Hashtable hash = new Hashtable();
     // Start is called before the first frame update
     private void Start()
@@ -131,7 +132,7 @@ public class ChooseCharactor : MonoBehaviour
                             GameObject pre = UserChoose.CharactorModel.GetChild(0).gameObject;
                             Destroy(pre);
                         }
-                        Debug.Log(2);
+                        Debug.Log(3);
                         Instantiate(Models.CanModel, UserChoose.CharactorModel.position, UserChoose.CharactorModel.rotation, UserChoose.CharactorModel);
                         UserChoose.CharactorModel.transform.localScale = new Vector3(20, 20, 20);
                         UserChoose.CharactorModel.transform.position = new Vector3(11.7f, 1.6f, 83.6f);
@@ -155,7 +156,7 @@ public class ChooseCharactor : MonoBehaviour
                             GameObject pre = UserChoose.CharactorModel.GetChild(0).gameObject;
                             Destroy(pre);
                         }
-                        Debug.Log(3);
+                        Debug.Log(4);
                         Instantiate(Models.IceModel, UserChoose.CharactorModel.position, UserChoose.CharactorModel.rotation, UserChoose.CharactorModel);
                         UserChoose.CharactorModel.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
                         UserChoose.CharactorModel.transform.position = new Vector3(16f, 1.6f, 83.6f);

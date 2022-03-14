@@ -15,10 +15,14 @@ public class GameManagement : MonoBehaviourPunCallbacks
     [SerializeField] Transform RedListContent;
     [SerializeField] GameObject BlindVision;
     Hashtable hash = new Hashtable();
+    Hashtable roomhash = new Hashtable();
     Player[] players = PhotonNetwork.PlayerList;
     void Start()
     {
-
+        hash = PhotonNetwork.LocalPlayer.CustomProperties;
+        roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
+        Debug.Log(hash);
+        Debug.Log(roomhash);
 
     }
 

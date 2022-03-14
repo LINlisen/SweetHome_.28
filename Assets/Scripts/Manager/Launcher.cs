@@ -12,9 +12,7 @@ using UnityEngine.SceneManagement;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
-    //Hashtable nickname = new Hashtable();
-    Hashtable hash = new Hashtable();
-    Hashtable roomhash = new Hashtable();
+    
     public static Launcher Instance;
     [SerializeField] InputField playerNicknameInputField;
     [SerializeField] InputField roomNameInputField;
@@ -31,6 +29,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] Text startGameHint;
     [SerializeField] Text ClickText;
     [SerializeField] Transform LoadingSpinner;
+    Hashtable hash = new Hashtable();
+    Hashtable roomhash = new Hashtable();
+    public GameObject PropertiesManager;
 
     public GameObject CharacterModels;
     public GameObject loadingScreen;
@@ -150,8 +151,8 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void setNickname()
     {
-        hash["Nickname"] = playerNicknameInputField.text;
-        //nickname["Nickname"] = playerNicknameInputField.text;
+        PropertiesManager.GetComponent<PropertiesManager>().ChangeProperties("player", "Nickname", playerNicknameInputField.text);
+        //hash["Nickname"] = playerNicknameInputField.text;
         PhotonNetwork.NickName = playerNicknameInputField.text;
         MenuManager.Instance.OpenMenu("title");
     }
@@ -171,9 +172,6 @@ public class Launcher : MonoBehaviourPunCallbacks
         PhotonNetwork.NickName = playerNicknameInputField.text;
         PhotonNetwork.CreateRoom(roomNameInputField.text);
 
-
-        //MenuManager.Instance.OpenMenu("Loading");
-        //PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
     }
 
     public override void OnJoinedRoom()
@@ -267,22 +265,26 @@ public class Launcher : MonoBehaviourPunCallbacks
         else
         {
             startGameButton.GetComponent<Image>().color = color;
-            hash["Ready"] = true;
-            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+            //hash["Ready"] = true;
+            //PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+            PropertiesManager.GetComponent<PropertiesManager>().ChangeProperties("player", "Ready", true);
         }
     }
     public void ChooseRoom()
     {
         Player[] players = PhotonNetwork.PlayerList;
-        roomhash["Choose"] = 1;
-        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
-        roomhash["Choose"] = 0;
-        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
-        for (int i = 0; i < players.Count(); i++)
+        //roomhash["Choose"] = 1;
+        //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        //roomhash["Choose"] = 0;
+        //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        PropertiesManager.GetComponent<PropertiesManager>().ChangeProperties("room", "Choose", 1);
+        PropertiesManager.GetComponent<PropertiesManager>().ChangeProperties("room", "Choose", 0);
+        for (int i = 1; i < players.Count()+1; i++)
         {
-            team = (int)players[i].CustomProperties["WhichTeam"];
-            roomhash["Player" + i] = team;
-            PhotonNetwork.CurrentRoom.CustomProperties["Player" + i] = team;
+            team = (int)players[i-1].CustomProperties["WhichTeam"];
+            //roomhash["Player" + i] = team;
+            //PhotonNetwork.CurrentRoom.CustomProperties["Player" + i] = team;
+            PropertiesManager.GetComponent<PropertiesManager>().ChangeProperties("room", "Player" + i, team);
         }
     }
     public void LeaveRoom()
@@ -304,10 +306,13 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void BackToRoom()
     {
-        roomhash["Choose"] = 2;
-        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
-        roomhash["Choose"] = 0;
-        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        //roomhash["Choose"] = 2;
+        //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        //roomhash["Choose"] = 0;
+        //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        PropertiesManager.GetComponent<PropertiesManager>().ChangeProperties("room", "Choose", 2);
+        PropertiesManager.GetComponent<PropertiesManager>().ChangeProperties("room", "Choose", 0);
+
     }
 
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
@@ -355,8 +360,9 @@ public class Launcher : MonoBehaviourPunCallbacks
         if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["Loading"] == true)
         {
             flag++;
-            hash["Loading"] = false;
-            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+            //hash["Loading"] = false;
+            //PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+            PropertiesManager.GetComponent<PropertiesManager>().ChangeProperties("player", "Loading", false);
             if (flag == 1)
             {
                 LoadLevel(1);
@@ -400,9 +406,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         Player[] players = PhotonNetwork.PlayerList;
 
-        hash["WhichTeam"] = 0;
-        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-
+        //hash["WhichTeam"] = 0;
+        //PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        PropertiesManager.GetComponent<PropertiesManager>().ChangeProperties("player", "WhichTeam", 0);
 
     }
 
@@ -410,8 +416,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         Player[] players = PhotonNetwork.PlayerList;
 
-        hash["WhichTeam"] = 1;
-        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        //hash["WhichTeam"] = 1;
+        //PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        PropertiesManager.GetComponent<PropertiesManager>().ChangeProperties("player", "WhichTeam", 1);
 
     }
 
@@ -419,10 +426,12 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         int pready = 0;
         CharacterModels.SetActive(false);
-        roomhash["StartGame"] = false;
-        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
-        hash["Loading"] = false;
-        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        //roomhash["StartGame"] = false;
+        //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        //hash["Loading"] = false;
+        //PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        PropertiesManager.GetComponent<PropertiesManager>().ChangeProperties("room", "StartGame", false);
+        PropertiesManager.GetComponent<PropertiesManager>().ChangeProperties("player", "Loading", false);
         StartCoroutine(LoadAsynchronously(sceneIndex));
     }
 
@@ -436,7 +445,7 @@ public class Launcher : MonoBehaviourPunCallbacks
             while (!operation.isDone)
             {
                 float progress = Mathf.Clamp01(operation.progress / .9f);
-                PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+                //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
                 ProgressText.text = progress * 100f + "%";
 
                 yield return null;
