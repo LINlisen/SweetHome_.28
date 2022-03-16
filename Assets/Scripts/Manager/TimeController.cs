@@ -55,7 +55,7 @@ public class TimeController : MonoBehaviour
         allSeconds = (minutes * 60) + seconds;
         for (int i = 0; i < players.Count(); i++)
         {
-            players[i].CustomProperties["WhichTeam"] = (int)PhotonNetwork.CurrentRoom.CustomProperties["Player" + i];
+            players[i].CustomProperties["WhichTeam"] = (int)PhotonNetwork.CurrentRoom.CustomProperties["Player" + (i+1).ToString()];
         }
     }
 
