@@ -58,7 +58,7 @@ public class GameManagement : MonoBehaviourPunCallbacks
         {
             if ((bool)players[i].CustomProperties["GetOut"] == true)
             {
-                if ((int)players[i].CustomProperties["WhichTeam"] == 1)
+                if ((string)players[i].CustomProperties["WhichTeam"] == "紅隊")
                 {
                     redgetoutnumber++;
                 }

@@ -29,8 +29,9 @@ public class DoorTrigger : MonoBehaviour
     {
         playerHere = false;
         isOpened = false;
-        dooropen.Add("DoorState", false);
-        PhotonNetwork.CurrentRoom.SetCustomProperties(dooropen);
+        //dooropen.Add("DoorState", false);
+        //PhotonNetwork.CurrentRoom.SetCustomProperties(dooropen);
+        GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeRoomProperties("DoorState", false);
         isopen = PhotonNetwork.CurrentRoom.CustomProperties;
     }
     private void Update()
@@ -86,8 +87,9 @@ public class DoorTrigger : MonoBehaviour
             }
             doorSmoke.SetActive(true);
             playerHere = true;
-            dooropen["DoorState"] = true;
-            PhotonNetwork.CurrentRoom.SetCustomProperties(dooropen);
+            //dooropen["DoorState"] = true;
+            //PhotonNetwork.CurrentRoom.SetCustomProperties(dooropen);
+            GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeRoomProperties("DoorState", true);
         }
         
     }
@@ -96,9 +98,10 @@ public class DoorTrigger : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             playerHere = false;
-            dooropen["DoorState"] = false;
+            //dooropen["DoorState"] = false;
             doorSmoke.SetActive(false);
-            PhotonNetwork.CurrentRoom.SetCustomProperties(dooropen);
+            //PhotonNetwork.CurrentRoom.SetCustomProperties(dooropen);
+            GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeRoomProperties("DoorState", false);
         }
     }
     //private void OnTriggerStay(Collider col)
