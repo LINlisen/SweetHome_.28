@@ -32,10 +32,10 @@ public class Score : MonoBehaviour
     }
 
     [PunRPC]
-    void getPoint(int team)
+    void getPoint(string team)
     {
         Debug.Log("getPotion");
-        if (team == 1)
+        if (team == "紅隊")
         {
             redpoint++;
             teamredpoint.text = redpoint.ToString();
@@ -51,10 +51,10 @@ public class Score : MonoBehaviour
         }
     }
     [PunRPC]
-    void losePoint(int team)
+    void losePoint(string team)
     {
         Debug.Log("getPotion");
-        if (team == 2)
+        if (team == "紅隊")
         {
             redpoint--;
             teamredpoint.text = redpoint.ToString();

@@ -67,12 +67,16 @@ public class ChooseCharactor : MonoBehaviour
             switch (Input.charactor_id)
             {
                 case 1:
-                    hash["Charactor"] = 1;
+                    //hash["Charactor"] = 1;
                     CandyButton.GetComponent<Image>().color = Color.white;
                     ChocolateButton.GetComponent<Image>().color = Color.gray;
                     CanButton.GetComponent<Image>().color = Color.gray;
                     IceCreamButton.GetComponent<Image>().color = Color.gray;
-                    PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                    //PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                    if((int)PhotonNetwork.LocalPlayer.CustomProperties["Charactor"] != 1)
+                    {
+                        PropertiesManager.GetComponent<PropertiesManager>().ChangeProperties("Charactor", 1);
+                    }
                     UserChoose.Id = Candy.Id;
                     UserChoose.Name.text = "史帝夫‧哈靈頓";
                     UserChoose.Introduction.text = "技能效果：小糖果追蹤敵人5秒，當被追到時，小糖果會黏上去，並緩速敵人2秒。技能增強：小糖果會變快。";
@@ -92,12 +96,16 @@ public class ChooseCharactor : MonoBehaviour
                     }
                     break;
                 case 2:
-                    hash["Charactor"] = 2;
+                    //hash["Charactor"] = 2;
                     CandyButton.GetComponent<Image>().color = Color.gray;
                     ChocolateButton.GetComponent<Image>().color = Color.white;
                     CanButton.GetComponent<Image>().color = Color.gray;
                     IceCreamButton.GetComponent<Image>().color = Color.gray;
-                    PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                    //PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                    if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Charactor"] != 2)
+                    {
+                        PropertiesManager.GetComponent<PropertiesManager>().ChangeProperties("Charactor", 2);
+                    }
                     UserChoose.Id = Chocolate.Id;
                     UserChoose.Name.text = "傑克‧威爾森";
                     UserChoose.Introduction.text = "技能效果：放置巧克力牆，當敵人接近時，蓋下來壓住敵人，造成敵人暈眩2秒。技能增強：巧克力牆有隱形效果。";
@@ -116,12 +124,16 @@ public class ChooseCharactor : MonoBehaviour
                     }
                     break;
                 case 3:
-                    hash["Charactor"] = 3;
+                    //hash["Charactor"] = 3;
                     CandyButton.GetComponent<Image>().color = Color.gray;
                     ChocolateButton.GetComponent<Image>().color = Color.gray;
                     CanButton.GetComponent<Image>().color = Color.white;
                     IceCreamButton.GetComponent<Image>().color = Color.gray;
-                    PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                    //PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                    if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Charactor"] != 3)
+                    {
+                        PropertiesManager.GetComponent<PropertiesManager>().ChangeProperties("Charactor", 3);
+                    }
                     UserChoose.Id = Can.Id;
                     UserChoose.Name.text = "南西‧梅森";
                     UserChoose.Introduction.text = "技能效果：從玩家自身方圓5米內噴射一攤飲料，範圍內的敵人進入障目狀態。技能增強：增加緩速5秒效果。";
@@ -140,12 +152,16 @@ public class ChooseCharactor : MonoBehaviour
                     }
                     break;
                 case 4:
-                    hash["Charactor"] = 4;
+                    //hash["Charactor"] = 4;
                     CandyButton.GetComponent<Image>().color = Color.gray;
                     ChocolateButton.GetComponent<Image>().color = Color.gray;
                     CanButton.GetComponent<Image>().color = Color.gray;
                     IceCreamButton.GetComponent<Image>().color = Color.white;
-                    PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                    //PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+                    if ((int)PhotonNetwork.LocalPlayer.CustomProperties["Charactor"] != 4)
+                    {
+                        PropertiesManager.GetComponent<PropertiesManager>().ChangeProperties("Charactor", 4);
+                    }
                     UserChoose.Id = Ice.Id;
                     UserChoose.Name.text = "莉莉安";
                     UserChoose.Introduction.text = "技能效果：玩家擁有三發冰淇淋,當15秒內連續擊中敵人兩發時會造成緩速2秒,在三發射完後進入冷卻。技能增強：緩速效果變成暈眩效果。";
@@ -194,6 +210,7 @@ public class ChooseCharactor : MonoBehaviour
         Input.charactor_id = 1;
        //Debug.Log("Choose 1");
         _bCreated = false;
+        Debug.Log(PhotonNetwork.LocalPlayer.CustomProperties);
     }
     public void ChocolateChoosed()
     {

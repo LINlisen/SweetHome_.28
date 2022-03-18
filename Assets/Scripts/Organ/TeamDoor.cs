@@ -17,13 +17,13 @@ public class TeamDoor : MonoBehaviour
     {
 
         hash = PhotonNetwork.LocalPlayer.CustomProperties;
-        switch ((int)hash["WhichTeam"])
+        switch ((string)hash["WhichTeam"])
         {
-            case 0://blue team
+            case "藍隊"://blue team
                 //Debug.Log("blueTeam");
                 break;
 
-            case 1://red team
+            case "紅隊"://red team
                 break;
 
         }
@@ -56,11 +56,11 @@ public class TeamDoor : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")//the name of the player(different team)
         {
-            if((int)hash["WhichTeam"] == 1)
+            if((string)hash["WhichTeam"] == "紅隊")
             {
                 IsRedTeam = true;
             }
-            if ((int)hash["WhichTeam"] == 0)
+            if ((string)hash["WhichTeam"] == "藍隊")
             {
                 IsBlueTeam = true;
             }
