@@ -82,7 +82,7 @@ public class GameManagement : MonoBehaviourPunCallbacks
     {
 
         base.OnRoomPropertiesUpdate(propertiesThatChanged);
-        if (PhotonNetwork.CurrentRoom.CustomProperties["BlueScore"]==null || PhotonNetwork.CurrentRoom.CustomProperties["RedScore"]==null)
+        if (PhotonNetwork.CurrentRoom.CustomProperties["BlueScore"]!=null || PhotonNetwork.CurrentRoom.CustomProperties["RedScore"]!=null)
         {
             if ((int)PhotonNetwork.CurrentRoom.CustomProperties["BlueScore"] == 25 || (int)PhotonNetwork.CurrentRoom.CustomProperties["RedScore"] == 25)
             {
