@@ -32,41 +32,45 @@ public class Score : MonoBehaviour
     }
 
     [PunRPC]
-    void getPoint(int team)
+    void getPoint(string team)
     {
         Debug.Log("getPotion");
-        if (team == 1)
+        if (team == "紅隊")
         {
             redpoint++;
             teamredpoint.text = redpoint.ToString();
-            roomhash["RedScore"] = redpoint;
-            PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+            //roomhash["RedScore"] = redpoint;
+            //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+            GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeRoomProperties("RedScore", redpoint);
         }
         else
         {
             bluepoint++;
             teambluepoint.text = bluepoint.ToString();
-            roomhash["BlueScore"] = bluepoint;
-            PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+            //roomhash["BlueScore"] = bluepoint;
+            //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+            GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeRoomProperties("BlueScore", bluepoint);
         }
     }
     [PunRPC]
-    void losePoint(int team)
+    void losePoint(string team)
     {
         Debug.Log("getPotion");
-        if (team == 2)
+        if (team == "紅隊")
         {
             redpoint--;
             teamredpoint.text = redpoint.ToString();
-            roomhash["RedScore"] = redpoint;
-            PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+            //roomhash["RedScore"] = redpoint;
+            //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+            GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeRoomProperties("RedScore", redpoint);
         }
         else
         {
             bluepoint--;
             teambluepoint.text = bluepoint.ToString();
-            roomhash["BlueScore"] = bluepoint;
-            PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+            //roomhash["BlueScore"] = bluepoint;
+            //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+            GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeRoomProperties("BlueScore", bluepoint);
         }
     }
     //下面三行擺到在判斷拿到藥水的函式裡
