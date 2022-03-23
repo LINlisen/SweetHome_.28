@@ -22,5 +22,6 @@ public class ObjectSetfalse : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         isTouched = true;
+        Debug.Log("isTouched armor");
     }
 }
