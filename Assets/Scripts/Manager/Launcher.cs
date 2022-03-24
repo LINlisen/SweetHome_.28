@@ -27,7 +27,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] GameObject startGameButton;
     [SerializeField] Text startGameButtonText;
     [SerializeField] Text startGameHint;
-    [SerializeField] Text ClickText;
+    [SerializeField] Image ImgClick;
+    [SerializeField] Sprite S_ImgClick;
     [SerializeField] Transform LoadingSpinner;
     Hashtable hash = new Hashtable();
     Hashtable roomhash = new Hashtable();
@@ -106,13 +107,15 @@ public class Launcher : MonoBehaviourPunCallbacks
     }
     void showHide()
     {
-        if (ClickText.text == "")
+        if (ImgClick.color.a == 0)
         {
-            ClickText.text = "點  擊  開  始  ！";
+            Color Imagecolor = new Color(1, 1, 1, 255);
+            ImgClick.color = Imagecolor;
         }
         else
         {
-            ClickText.text = "";
+            Color Imagecolor = new Color(1, 1, 1, 0);
+            ImgClick.color = Imagecolor;
         }
 
     }
