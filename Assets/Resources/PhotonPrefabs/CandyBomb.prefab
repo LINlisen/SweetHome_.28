@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 160759667707270369}
   m_Layer: 0
   m_Name: CandyBomb
-  m_TagString: CandyShoot
+  m_TagString: CandyBomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -50,8 +50,6 @@ public class PlayerController : MonoBehaviour
     public AudioSource SkillGenerateSound;
     public AudioSource SkillShootSound;
     /*Candy Ability*/
-    public GameObject CandyBomb;
-    private bool[] CandyShoot = new bool[4];
     private int CandyBombNum = 0;
     /*Chocolate Ability*/
     private int WallNum = 0;
@@ -689,10 +687,11 @@ public class PlayerController : MonoBehaviour
             explosionRock.explode();
         }
         /*Candy Shoot*/
-        if(other.gameObject.transform.tag == "CandyShoot")
+        if(other.gameObject.transform.tag == "CandyBomb" && gameObject.name!= "CandyCharactor(Clone)")
         {
-            walkSpeed -= 5;
+            walkSpeed -= 10;
             StartCoroutine("WalkSpeedReset");
+            Destroy(other.gameObject);
         }
         if (other.gameObject.tag == "ChocolateWall")
         {
