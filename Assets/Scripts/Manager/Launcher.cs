@@ -24,6 +24,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] Transform RedListContent;
     [SerializeField] GameObject PlayerListItemPrefab;
     [SerializeField] GameObject ChooseButton;
+    [SerializeField] GameObject RoomStartGameButton;
     [SerializeField] GameObject startGameButton;
     [SerializeField] Text startGameButtonText;
     [SerializeField] Text startGameHint;
@@ -216,11 +217,11 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
-            startGameButtonText.text = "開始";
+            RoomStartGameButton.SetActive(true);
         }
         else
         {
-            startGameButtonText.text = "準備";
+            ChooseButton.SetActive(true);
         }
         ChooseButton.SetActive(PhotonNetwork.IsMasterClient);
         startGameButton.SetActive(true);

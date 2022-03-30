@@ -269,31 +269,6 @@ public class RaiseEvent : MonoBehaviourPun
             string Name = (string)datas[0];
             GameObject.Find(Name).gameObject.transform.GetChild(5).gameObject.SetActive(false);
         }
-        if (obj.Code == CANDYSHOOT_PON)
-        {
-            object[] datas = (object[])obj.CustomData;
-            string Name = (string)datas[0];
-            if (GameObject.Find(Name) != null)
-            {
-                GameObject.Find(Name).transform.GetChild(0).gameObject.SetActive(true);
-            }
-        }
-        if (obj.Code == CANDYSHOOT_POFF)
-        {
-            object[] datas = (object[])obj.CustomData;
-            string Name = (string)datas[0];
-            if (GameObject.Find(Name) != null)
-            {
-                GameObject.Find(Name).transform.GetChild(0).gameObject.SetActive(false);
-            }
-        }
-        if (obj.Code == CANDYSHOOT_DELETE)
-        {
-            object[] datas = (object[])obj.CustomData;
-            GameObject DeObj = (GameObject)datas[0];
-            
-            Destroy(DeObj);
-        }
         /*巧克力特效*/
         if (obj.Code == CHOCOLATE_SKILL_ON)
         {
@@ -545,25 +520,6 @@ public class RaiseEvent : MonoBehaviourPun
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(CANDY_SKILL_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
     }
-    public void CandyShootParticleOn(string Name)
-    {
-        object[] datas = new object[] { Name};
-        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
-        PhotonNetwork.RaiseEvent(CANDYSHOOT_PON, datas, raiseEventOptions, SendOptions.SendReliable);
-    }
-    public void CandyShootParticleOff(string Name)
-    {
-        object[] datas = new object[] { Name};
-        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
-        PhotonNetwork.RaiseEvent(CANDYSHOOT_POFF, datas, raiseEventOptions, SendOptions.SendReliable);
-    }
-    public void CandyShootDelete(GameObject DeObj)
-    {
-        object[] datas = new object[] {DeObj};
-        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
-        PhotonNetwork.RaiseEvent(CANDYSHOOT_DELETE, datas, raiseEventOptions, SendOptions.SendReliable);
-    }
-
     /*巧克力技能施放特效*/
     public void ChocolateSkillOn(string PlayerName)
     {

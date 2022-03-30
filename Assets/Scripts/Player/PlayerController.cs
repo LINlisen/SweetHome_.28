@@ -50,10 +50,9 @@ public class PlayerController : MonoBehaviour
     public AudioSource SkillGenerateSound;
     public AudioSource SkillShootSound;
     /*Candy Ability*/
-    private Vector3[] CandyShootDir = new Vector3[4];
-    public GameObject[] CandyShootList = new GameObject[4];
+    public GameObject CandyBomb;
     private bool[] CandyShoot = new bool[4];
-    private int CandyShootNum = 0;
+    private int CandyBombNum = 0;
     /*Chocolate Ability*/
     private int WallNum = 0;
 
@@ -173,11 +172,6 @@ public class PlayerController : MonoBehaviour
             {
                 case 1:
                     SkillSound.Play();
-                    for (int i = 0; i<4; i++)
-                    {
-                        CandyShootList[i] = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Candy_Shoot"), gameObject.transform.GetChild(4).GetChild(i).position, gameObject.transform.GetChild(4).GetChild(i).rotation);
-                        CandyShoot[i] = false;
-                    }
                     GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandySkillOn(gameObject.name);
                     _bAbilityOn = true;
                     break;
@@ -216,14 +210,13 @@ public class PlayerController : MonoBehaviour
             {
                 case 1:
                     SkillShootSound.Play();
-                    directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
-                    directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
-                    CandyShoot[CandyShootNum] = true;
-                    CandyShootDir[CandyShootNum] = -directionXOZ;
-                    CandyShootNum++;
-                    if(CandyShootNum < 4)
+                    PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandyBomb"), gameObject.transform.position,gameObject.transform.rotation);
+                    CandyBombNum++;
+                    if(CandyBombNum == 4)
                     {
-                        CandyShootList[CandyShootNum].gameObject.SetActive(true);
+                        _bIntoCold = true;
+                        CandyBombNum = 0;
+                        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandySkillOff(gameObject.name);
                     }
                     break;
                 case 2:
@@ -302,17 +295,6 @@ public class PlayerController : MonoBehaviour
                         dahsColdBtn.SetActive(false);
                         dashCold = 0.0f;
                     }
-
-                }
-            }
-            /*Candy Ability Setting*/
-            if ((int)hash["Charactor"] == 1)
-            {
-                if (CandyShootNum == 4)
-                {
-                    _bIntoCold = true;
-                    CandyShootNum = 0;
-                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandySkillOff(gameObject.name);
 
                 }
             }
@@ -447,62 +429,7 @@ public class PlayerController : MonoBehaviour
             /*Candy's shoot open?*/
 
             /*Candy's shoot*/
-            if (CandyShoot[0])
-            {
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootParticleOn(CandyShootList[0].name);
-                CandyShootList[0].transform.position += CandyShootDir[0];
-                StartCoroutine(CandyShootFun(0));
-            }
-            else
-            {
-                if (CandyShootList[0] != null)
-                {
-                    CandyShootList[0].transform.position = gameObject.transform.GetChild(4).GetChild(0).position;
-                    CandyShootList[0].transform.rotation = gameObject.transform.GetChild(4).GetChild(0).rotation;
-                }
-            }
-            if (CandyShoot[1])
-            {
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootParticleOn(CandyShootList[1].name);
-                CandyShootList[1].transform.position += CandyShootDir[1];
-                StartCoroutine(CandyShootFun(1));
-            }
-            else
-            {
-                if (CandyShootList[1] != null)
-                {
-                    CandyShootList[1].transform.position = gameObject.transform.GetChild(4).GetChild(1).position;
-                    CandyShootList[1].transform.rotation = gameObject.transform.GetChild(4).GetChild(1).rotation;
-                }
-            }
-            if (CandyShoot[2])
-            {
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootParticleOn(CandyShootList[2].name);
-                CandyShootList[2].transform.position += CandyShootDir[2];
-                StartCoroutine(CandyShootFun(2));
-            }
-            else
-            {
-                if (CandyShootList[2] != null)
-                {
-                    CandyShootList[2].transform.position = gameObject.transform.GetChild(4).GetChild(2).position;
-                    CandyShootList[2].transform.rotation = gameObject.transform.GetChild(4).GetChild(2).rotation;
-                }
-            }
-            if (CandyShoot[3])
-            {
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootParticleOn(CandyShootList[3].name);
-                CandyShootList[3].transform.position += CandyShootDir[3];
-                StartCoroutine(CandyShootFun(3));
-            }
-            else
-            {
-                if (CandyShootList[3] != null)
-                {
-                    CandyShootList[3].transform.position = gameObject.transform.GetChild(4).GetChild(3).position;
-                    CandyShootList[3].transform.rotation = gameObject.transform.GetChild(4).GetChild(3).rotation;
-                }
-            }
+
             /*Ice Ability Setting*/
             if (IceBallShoot[0])
             {
@@ -1004,13 +931,7 @@ public class PlayerController : MonoBehaviour
         GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SpeedUpOff(gameObject.name);
 
     }
-    IEnumerator CandyShootFun(int index)
-    {
-        //boost cooldown
-        yield return new WaitForSeconds(2);
-        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandyShootDelete(CandyShootList[index].gameObject);
-        CandyShoot[index] = false;
-    }
+    
     IEnumerator IceBallShootFun(int index)
     {
         //boost cooldown

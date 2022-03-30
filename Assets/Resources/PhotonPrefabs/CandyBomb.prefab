@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2912776345724983228}
   - component: {fileID: 160759667707270369}
   m_Layer: 0
-  m_Name: Candy_Shoot
+  m_Name: CandyBomb
   m_TagString: CandyShoot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,8 +28,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2394386255134313694}
-  m_LocalRotation: {x: 0.5157534, y: -0.47612655, z: 0.5356506, w: -0.46944687}
-  m_LocalPosition: {x: -5.175322, y: 9.884888, z: -8.77}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 51, y: 54, z: 30}
   m_Children:
   - {fileID: 2832401874412785290}
@@ -148,7 +148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 102122, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 467804, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_RootOrder
@@ -168,43 +168,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 467804, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0006
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 467804, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0003
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 467804, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0391
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 467804, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.04780858
+      value: 0.74010414
       objectReference: {fileID: 0}
     - target: {fileID: 467804, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.055499908
+      value: -0.6724924
       objectReference: {fileID: 0}
     - target: {fileID: 467804, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9972551
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 467804, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.010793092
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 467804, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 1.5380001
+      value: -84.520004
       objectReference: {fileID: 0}
     - target: {fileID: 467804, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -174.595
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 467804, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -6.2980003
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 19874734, guid: 153f3e43b3732374b885d0cc2773ae05, type: 3}
       propertyPath: InitialModule.gravityModifier.scalar
