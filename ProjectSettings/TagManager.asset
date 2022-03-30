@@ -16,12 +16,13 @@ TagManager:
   - ExitPortal
   - dangerStick
   - Wall
-  - CandyShoot
   - ChocolateWall
   - IceBall
   - jumpPad
   - WoundedTrigger
   - Pendulum
+  - CandyBomb
+  - CandyShoot
   layers:
   - Default
   - TransparentFX
