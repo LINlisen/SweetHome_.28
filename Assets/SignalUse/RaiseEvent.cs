@@ -331,13 +331,11 @@ public class RaiseEvent : MonoBehaviourPun
         {
             object[] datas = (object[])obj.CustomData;
             string Name = (string)datas[0];
+            int index = (int)datas[1];
             print(Name);
-            if (GameObject.Find(Name).gameObject == null)
-            {
-                print("delete");
-                return;
-            }
-            else
+            GameObject.Find("PlayerManager(Clone)").GetComponentInChildren<PlayerController>().IceDelete[index] = true;
+            bool State = GameObject.Find("PlayerManager(Clone)").GetComponentInChildren<PlayerController>().IceDelete[index];
+            if (!State)
             {
                 GameObject DeObj = GameObject.Find(Name).gameObject;
                 Destroy(DeObj);
@@ -587,9 +585,9 @@ public class RaiseEvent : MonoBehaviourPun
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(ICE_SKILL_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
     }
-    public void IceShootDelete(string IceshootName)
+    public void IceShootDelete(string IceshootName , int index)
     {
-        object[] datas = new object[] { IceshootName };
+        object[] datas = new object[] { IceshootName,index };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(ICESHOOT_DELETE, datas, raiseEventOptions, SendOptions.SendReliable);
     }

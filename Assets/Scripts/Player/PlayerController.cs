@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour
     private Vector3[] IceShootDir = new Vector3[3];
     private bool[] IceBallShoot = new bool[3];
     private int IceBallShootNum = 0;
+    public bool[] IceDelete = new bool[3];
     // Start is called before the first frame update
 
     public CharacterController playerController;
@@ -196,6 +197,7 @@ public class PlayerController : MonoBehaviour
                         IceBall[i] = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "IceShoot"), gameObject.transform.GetChild(4).position + new Vector3(0,i*2,0), gameObject.transform.rotation);
                         IceBall[i].name = "IceBall" + i.ToString();
                         IceBallShoot[i] = false;
+                        IceDelete[i] = false;
                     }
                     GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceSkillOn(gameObject.name);
                     _bAbilityOn = true;
@@ -938,10 +940,10 @@ public class PlayerController : MonoBehaviour
         //boost cooldown
         yield return new WaitForSeconds(2);
         IceBallShoot[index] = false;
-        if (IceBall[index] != null)
+        if (IceDelete[index] ==false)
         {
             print(index);
-            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceShootDelete(IceBall[index].gameObject.name);
+            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceShootDelete(IceBall[index].gameObject.name,index);
         }
     }
     IEnumerator WalkSpeedReset()
