@@ -330,9 +330,18 @@ public class RaiseEvent : MonoBehaviourPun
         if (obj.Code == ICESHOOT_DELETE)
         {
             object[] datas = (object[])obj.CustomData;
-            GameObject DeObj = (GameObject)datas[0];
-           
-            Destroy(DeObj);
+            string Name = (string)datas[0];
+            print(Name);
+            if (GameObject.Find(Name).gameObject == null)
+            {
+                print("delete");
+                return;
+            }
+            else
+            {
+                GameObject DeObj = GameObject.Find(Name).gameObject;
+                Destroy(DeObj);
+            }
         }
     }
 
@@ -578,9 +587,9 @@ public class RaiseEvent : MonoBehaviourPun
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(ICE_SKILL_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
     }
-    public void IceShootDelete(GameObject deobj)
+    public void IceShootDelete(string IceshootName)
     {
-        object[] datas = new object[] { deobj };
+        object[] datas = new object[] { IceshootName };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(ICESHOOT_DELETE, datas, raiseEventOptions, SendOptions.SendReliable);
     }

@@ -193,7 +193,8 @@ public class PlayerController : MonoBehaviour
                     SkillSound.Play();
                     for (int i = 0; i<3; i++)
                     {
-                        IceBall[i] = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "IceBall"), gameObject.transform.GetChild(4).position + new Vector3(0,i*2,0), gameObject.transform.rotation);
+                        IceBall[i] = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "IceShoot"), gameObject.transform.GetChild(4).position + new Vector3(0,i*2,0), gameObject.transform.rotation);
+                        IceBall[i].name = "IceBall" + i.ToString();
                         IceBallShoot[i] = false;
                     }
                     GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceSkillOn(gameObject.name);
@@ -475,11 +476,12 @@ public class PlayerController : MonoBehaviour
                     {
                         IceBall[2].transform.position = gameObject.transform.GetChild(4).position;
                     }
+
                     else
                     {
+
                         IceBall[2].transform.position = gameObject.transform.GetChild(4).position + new Vector3(0, 4, 0);
                     }
-                    
                 }
             }
         }
@@ -935,9 +937,12 @@ public class PlayerController : MonoBehaviour
     {
         //boost cooldown
         yield return new WaitForSeconds(2);
-        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceShootDelete(IceBall[index].gameObject);
-        
         IceBallShoot[index] = false;
+        if (IceBall[index] != null)
+        {
+            print(index);
+            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceShootDelete(IceBall[index].gameObject.name);
+        }
     }
     IEnumerator WalkSpeedReset()
     {
