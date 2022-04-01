@@ -3278,9 +3278,9 @@ MonoBehaviour:
   RedListContent: {fileID: 165585584}
   PlayerListItemPrefab: {fileID: 6104003713368194113, guid: b58214e9ba097024c83ce1adea202d19,
     type: 3}
-  ChooseButton: {fileID: 1281178320}
-  RoomStartGameButton: {fileID: 173564536}
-  startGameButton: {fileID: 1610586321}
+  ChooseButton: {fileID: 173564536}
+  RoomStartGameButton: {fileID: 1610586321}
+  startGameButton: {fileID: 1281178320}
   startGameButtonText: {fileID: 0}
   startGameHint: {fileID: 1664978241}
   ImgClick: {fileID: 885171366}
@@ -6970,7 +6970,7 @@ GameObject:
   - component: {fileID: 1281178323}
   - component: {fileID: 1281178322}
   m_Layer: 5
-  m_Name: Choose_btn
+  m_Name: Ready_btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7020,7 +7020,7 @@ MonoBehaviour:
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
+    m_ColorMultiplier: 1.87
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
