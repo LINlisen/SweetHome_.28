@@ -333,12 +333,12 @@ public class RaiseEvent : MonoBehaviourPun
             string Name = (string)datas[0];
             int index = (int)datas[1];
             print(Name);
-            GameObject.Find("PlayerManager(Clone)").GetComponentInChildren<PlayerController>().IceDelete[index] = true;
             bool State = GameObject.Find("PlayerManager(Clone)").GetComponentInChildren<PlayerController>().IceDelete[index];
             if (!State)
             {
                 GameObject DeObj = GameObject.Find(Name).gameObject;
                 Destroy(DeObj);
+                GameObject.Find("PlayerManager(Clone)").GetComponentInChildren<PlayerController>().IceDelete[index] = true;
             }
         }
     }

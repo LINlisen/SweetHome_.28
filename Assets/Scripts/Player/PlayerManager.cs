@@ -38,22 +38,22 @@ public class PlayerManager : MonoBehaviour
         switch ((int)hash["Charactor"])
         {
             case 1:
-                character = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandyCharactor"), GameObject.Find("PlayersPos").transform.GetChild(0).position, Quaternion.identity);
+                character = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandyCharactor"), GameObject.Find("PlayersPos").transform.GetChild(0).position,gameObject.transform.rotation);
                 character.transform.parent = transform;
                 animator = character.GetComponent<Animator>();
                 break;
             case 2:
-                character = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "ChocolateCharactor"), GameObject.Find("PlayersPos").transform.GetChild(1).position, Quaternion.identity);
+                character = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "ChocolateCharactor"), GameObject.Find("PlayersPos").transform.GetChild(1).position, gameObject.transform.rotation);
                 character.transform.parent = transform;
                 animator = character.GetComponent<Animator>();
                 break;
             case 3:
-                character = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CanCharactor"), GameObject.Find("PlayersPos").transform.GetChild(2).position, Quaternion.identity);
+                character = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CanCharactor"), GameObject.Find("PlayersPos").transform.GetChild(2).position, gameObject.transform.rotation);
                 character.transform.parent = transform;
                 animator = character.GetComponent<Animator>();
                 break;
             case 4:
-                character = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "IceCharactor"), GameObject.Find("PlayersPos").transform.GetChild(3).position, Quaternion.identity);
+                character = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "IceCharactor"), GameObject.Find("PlayersPos").transform.GetChild(3).position, gameObject.transform.rotation);
                 character.transform.parent = transform;
                 animator = character.GetComponent<Animator>();
                 break;

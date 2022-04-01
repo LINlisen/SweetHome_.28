@@ -442,6 +442,8 @@ public class PlayerController : MonoBehaviour
                 if(IceBall[0] != null)
                 {
                     IceBall[0].transform.position = gameObject.transform.GetChild(4).position;
+                    IceBall[0].transform.rotation = gameObject.transform.rotation;
+
                 }
             }
             if (IceBallShoot[1])
@@ -456,10 +458,12 @@ public class PlayerController : MonoBehaviour
                     if (IceBallShoot[0])
                     {
                         IceBall[1].transform.position = gameObject.transform.GetChild(4).position;
+                        IceBall[1].transform.rotation = gameObject.transform.rotation;
                     }
                     else
                     {
                         IceBall[1].transform.position = gameObject.transform.GetChild(4).position + new Vector3(0, 2, 0);
+                        IceBall[1].transform.rotation = gameObject.transform.rotation;
                     }
                     
                 }
@@ -477,12 +481,15 @@ public class PlayerController : MonoBehaviour
                     if (IceBallShoot[1])
                     {
                         IceBall[2].transform.position = gameObject.transform.GetChild(4).position;
+                        IceBall[2].transform.rotation = gameObject.transform.rotation;
                     }
 
                     else
                     {
 
                         IceBall[2].transform.position = gameObject.transform.GetChild(4).position + new Vector3(0, 4, 0);
+                        IceBall[2].transform.rotation = gameObject.transform.rotation;
+
                     }
                 }
             }
