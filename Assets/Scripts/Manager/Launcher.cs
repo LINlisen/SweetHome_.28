@@ -23,9 +23,10 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] Transform BlueListContent;
     [SerializeField] Transform RedListContent;
     [SerializeField] GameObject PlayerListItemPrefab;
-    [SerializeField] GameObject ChooseButton;
-    [SerializeField] GameObject RoomStartGameButton;
-    [SerializeField] GameObject startGameButton;
+    [SerializeField] GameObject GoToChooseButton;
+    [SerializeField] GameObject Ready_Btn_Click;
+    [SerializeField] GameObject Ready_Btn;
+    [SerializeField] GameObject Start_Btn;
     [SerializeField] Text startGameButtonText;
     [SerializeField] Text startGameHint;
     [SerializeField] Image ImgClick;
@@ -217,21 +218,22 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
-            RoomStartGameButton.SetActive(true);
+            Start_Btn.SetActive(true);
         }
         else
         {
-            ChooseButton.SetActive(true);
+            Ready_Btn.SetActive(true);
+            Ready_Btn_Click.SetActive(false);
         }
-        ChooseButton.SetActive(PhotonNetwork.IsMasterClient);
-        startGameButton.SetActive(true);
+        GoToChooseButton.SetActive(PhotonNetwork.IsMasterClient);
+        //startGameButton.SetActive(true);
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
         PhotonNetwork.NickName =playerNicknameInputField.text;
-        startGameButton.SetActive(PhotonNetwork.IsMasterClient);
-        ChooseButton.SetActive(PhotonNetwork.IsMasterClient);
+        Start_Btn.SetActive(PhotonNetwork.IsMasterClient);
+        GoToChooseButton.SetActive(PhotonNetwork.IsMasterClient);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -271,7 +273,8 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
         else
         {
-            startGameButton.GetComponent<Image>().color = color;
+            Ready_Btn.SetActive(false);
+            Ready_Btn_Click.SetActive(true);
             //hash["Ready"] = true;
             //PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
             PropertiesManager.GetComponent<PropertiesManager>().ChangeProperties( "Ready", true);
