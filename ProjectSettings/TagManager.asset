@@ -23,6 +23,7 @@ TagManager:
   - Pendulum
   - CandyBomb
   - CandyShoot
+  - TreasureDeathTwo
   layers:
   - Default
   - TransparentFX

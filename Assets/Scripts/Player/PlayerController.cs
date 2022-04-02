@@ -599,6 +599,11 @@ public class PlayerController : MonoBehaviour
         {
             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().TreasureDeath("TreasureDeath", true);
         }
+        //treasureDeath2
+        if (other.tag == "TreasureDeathTwo")
+        {
+            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().TreasureDeathTwo("TreasureDeathTwo", true);
+        }
         //armor
         if (other.gameObject.tag == "armorTG")
         {

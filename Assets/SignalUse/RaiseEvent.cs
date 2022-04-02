@@ -23,6 +23,7 @@ public class RaiseEvent : MonoBehaviourPun
     private const byte GET_ARMOR = 6;
     private const byte EXCAPE = 7;
     private const byte POTION_OUT = 8;
+    private const byte TREASURE_DEATHTWO = 9;
 
     /*共同特效部分*/
     private const byte DASH_ON = 9; //衝撞特效 index 1
@@ -138,6 +139,15 @@ public class RaiseEvent : MonoBehaviourPun
             anim.SetBool("openbox", true);
         }
         if (obj.Code == TREASURE_DEATH)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string ObjTag = (string)datas[0];
+            bool ObjState = (bool)datas[1];
+            Animator anim = GameObject.FindWithTag(ObjTag).GetComponentInParent<Animator>();
+            //Debug.Log(GameObject.FindWithTag(ObjTag).name);
+            anim.SetBool("openbox", true);
+        }
+        if (obj.Code == TREASURE_DEATHTWO)
         {
             object[] datas = (object[])obj.CustomData;
             string ObjTag = (string)datas[0];
@@ -391,6 +401,14 @@ public class RaiseEvent : MonoBehaviourPun
         object[] datas = new object[] { ObjTag, ObjState };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(TREASURE_DEATH, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void TreasureDeathTwo(string tag, bool state)
+    {
+        string ObjTag = tag;
+        bool ObjState = state;
+        object[] datas = new object[] { ObjTag, ObjState };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(TREASURE_DEATHTWO, datas, raiseEventOptions, SendOptions.SendReliable);
     }
     public void GetArmor(int index,bool state,string name)
     {
