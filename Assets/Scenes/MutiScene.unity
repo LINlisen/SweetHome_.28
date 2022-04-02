@@ -21144,7 +21144,7 @@ GameObject:
   - component: {fileID: 934135888}
   m_Layer: 0
   m_Name: trgPad
-  m_TagString: Untagged
+  m_TagString: TwoPerTreasure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21177,6 +21177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerOn: 0
   playerCount: 0
+  CanOpenTreasure: 0
 --- !u!65 &934135889
 BoxCollider:
   m_ObjectHideFlags: 0
