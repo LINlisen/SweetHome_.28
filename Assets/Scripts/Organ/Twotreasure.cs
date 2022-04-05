@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Photon.Pun;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class TwoTreasure : MonoBehaviour
 {
+
+    Hashtable hash;
     public bool playerOn;
     public int playerCount;
 
@@ -19,9 +22,10 @@ public class TwoTreasure : MonoBehaviour
 
     void Start()
     {
+        hash = PhotonNetwork.LocalPlayer.CustomProperties;
         playerCount = 0;
         playerOn = false;
-
+        
         CanOpenTreasure = false;
     }
 
