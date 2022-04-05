@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Texture.meta
 guid: 228b5ba3f446a4a21a98973734e59768
+=======
+guid: 42b2f39f0a63eac42961be96d5fd8cd8
+>>>>>>> parent of 32463ac (Revert "add Duo Treasure animation"):Assets/AnimationController/twoTreasure.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
