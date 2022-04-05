@@ -8,9 +8,9 @@ public class TwoTreasure : MonoBehaviour
     public bool playerOn;
     public int playerCount;
 
-    public GameObject potion1;
-    public GameObject potion2;
-
+    //public GameObject potion1;
+    //public GameObject potion2;
+    public GameObject potionSet;
 
     [SerializeField]public bool CanOpenTreasure;//treasure trigger flag
 
@@ -28,6 +28,7 @@ public class TwoTreasure : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(playerCount);
         if (playerCount == 2)
         {
             Debug.Log("two persoon & treasure avalible");
@@ -35,8 +36,8 @@ public class TwoTreasure : MonoBehaviour
         }
         if (CanOpenTreasure)
         {
-            potion1.gameObject.SetActive(true);
-            potion2.gameObject.SetActive(true);
+            potionSet.gameObject.SetActive(true);
+            
         }
         
     }
