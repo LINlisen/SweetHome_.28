@@ -120,8 +120,7 @@ public class PlayerController : MonoBehaviour
         team = PhotonNetwork.LocalPlayer.CustomProperties;
         hash = PhotonNetwork.LocalPlayer.CustomProperties;
         skillManager = GameObject.Find("SkillManager").GetComponent<SkillManager>();
-        //for show nickname on scene not done
-        //NickName.text = PhotonNetwork.LocalPlayer.NickName;
+        NickName.text = PhotonNetwork.LocalPlayer.NickName;
         agent = gameObject.GetComponent<NavMeshAgent>();
 
         if (PV.IsMine)
