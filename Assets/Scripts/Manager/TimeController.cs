@@ -45,12 +45,10 @@ public class TimeController : MonoBehaviour
     int pready = 0;
     void Start()
     {
-        //time.Add("StartTime", (int)PhotonNetwork.Time);
-        //CustomeValue.Add("TimerReady", true);
-        //PhotonNetwork.CurrentRoom.SetCustomProperties(time);
-        //PhotonNetwork.LocalPlayer.SetCustomProperties(CustomeValue);
-        GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeRoomProperties("StartTime", (int)PhotonNetwork.Time);
-        GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeProperties("TimerReady", true);
+        time.Add("StartTime", (int)PhotonNetwork.Time);
+        CustomeValue.Add("TimerReady", true);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(time);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(CustomeValue);
         roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
         RedTeam = 0;
         BlueTeam = 0;
@@ -105,10 +103,9 @@ public class TimeController : MonoBehaviour
                 if ((bool)PhotonNetwork.LocalPlayer.CustomProperties["Blind"] == true)
                 {
                     BlindStartTime = (int)PhotonNetwork.Time;
-                    //hash = PhotonNetwork.LocalPlayer.CustomProperties;
-                    //hash["Blind"] = false;
-                    //PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-                    GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeProperties("Blind", false);
+                    hash = PhotonNetwork.LocalPlayer.CustomProperties;
+                    hash["Blind"] = false;
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
                 }
                 if ((int)PhotonNetwork.Time - (int)BlindStartTime == 5)
                 {
@@ -123,9 +120,8 @@ public class TimeController : MonoBehaviour
                     gameOver.SetActive(true);
                     if(timerIncrementValue <= -1.6)
                     {
-                        //roomhash["GameOver"] = true;
-                        //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
-                        GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeRoomProperties("GameOver", true);
+                        roomhash["GameOver"] = true;
+                        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
                     }
                 }
             }

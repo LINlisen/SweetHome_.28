@@ -13,9 +13,8 @@ public class Data : MonoBehaviour
     {
         Hashtable hash = new Hashtable();
         _bSeeSaw = true;
-        //hash.Add("seesawbool",_bSeeSaw);
-        //PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
-        GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeRoomProperties("seesawbool", _bSeeSaw);
+        hash.Add("seesawbool",_bSeeSaw);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(hash);
     }
 
     // Update is called once per frame

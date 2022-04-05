@@ -39,17 +39,15 @@ public class Score : MonoBehaviour
         {
             redpoint++;
             teamredpoint.text = redpoint.ToString();
-            //roomhash["RedScore"] = redpoint;
-            //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
-            GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeRoomProperties("RedScore", redpoint);
+            roomhash["RedScore"] = redpoint;
+            PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
         }
         else
         {
             bluepoint++;
             teambluepoint.text = bluepoint.ToString();
-            //roomhash["BlueScore"] = bluepoint;
-            //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
-            GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeRoomProperties("BlueScore", bluepoint);
+            roomhash["BlueScore"] = bluepoint;
+            PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
         }
     }
     [PunRPC]
@@ -60,17 +58,16 @@ public class Score : MonoBehaviour
         {
             redpoint--;
             teamredpoint.text = redpoint.ToString();
-            //roomhash["RedScore"] = redpoint;
-            //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
-            GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeRoomProperties("RedScore", redpoint);
+            roomhash["RedScore"] = redpoint;
+            PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
         }
         else
         {
             bluepoint--;
             teambluepoint.text = bluepoint.ToString();
-            //roomhash["BlueScore"] = bluepoint;
-            //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
-            GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeRoomProperties("BlueScore", bluepoint);
+            roomhash["BlueScore"] = bluepoint;
+            PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+
         }
     }
     //下面三行擺到在判斷拿到藥水的函式裡

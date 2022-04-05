@@ -573,8 +573,7 @@ public class PlayerController : MonoBehaviour
             if ((bool)data["seesawbool"] == true)
             {
                 data["seesawbool"] = false;
-                //PhotonNetwork.CurrentRoom.SetCustomProperties(data);
-                GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeRoomProperties("seesawbool", false);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(data);
                 GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SeeSawTriggerR("AnimRSeesaw", false);
             }
         }
@@ -583,8 +582,7 @@ public class PlayerController : MonoBehaviour
             if ((bool)data["seesawbool"] == false)
             {
                 data["seesawbool"] = true;
-                //PhotonNetwork.CurrentRoom.SetCustomProperties(data);
-                GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeRoomProperties("seesawbool", false);
+                PhotonNetwork.CurrentRoom.SetCustomProperties(data);
                 GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SeeSawTriggerL("AnimLSeesaw", false);
             }
         }
@@ -690,10 +688,9 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.transform.tag == "Potion")
         {
             PhotonView photonView = PhotonView.Get(UpInformation);
-            //hash = PhotonNetwork.LocalPlayer.CustomProperties;
-            //hash["Point"] = (int)hash["Point"] + 1;
-            //PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-            GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeProperties("Point", (int)PhotonNetwork.LocalPlayer.CustomProperties["Point"] + 1);
+            hash = PhotonNetwork.LocalPlayer.CustomProperties;
+            hash["Point"] = (int)hash["Point"] + 1;
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
             photonView.RPC("getPoint", RpcTarget.All, (string)team["WhichTeam"]);
             other.GetComponent<AudioSource>().Play();
             other.GetComponent<RaiseEvent>().getPotion(other.gameObject.name);
@@ -715,9 +712,8 @@ public class PlayerController : MonoBehaviour
             PhotonView photonView = PhotonView.Get(UpInformation);
             if ((int)hash["Point"] != 0)
             {
-                //hash["Point"] = (int)hash["Point"] - 1;
-                //PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-                GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeProperties("Point", (int)PhotonNetwork.LocalPlayer.CustomProperties["Point"] - 1);
+                hash["Point"] = (int)hash["Point"] - 1;
+                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
                 photonView.RPC("losePoint", RpcTarget.All, (string)team["WhichTeam"]);
                 _bWounded = true;
                 GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name, true);
@@ -763,18 +759,16 @@ public class PlayerController : MonoBehaviour
                         {
                             Hashtable Wounded = new Hashtable();
                             Player[] players = PhotonNetwork.PlayerList;
-                            //hash["Point"] = (int)hash["Point"] - 1;
-                            //PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-                            GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangeProperties("Point", (int)PhotonNetwork.LocalPlayer.CustomProperties["Point"] - 1);
+                            hash["Point"] = (int)hash["Point"] - 1;
+                            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
                             photonView.RPC("losePoint", RpcTarget.All, (string)team["WhichTeam"]);
                             for (int j = 0; j < players.Count(); j++)
                             {
                                 Wounded = players[j].CustomProperties;
                                 if (player[j].name == hit.gameObject.name)
                                 {
-                                    //Wounded["Wounded"] = true;
-                                    //players[j].SetCustomProperties(Wounded);
-                                    GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangePlayerProperties("Wounded", true, players[j]);
+                                    Wounded["Wounded"] = true;
+                                    players[j].SetCustomProperties(Wounded);
                                 }
                             }
                             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, true);
@@ -790,9 +784,8 @@ public class PlayerController : MonoBehaviour
                                 Wounded = players[j].CustomProperties;
                                 if (player[j].name == hit.gameObject.name)
                                 {
-                                    //Wounded["Wounded"] = true;
-                                    //players[j].SetCustomProperties(Wounded);
-                                    GameObject.Find("PropertiesManager").GetComponent<InGamePropertiesManager>().ChangePlayerProperties("Wounded", true, players[j]);
+                                    Wounded["Wounded"] = true;
+                                    players[j].SetCustomProperties(Wounded);
                                 }
                             }
                             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, false);
