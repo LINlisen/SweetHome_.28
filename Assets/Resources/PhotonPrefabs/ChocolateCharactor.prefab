@@ -107408,21 +107408,18 @@ MonoBehaviour:
   mouseSensitivity: 10
   walkSpeed: 22
   smoothTime: 0.15
+  NickName: {fileID: 0}
   dashDuration: 1
   dashSpeed: 1.5
   DashSound: {fileID: 4853217309325901784}
   SkillSound: {fileID: 538149782541176334}
   SkillGenerateSound: {fileID: 0}
   SkillShootSound: {fileID: 0}
-  CandyShootList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   IceBall:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  IceDelete: 000000
   playerController: {fileID: 1078051825160143480}
   boostedSpeed: 30
   speedCooldown: 2

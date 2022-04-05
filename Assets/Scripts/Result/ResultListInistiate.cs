@@ -19,7 +19,7 @@ public class ResultListInistiate : MonoBehaviour
         for (int i = 0; i < PhotonNetwork.PlayerList.Count(); i++)
         {
             hash = players[i].CustomProperties;
-            if ((int)players[i].CustomProperties["WhichTeam"] == 1)
+            if ((string)players[i].CustomProperties["WhichTeam"] == "紅隊")
             {
                 Instantiate(ResultListItemPrefab, RedListContent).GetComponent<ResultListItem>().SetUp(players[i]);
             }

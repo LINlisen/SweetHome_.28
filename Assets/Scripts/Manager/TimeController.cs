@@ -86,7 +86,11 @@ public class TimeController : MonoBehaviour
         {
             timerIncrementValue = countdown - ((int)PhotonNetwork.Time - (int)startTime);
             text_Countdown.text = (timerIncrementValue % 60).ToString();
-            if (timerIncrementValue == 0)
+            if(timerIncrementValue > 0)
+            {
+                Debug.Log("Can't move");
+            }
+            else if (timerIncrementValue == 0)
             {
                 text_Countdown.text = "Start !!";
                 GameObject.Find("Audios/AudioSourceBGM").GetComponent<AudioSource>().Play();

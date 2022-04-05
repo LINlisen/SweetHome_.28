@@ -58226,6 +58226,7 @@ MonoBehaviour:
   mouseSensitivity: 10
   walkSpeed: 22
   smoothTime: 0.15
+  NickName: {fileID: 0}
   dashDuration: 1
   dashSpeed: 1.5
   DashSound: {fileID: 6592838806203366578}

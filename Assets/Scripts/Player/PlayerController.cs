@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] GameObject camerHolder;
     [SerializeField] float mouseSensitivity, walkSpeed, smoothTime;
-    
+    [SerializeField] Text NickName;
 
     private PlayerManager playerManager;
     float rotation;
@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
         team = PhotonNetwork.LocalPlayer.CustomProperties;
         hash = PhotonNetwork.LocalPlayer.CustomProperties;
         skillManager = GameObject.Find("SkillManager").GetComponent<SkillManager>();
-
+        NickName.text = PhotonNetwork.LocalPlayer.NickName;
         agent = gameObject.GetComponent<NavMeshAgent>();
 
         if (PV.IsMine)
@@ -547,7 +547,7 @@ public class PlayerController : MonoBehaviour
             walkSpeed = boostedSpeed;
 
 
-            other.gameObject.gameObject.GetComponent<AudioSource>().Play();
+            other.gameObject.GetComponentInChildren<AudioSource>().Play();
 
             //gameObject.transform.GetChild(7).gameObject.SetActive(true);
             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().SpeedUpOn(gameObject.name);
