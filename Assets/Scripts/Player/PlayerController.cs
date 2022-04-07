@@ -197,8 +197,6 @@ public class PlayerController : MonoBehaviour
                     for (int i = 0; i<3; i++)
                     {
                         IceBall[i] = GameObject.Find("IceShoot").transform.GetChild(i).gameObject;
-                        IceBall[i].transform.position = gameObject.transform.GetChild(4).position;
-                        IceBall[i].transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
                         IceBallShoot[i] = false;
                         IceDelete[i] = false;
                     }
@@ -238,7 +236,7 @@ public class PlayerController : MonoBehaviour
                     SkillShootSound.Play();
                     directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
                     directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
-                    IceBall[IceBallShootNum].transform.position = IceBall[IceBallShootNum].transform.position - new Vector3(0, 3.5f, 0);
+                    IceBall[IceBallShootNum].transform.position = IceBall[IceBallShootNum].transform.position - new Vector3(0, 6.5f, 0);
                     IceBallShoot[IceBallShootNum] = true;
                     IceShootDir[IceBallShootNum] = -directionXOZ;
                     playerManager.animator.SetTrigger("Skill");
@@ -402,7 +400,49 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         if (!PV.IsMine)
-            return;
+        {
+            if (IceBallShoot[0])
+            {
+                IceBall[0].transform.position += IceShootDir[0];
+                StartCoroutine(IceBallShootFun(0));
+            }
+            else
+            {
+                if (IceBall[0] != null)
+                {
+                    IceBall[0].transform.position = gameObject.transform.GetChild(4).position;
+                    IceBall[0].transform.rotation = Quaternion.Euler(new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 90, gameObject.transform.rotation.z));
+
+                }
+            }
+            if (IceBallShoot[1])
+            {
+                IceBall[1].transform.position += IceShootDir[1];
+                StartCoroutine(IceBallShootFun(1));
+            }
+            else
+            {
+                if (IceBall[1] != null)
+                {
+                    IceBall[1].transform.position = gameObject.transform.GetChild(4).position;
+                    IceBall[1].transform.rotation = Quaternion.Euler(new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 90, gameObject.transform.rotation.z));
+                }
+            }
+
+            if (IceBallShoot[2])
+            {
+                IceBall[2].transform.position += IceShootDir[2];
+                StartCoroutine(IceBallShootFun(2));
+            }
+            else
+            {
+                if (IceBall[2] != null)
+                {
+                    IceBall[2].transform.position = gameObject.transform.GetChild(4).position;
+                    IceBall[2].transform.rotation = Quaternion.Euler(new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 90, gameObject.transform.rotation.z));
+                }
+            }
+        }
         else
         {
             Vector2 move = TCKInput.GetAxis("Joystick"); // NEW func since ver 1.5.5

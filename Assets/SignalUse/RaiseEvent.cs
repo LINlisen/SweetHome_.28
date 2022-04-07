@@ -332,6 +332,9 @@ public class RaiseEvent : MonoBehaviourPun
             for(int i = 0; i < 3; i++)
             {
                 GameObject.Find("IceShoot").transform.GetChild(i).gameObject.SetActive(true);
+                GameObject.Find("IceShoot").transform.GetChild(i).transform.position = GameObject.Find("IceCharactor(Clone)").transform.GetChild(4).position;
+                GameObject.Find("IceShoot").transform.GetChild(i).transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+
             }
             GameObject.Find(Name).gameObject.transform.GetChild(5).gameObject.SetActive(true);
         }
@@ -350,7 +353,7 @@ public class RaiseEvent : MonoBehaviourPun
             bool State = GameObject.Find("PlayerManager(Clone)").GetComponentInChildren<PlayerController>().IceDelete[index];
             if (!State)
             {
-                GameObject.Find(Name).gameObject.SetActive(false);
+                GameObject.Find("IceShoot").transform.GetChild(index).gameObject.SetActive(false);
                 GameObject.Find("PlayerManager(Clone)").GetComponentInChildren<PlayerController>().IceBallShoot[index] = false;
                 GameObject.Find("PlayerManager(Clone)").GetComponentInChildren<PlayerController>().IceDelete[index] = true;
             }
