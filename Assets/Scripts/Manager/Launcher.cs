@@ -219,6 +219,8 @@ public class Launcher : MonoBehaviourPunCallbacks
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
             Start_Btn.SetActive(true);
+            PropertiesManager.GetComponent<PropertiesManager>().RoomInitialPropertiesSet();
+            PropertiesManager.GetComponent<PropertiesManager>().ChangeRoomProperties("RoomMaster", (string)PhotonNetwork.LocalPlayer.NickName);
         }
         else
         {
@@ -287,7 +289,6 @@ public class Launcher : MonoBehaviourPunCallbacks
         //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
         //roomhash["Choose"] = 0;
         //PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
-        PropertiesManager.GetComponent<PropertiesManager>().RoomInitialPropertiesSet();
         PropertiesManager.GetComponent<PropertiesManager>().ChangeRoomProperties( "Choose", 1);
         PropertiesManager.GetComponent<PropertiesManager>().ChangeRoomProperties( "Choose", 0);
         for (int i = 1; i < players.Count()+1; i++)
@@ -382,21 +383,25 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        foreach (Transform trans in roomListContent)
-        {
-            Destroy(trans.gameObject);
-        }
         for (int i = 0; i < roomList.Count; i++)
         {
             if (roomList[i].RemovedFromList)
-                continue;
+            {
+                foreach (Transform trans in roomListContent)
+                {
+                    if (trans.gameObject.GetComponentInChildren<Text>().text == roomList[i].Name)
+                    {
+                        Destroy(trans.gameObject);
+                    }
+                }
+            }
             Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().SetUp(roomList[i]);
         }
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-
+        PropertiesManager.GetComponent<PropertiesManager>().ChangeRoomProperties("PlayerNumChanged", true);
         if (PhotonNetwork.PlayerList.Count() % 2 == 0)
         {
 
@@ -412,6 +417,7 @@ public class Launcher : MonoBehaviourPunCallbacks
             //newPlayer.SetCustomProperties(hash);
             PropertiesManager.GetComponent<PropertiesManager>().ChangePlayerProperties("WhichTeam", "藍隊", newPlayer);
         }
+        PropertiesManager.GetComponent<PropertiesManager>().ChangeRoomProperties("PlayerNumChanged", false);
     }
     public void SwitchToBlue()
     {

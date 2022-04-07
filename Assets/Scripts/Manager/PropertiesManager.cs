@@ -12,6 +12,8 @@ public class PropertiesManager : MonoBehaviour
     private void Awake()
     {
         roomhash.Add("LoadingProgress", 0);
+        roomhash.Add("RoomMaster", "");
+        roomhash.Add("PlayerNumChanged", false);
         roomhash.Add("Choose", 0);
         roomhash.Add("StartGame", false);
         roomhash.Add("GameOver", false);

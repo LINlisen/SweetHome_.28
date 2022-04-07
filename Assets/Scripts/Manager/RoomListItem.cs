@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class RoomListItem : MonoBehaviour
 {
-    [SerializeField] TMP_Text text;
+    [SerializeField] Text RoomName;
+    [SerializeField] Text RoomMaster;
     [SerializeField] Text PlayerNumber;
 
     public RoomInfo info;
@@ -15,8 +17,11 @@ public class RoomListItem : MonoBehaviour
     public void SetUp(RoomInfo _info)
     {
         info = _info;
-        text.text = _info.Name;
-        PlayerNumber.text = _info.PlayerCount.ToString();
+        RoomName.text = _info.Name;
+        RoomMaster.text = (string)_info.CustomProperties["RoomMaster"];
+        Debug.Log(_info.CustomProperties["RoomMaster"]);
+        Debug.Log((string)_info.CustomProperties["RoomMaster"]);
+        PlayerNumber.text = (_info.PlayerCount.ToString() + " / 4 ");
     }
 
     public void OnClick()
