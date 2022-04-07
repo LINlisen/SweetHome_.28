@@ -748,9 +748,9 @@ public class PlayerController : MonoBehaviour
             }
             GameObject.Find("RauiseEvent").GetComponent<RaiseEvent>().ChocolateDelete(other.gameObject);
         }
-        if (other.gameObject.tag == "IceBall")
+        if (other.gameObject.tag == "IceBall" && gameObject.name != "IceCharactor(Clone)")
         {
-            walkSpeed -= 5;
+            walkSpeed -= 10;
             StartCoroutine("WalkSppedReset");
         }
     }
