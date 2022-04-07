@@ -32,6 +32,7 @@ public class PropertiesManager : MonoBehaviour
         hash.Add("Point", 0);
         hash.Add("Wounded", false);
         hash.Add("Charactor", 1);
+        hash.Add("IceAbility", false);
     }
     void Start()
     {

@@ -329,6 +329,10 @@ public class RaiseEvent : MonoBehaviourPun
         {
             object[] datas = (object[])obj.CustomData;
             string Name = (string)datas[0];
+            for(int i = 0; i < 3; i++)
+            {
+                GameObject.Find("IceShoot").transform.GetChild(i).gameObject.SetActive(true);
+            }
             GameObject.Find(Name).gameObject.transform.GetChild(5).gameObject.SetActive(true);
         }
         if (obj.Code == ICE_SKILL_OFF)
@@ -346,8 +350,8 @@ public class RaiseEvent : MonoBehaviourPun
             bool State = GameObject.Find("PlayerManager(Clone)").GetComponentInChildren<PlayerController>().IceDelete[index];
             if (!State)
             {
-                GameObject DeObj = GameObject.Find(Name).gameObject;
-                Destroy(DeObj);
+                GameObject.Find(Name).gameObject.SetActive(false);
+                GameObject.Find("PlayerManager(Clone)").GetComponentInChildren<PlayerController>().IceBallShoot[index] = false;
                 GameObject.Find("PlayerManager(Clone)").GetComponentInChildren<PlayerController>().IceDelete[index] = true;
             }
         }

@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     /*Ice Ability*/
     public GameObject[] IceBall = new GameObject[3];
     private Vector3[] IceShootDir = new Vector3[3];
-    private bool[] IceBallShoot = new bool[3];
+    public bool[] IceBallShoot = new bool[3];
     private int IceBallShootNum = 0;
     public bool[] IceDelete = new bool[3];
     // Start is called before the first frame update
@@ -193,14 +193,15 @@ public class PlayerController : MonoBehaviour
                     break;
                 case 4:
                     SkillSound.Play();
+                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceSkillOn(gameObject.name);
                     for (int i = 0; i<3; i++)
                     {
-                        IceBall[i] = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "IceShoot"), gameObject.transform.GetChild(4).position + new Vector3(0,i*2,0), gameObject.transform.rotation);
-                        IceBall[i].name = "IceBall" + i.ToString();
+                        IceBall[i] = GameObject.Find("IceShoot").transform.GetChild(i).gameObject;
+                        IceBall[i].transform.position = gameObject.transform.GetChild(4).position;
+                        IceBall[i].transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
                         IceBallShoot[i] = false;
                         IceDelete[i] = false;
                     }
-                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceSkillOn(gameObject.name);
                     _bAbilityOn = true;
                     break;
             }
@@ -366,6 +367,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
+
         }
         else
         {
@@ -443,7 +445,7 @@ public class PlayerController : MonoBehaviour
                 if(IceBall[0] != null)
                 {
                     IceBall[0].transform.position = gameObject.transform.GetChild(4).position;
-                    IceBall[0].transform.rotation = gameObject.transform.rotation;
+                    IceBall[0].transform.rotation = Quaternion.Euler(new Vector3(gameObject.transform.rotation.x,gameObject.transform.rotation.y+90, gameObject.transform.rotation.z));
 
                 }
             }
@@ -456,17 +458,8 @@ public class PlayerController : MonoBehaviour
             {
                 if (IceBall[1] != null)
                 {
-                    if (IceBallShoot[0])
-                    {
-                        IceBall[1].transform.position = gameObject.transform.GetChild(4).position;
-                        IceBall[1].transform.rotation = gameObject.transform.rotation;
-                    }
-                    else
-                    {
-                        IceBall[1].transform.position = gameObject.transform.GetChild(4).position + new Vector3(0, 2, 0);
-                        IceBall[1].transform.rotation = gameObject.transform.rotation;
-                    }
-                    
+                      IceBall[1].transform.position = gameObject.transform.GetChild(4).position;
+                      IceBall[1].transform.rotation = Quaternion.Euler(new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y+90, gameObject.transform.rotation.z));
                 }
             }
 
@@ -479,19 +472,8 @@ public class PlayerController : MonoBehaviour
             {
                 if (IceBall[2] != null)
                 {
-                    if (IceBallShoot[1])
-                    {
-                        IceBall[2].transform.position = gameObject.transform.GetChild(4).position;
-                        IceBall[2].transform.rotation = gameObject.transform.rotation;
-                    }
-
-                    else
-                    {
-
-                        IceBall[2].transform.position = gameObject.transform.GetChild(4).position + new Vector3(0, 4, 0);
-                        IceBall[2].transform.rotation = gameObject.transform.rotation;
-
-                    }
+                      IceBall[2].transform.position = gameObject.transform.GetChild(4).position;
+                      IceBall[2].transform.rotation = Quaternion.Euler(new Vector3(gameObject.transform.rotation.x,gameObject.transform.rotation.y+90, gameObject.transform.rotation.z));
                 }
             }
         }
@@ -945,7 +927,6 @@ public class PlayerController : MonoBehaviour
     {
         //boost cooldown
         yield return new WaitForSeconds(2);
-        IceBallShoot[index] = false;
         if (IceDelete[index] ==false)
         {
             print(index);
