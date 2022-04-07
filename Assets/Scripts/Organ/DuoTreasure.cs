@@ -17,19 +17,23 @@ public class DuoTreasure : MonoBehaviour
 
     [SerializeField] public bool CanOpenTreasure;//treasure trigger flag
 
+    Hashtable CanOpen = new Hashtable();
+    Hashtable PlayerOnTopCount = new Hashtable();
+
     void Start()
     {
         hash = PhotonNetwork.LocalPlayer.CustomProperties;
         playerCount = 0;
         playerOn = false;
-
         CanOpenTreasure = false;
+
+        CanOpen.Add("DuoTreasureState", false);
+        PlayerOnTopCount.Add("PlayerOnDuoTreasure", 0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(playerCount);
         if (playerCount == 2)
         {
             Debug.Log("two persoon & treasure avalible");
@@ -41,17 +45,36 @@ public class DuoTreasure : MonoBehaviour
 
         }
 
+        //----muti code------
+        if ((int)PlayerOnTopCount["PlayerOnDuoTreasure"]==2)
+        {
+            CanOpen["DuoTreasureState"] = true;
+        }
+
+        if (CanOpen["DuoTreasureState"] == null)
+        {
+            return;
+        }
+        else
+        {
+            if ((bool)CanOpen["DuoTreasureState"] == true)
+            {
+                potionSet.gameObject.SetActive(true);
+            }
+        }
+
     }
     private void OnTriggerEnter(Collider other)
     {
         playerOn = true;
         playerCount++;
+        PlayerOnTopCount["PlayerOnDuoTreasure"] = (int)PlayerOnTopCount["PlayerOnDuoTreasure"] + 1;
     }
     private void OnTriggerExit(Collider other)
     {
         playerOn = false;
         playerCount--;
-
+        PlayerOnTopCount["PlayerOnDuoTreasure"] = (int)PlayerOnTopCount["PlayerOnDuoTreasure"] - 1;
     }
 }
 
