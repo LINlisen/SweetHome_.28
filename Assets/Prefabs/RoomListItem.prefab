@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -217,7 +217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5740f2796dd346c4da526f7066b6e8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Num: {fileID: 0}
   RoomName: {fileID: 1994707366134397810}
   RoomMaster: {fileID: 5245586615208906335}
   PlayerNumber: {fileID: 4881152971149784303}

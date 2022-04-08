@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] GameObject camerHolder;
     [SerializeField] float mouseSensitivity, walkSpeed, smoothTime;
-    [SerializeField] Text NickName;
+    [SerializeField] TextMesh NickName;
 
     private PlayerManager playerManager;
     float rotation;
@@ -121,8 +121,9 @@ public class PlayerController : MonoBehaviour
         hash = PhotonNetwork.LocalPlayer.CustomProperties;
         skillManager = GameObject.Find("SkillManager").GetComponent<SkillManager>();
         //for show nickname on scene not done
-        //NickName.text = PhotonNetwork.LocalPlayer.NickName;
         agent = gameObject.GetComponent<NavMeshAgent>();
+
+        
 
         if (PV.IsMine)
         {
@@ -751,7 +752,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "IceBall" && gameObject.name != "IceCharactor(Clone)")
         {
             walkSpeed -= 10;
-            StartCoroutine("WalkSppedReset");
+            StartCoroutine("WalkSpeedReset");
         }
     }
     private void OnTriggerExit(Collider other)

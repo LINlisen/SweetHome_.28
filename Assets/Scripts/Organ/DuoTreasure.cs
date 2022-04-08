@@ -69,6 +69,7 @@ public class DuoTreasure : MonoBehaviour
         playerOn = true;
         playerCount++;
         PlayerOnTopCount["PlayerOnDuoTreasure"] = (int)PlayerOnTopCount["PlayerOnDuoTreasure"] + 1;
+
     }
     private void OnTriggerExit(Collider other)
     {
