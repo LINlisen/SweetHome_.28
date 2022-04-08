@@ -19,12 +19,14 @@ public class DuoTreasure : MonoBehaviour
     Hashtable roomhash = new Hashtable();
     private void Awake()
     {
+        roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
         roomhash.Add("DuoTreasureState", false);
         roomhash.Add("PlayerOnDuoTreasure", 0);
         PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
     }
     void Start()
     {
+
         playerCount = 0;
         playerOn = false;
         CanOpenTreasure = false;
@@ -35,6 +37,8 @@ public class DuoTreasure : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(roomhash["PlayerOnDuoTreasure"]);
+
         if (playerCount == 2)
         {
             Debug.Log("two persoon & treasure avalible");
