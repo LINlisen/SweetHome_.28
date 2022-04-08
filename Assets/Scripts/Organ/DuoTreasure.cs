@@ -43,16 +43,16 @@ public class DuoTreasure : MonoBehaviour
     {
         Debug.Log(roomhash["PlayerOnDuoTreasure"]);
 
-        if (playerCount == 2)
-        {
-            Debug.Log("two persoon & treasure avalible");
-            CanOpenTreasure = !CanOpenTreasure;
-        }
-        if (CanOpenTreasure)
-        {
-            potionSet.gameObject.SetActive(true);
+        //if (playerCount == 2)
+        //{
+        //    Debug.Log("two persoon & treasure avalible");
+        //    CanOpenTreasure = !CanOpenTreasure;
+        //}
+        //if (CanOpenTreasure)
+        //{
+        //    potionSet.gameObject.SetActive(true);
 
-        }
+        //}
 
         //----muti code------
         //if ((int)PhotonNetwork.CurrentRoom.CustomProperties["PlayerOnDuoTreasure"]==2)
