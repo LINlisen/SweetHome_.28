@@ -748,7 +748,7 @@ public class PlayerController : MonoBehaviour
         {
             GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
             PhotonView photonView = PhotonView.Get(UpInformation);
-            if((int)PhotonNetwork.LocalPlayer.CustomProperties["Charactor"] == 2)
+            if(gameObject.name == "ChocolateCharactor(Clone)")
             {
                 flag = true;
             }
