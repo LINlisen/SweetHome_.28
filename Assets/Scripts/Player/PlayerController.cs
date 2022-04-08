@@ -637,7 +637,7 @@ public class PlayerController : MonoBehaviour
         //duoTreasure
         if ((int)PhotonNetwork.CurrentRoom.CustomProperties["PlayerOnDuoTreasure"] == 2)
         {
-            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().DuoTreasure("DuoTreasure", true);
+            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().DuoTreasure("WoodChest1", true);
 
         }
         //armor
