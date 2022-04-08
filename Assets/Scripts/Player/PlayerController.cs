@@ -758,7 +758,8 @@ public class PlayerController : MonoBehaviour
                 GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
                 walkSpeed -= 10;
                 StartCoroutine("WalkSpeedReset");
-                Destroy(other.gameObject.transform.parent.gameObject);
+                string deleteName = other.gameObject.transform.parent.name;
+                Destroy(GameObject.Find(deleteName));
             }
             
         }

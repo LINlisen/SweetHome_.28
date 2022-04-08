@@ -91,7 +91,7 @@ public class ChooseCharactor : MonoBehaviour
                         Debug.Log(1);
                         Model=Instantiate(Models.CandyModel, UserChoose.CharactorModel.position, UserChoose.CharactorModel.rotation, UserChoose.CharactorModel);
                         UserChoose.CharactorModel.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-                        UserChoose.CharactorModel.transform.position = new Vector3(2.2f, -0.5f, 15.7f);
+                        UserChoose.CharactorModel.transform.position = new Vector3(-0.2f, -1.88f, 15.91f);
                         _bCreated = true;
                     }
                     break;
@@ -119,7 +119,7 @@ public class ChooseCharactor : MonoBehaviour
                         Debug.Log(2);
                         Instantiate(Models.ChocolateModel, UserChoose.CharactorModel.position, UserChoose.CharactorModel.rotation, UserChoose.CharactorModel);
                         UserChoose.CharactorModel.transform.localScale = new Vector3(3, 3, 3);
-                        UserChoose.CharactorModel.transform.position = new Vector3(8.2f, 1.6f, 55.3f);
+                        UserChoose.CharactorModel.transform.position = new Vector3(0.2f, -3.4f, 55.3f);
                         _bCreated = true;
                     }
                     break;
@@ -147,7 +147,7 @@ public class ChooseCharactor : MonoBehaviour
                         Debug.Log(3);
                         Instantiate(Models.CanModel, UserChoose.CharactorModel.position, UserChoose.CharactorModel.rotation, UserChoose.CharactorModel);
                         UserChoose.CharactorModel.transform.localScale = new Vector3(20, 20, 20);
-                        UserChoose.CharactorModel.transform.position = new Vector3(11.7f, 1.6f, 83.6f);
+                        UserChoose.CharactorModel.transform.position = new Vector3(0.0f, -5.4f, 83.6f);
                         _bCreated = true;
                     }
                     break;
@@ -175,7 +175,7 @@ public class ChooseCharactor : MonoBehaviour
                         Debug.Log(4);
                         Instantiate(Models.IceModel, UserChoose.CharactorModel.position, UserChoose.CharactorModel.rotation, UserChoose.CharactorModel);
                         UserChoose.CharactorModel.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-                        UserChoose.CharactorModel.transform.position = new Vector3(16f, 1.6f, 83.6f);
+                        UserChoose.CharactorModel.transform.position = new Vector3(4.4f, -4.9f, 83.6f);
                         _bCreated = true;
                     }
                     break;
