@@ -634,6 +634,12 @@ public class PlayerController : MonoBehaviour
         {
             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().TreasureDeathTwo("TreasureDeathTwo", true);
         }
+        //duoTreasure
+        if ((int)PhotonNetwork.CurrentRoom.CustomProperties["PlayerOnDuoTreasure"] == 2)
+        {
+            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().DuoTreasure("DuoTreasure", true);
+
+        }
         //armor
         if (other.gameObject.tag == "armorTG")
         {
