@@ -7,7 +7,6 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class DuoTreasure : MonoBehaviour
 {
 
-    Hashtable hash;
     public bool playerOn;
     public int playerCount;
 
@@ -17,18 +16,17 @@ public class DuoTreasure : MonoBehaviour
 
     [SerializeField] public bool CanOpenTreasure;//treasure trigger flag
 
-    Hashtable CanOpen = new Hashtable();
-    Hashtable PlayerOnTopCount = new Hashtable();
+    Hashtable roomhash = new Hashtable();
 
     void Start()
     {
-        hash = PhotonNetwork.LocalPlayer.CustomProperties;
         playerCount = 0;
         playerOn = false;
         CanOpenTreasure = false;
 
-        CanOpen.Add("DuoTreasureState", false);
-        PlayerOnTopCount.Add("PlayerOnDuoTreasure", 0);
+        roomhash.Add("DuoTreasureState", false);
+        roomhash.Add("PlayerOnDuoTreasure", 0);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
     }
 
     // Update is called once per frame
@@ -46,18 +44,18 @@ public class DuoTreasure : MonoBehaviour
         }
 
         //----muti code------
-        if ((int)PlayerOnTopCount["PlayerOnDuoTreasure"]==2)
+        if ((int)PhotonNetwork.CurrentRoom.CustomProperties["PlayerOnDuoTreasure"]==2)
         {
-            CanOpen["DuoTreasureState"] = true;
+            PhotonNetwork.CurrentRoom.CustomProperties["DuoTreasureState"] = true;
         }
 
-        if (CanOpen["DuoTreasureState"] == null)
+        if (PhotonNetwork.CurrentRoom.CustomProperties["DuoTreasureState"] == null)
         {
             return;
         }
         else
         {
-            if ((bool)CanOpen["DuoTreasureState"] == true)
+            if ((bool)PhotonNetwork.CurrentRoom.CustomProperties["DuoTreasureState"] == true)
             {
                 potionSet.gameObject.SetActive(true);
             }
@@ -68,14 +66,15 @@ public class DuoTreasure : MonoBehaviour
     {
         playerOn = true;
         playerCount++;
-        PlayerOnTopCount["PlayerOnDuoTreasure"] = (int)PlayerOnTopCount["PlayerOnDuoTreasure"] + 1;
-
+        roomhash["PlayerOnDuoTreasure"] = (int)PhotonNetwork.CurrentRoom.CustomProperties["PlayerOnDuoTreasure"] + 1;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
     }
     private void OnTriggerExit(Collider other)
     {
         playerOn = false;
         playerCount--;
-        PlayerOnTopCount["PlayerOnDuoTreasure"] = (int)PlayerOnTopCount["PlayerOnDuoTreasure"] - 1;
+        roomhash["PlayerOnDuoTreasure"] = (int)PhotonNetwork.CurrentRoom.CustomProperties["PlayerOnDuoTreasure"] - 1;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
     }
 }
 
