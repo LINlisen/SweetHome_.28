@@ -19,10 +19,14 @@ public class DuoTreasure : MonoBehaviour
     Hashtable roomhash = new Hashtable();
     private void Awake()
     {
-        roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
-        roomhash.Add("DuoTreasureState", false);
-        roomhash.Add("PlayerOnDuoTreasure", 0);
-        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
+            roomhash.Add("DuoTreasureState", false);
+            roomhash.Add("PlayerOnDuoTreasure", 0);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        }
+        
     }
     void Start()
     {
