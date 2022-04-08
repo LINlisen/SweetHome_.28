@@ -478,8 +478,8 @@ public class PlayerController : MonoBehaviour
             /*Ice Ability Setting*/
             if (IceBallShoot[0])
             {
-                //IceBall[0].transform.position += IceShootDir[0];
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceShoot(0, IceShootDir[0]);
+                IceBall[0].transform.position += IceShootDir[0];
+                //GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceShoot(0, IceShootDir[0]);
                 StartCoroutine(IceBallShootFun(0));
             }
             else
@@ -493,8 +493,8 @@ public class PlayerController : MonoBehaviour
             }
             if (IceBallShoot[1])
             {
-                //IceBall[1].transform.position += IceShootDir[1];
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceShoot(1, IceShootDir[1]);
+                IceBall[1].transform.position += IceShootDir[1];
+                //GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceShoot(1, IceShootDir[1]);
                 StartCoroutine(IceBallShootFun(1));
             }
             else
@@ -508,8 +508,8 @@ public class PlayerController : MonoBehaviour
 
             if (IceBallShoot[2])
             {
-                //IceBall[2].transform.position += IceShootDir[2];
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceShoot(2, IceShootDir[2]);
+                IceBall[2].transform.position += IceShootDir[2];
+                //GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceShoot(2, IceShootDir[2]);
                 StartCoroutine(IceBallShootFun(2));
             }
             else
