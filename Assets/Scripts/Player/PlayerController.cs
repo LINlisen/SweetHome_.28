@@ -756,7 +756,7 @@ public class PlayerController : MonoBehaviour
             {
                 walkSpeed -= 10;
                 StartCoroutine("WalkSpeedReset");
-                Destroy(other.gameObject);
+                Destroy(other.gameObject.transform.parent.gameObject);
             }
             
         }
