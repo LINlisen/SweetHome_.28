@@ -104,7 +104,8 @@ public class PlayerController : MonoBehaviour
     //Wounded
     public bool _bWounded = false;
 
-    
+    bool flag = false;
+
     Player[] players = PhotonNetwork.PlayerList;
     void Awake()
     {
@@ -540,9 +541,14 @@ public class PlayerController : MonoBehaviour
     void OnTriggerStay(Collider other)
     {
         /*ChocolateWallTrigger*/
-        if (other.gameObject.name == "ChocolateWallIsTrigger")
+        //if (other.gameObject.name == "ChocolateWallIsTrigger")
+        //{
+        //    other.gameObject.GetComponentInParent<PlayableDirector>().Play();
+        //}
+        if(other.gameObject.name == "ChocolateWallIsTrigger" && flag == true)
         {
-            other.gameObject.GetComponentInParent<PlayableDirector>().Play();
+            Debug.Log("Push");
+            other.gameObject.transform.parent.position += playerController.transform.right;
         }
     }
 
@@ -736,18 +742,15 @@ public class PlayerController : MonoBehaviour
         {
             GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
             PhotonView photonView = PhotonView.Get(UpInformation);
-            if ((int)hash["Point"] != 0)
+            if((int)PhotonNetwork.LocalPlayer.CustomProperties["Charactor"] == 2)
             {
-                hash["Point"] = (int)hash["Point"] - 1;
-                PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-                photonView.RPC("losePoint", RpcTarget.All, (string)team["WhichTeam"]);
-                _bWounded = true;
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name, true);
+                flag = true;
             }
             else
             {
-                _bWounded = true;
-                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name, false);
+                walkSpeed -= 10;
+                StartCoroutine("WalkSpeedReset");
+                Destroy(other.gameObject);
             }
             
         }
@@ -767,6 +770,11 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.name == "StopIconTrigger")
         {
             GameObject.Find("UpInformationCanvas").gameObject.transform.GetChild(11).gameObject.SetActive(false); 
+        }
+        if (other.gameObject.tag == "ChocolateWall")
+        {
+            flag = false;
+
         }
     }
     void OnControllerColliderHit(ControllerColliderHit hit)
