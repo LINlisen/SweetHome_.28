@@ -55,7 +55,8 @@ public class RaiseEvent : MonoBehaviourPun
 
     /*Ice Area*/
     private const byte ICE_SKILL_ON = 28; //ICE 技能施放 index 5 
-    private const byte ICE_SKILL_OFF = 29; //ICE 技能施放 index 5 
+    private const byte ICE_SKILL_OFF = 29; //ICE 技能施放 index 5
+    private const byte ICE_SHOOT = 33;
     private const byte ICESHOOT_DELETE = 32;
 
     int TeamBlueExcaper = 0;
@@ -292,12 +293,7 @@ public class RaiseEvent : MonoBehaviourPun
             string Name = (string)datas[0];
             GameObject.Find(Name).gameObject.transform.GetChild(8).gameObject.SetActive(false);
         }
-        if(obj.Code == CHOCOLATE_DELETE)
-        {
-            object[] datas = (object[])obj.CustomData;
-            GameObject DeObj = (GameObject)datas[0];
-            Destroy(DeObj);
-        }
+        
         /*易開罐特效*/
         if (obj.Code == CAN_SKILL_ON)
         {
@@ -343,6 +339,13 @@ public class RaiseEvent : MonoBehaviourPun
             object[] datas = (object[])obj.CustomData;
             string Name = (string)datas[0];
             GameObject.Find(Name).gameObject.transform.GetChild(5).gameObject.SetActive(false);
+        }
+        if(obj.Code == ICE_SHOOT)
+        {
+            object[] datas = (object[])obj.CustomData;
+            int index = (int)datas[0];
+            Vector3 dir = (Vector3)datas[1];
+            GameObject.Find("IceShoot").transform.GetChild(index).gameObject.transform.position += dir*Time.deltaTime; 
         }
         if (obj.Code == ICESHOOT_DELETE)
         {
@@ -564,12 +567,7 @@ public class RaiseEvent : MonoBehaviourPun
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(CHOCOLATE_SKILL_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
     }
-    public void ChocolateDelete(GameObject deobj)
-    {
-        object[] datas = new object[] { deobj };
-        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
-        PhotonNetwork.RaiseEvent(CHOCOLATE_DELETE, datas, raiseEventOptions, SendOptions.SendReliable);
-    }
+
     /*易開罐技能施放特效*/
     public void CanSkillOn(string PlayerName)
     {
@@ -608,6 +606,12 @@ public class RaiseEvent : MonoBehaviourPun
         object[] datas = new object[] { PlayerName };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(ICE_SKILL_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
+    }
+    public void IceShoot(int index,Vector3 dir)
+    {
+        object[] datas = new object[] { index, dir };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(ICE_SHOOT, datas, raiseEventOptions, SendOptions.SendReliable);
     }
     public void IceShootDelete(string IceshootName , int index)
     {

@@ -123,25 +123,7 @@ public class PlayerController : MonoBehaviour
         //for show nickname on scene not done
         agent = gameObject.GetComponent<NavMeshAgent>();
 
-        for(int i = 0; i < players.Count(); i++)
-        {
-            switch (players[i].CustomProperties["Charactor"])
-            {
-                case 1:
-                    GameObject.Find("CandyCharactor(Clone)").GetComponentInChildren<TextMesh>().text = players[i].NickName;
-                    break;
-                case 2:
-                    GameObject.Find("ChocolateCharactor(Clone)").GetComponentInChildren<TextMesh>().text = players[i].NickName;
-                    break;
-                case 3:
-                    GameObject.Find("CanCharactor(Clone)").GetComponentInChildren<TextMesh>().text = players[i].NickName;
-                    break;
-                case 4:
-                    GameObject.Find("IceCharactor(Clone)").GetComponentInChildren<TextMesh>().text = players[i].NickName;
-                    break;
-            }
-        }
-        GameObject.Find("PlayerManager(Clone)").GetComponentInChildren<TextMesh>().text = "";
+
         if (PV.IsMine)
         {
             playerManager = GetComponentInParent<PlayerManager>();
@@ -495,7 +477,8 @@ public class PlayerController : MonoBehaviour
             /*Ice Ability Setting*/
             if (IceBallShoot[0])
             {
-                IceBall[0].transform.position += IceShootDir[0];
+                //IceBall[0].transform.position += IceShootDir[0];
+                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceShoot(0, IceShootDir[0]);
                 StartCoroutine(IceBallShootFun(0));
             }
             else
@@ -509,7 +492,8 @@ public class PlayerController : MonoBehaviour
             }
             if (IceBallShoot[1])
             {
-                IceBall[1].transform.position += IceShootDir[1];
+                //IceBall[1].transform.position += IceShootDir[1];
+                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceShoot(1, IceShootDir[1]);
                 StartCoroutine(IceBallShootFun(1));
             }
             else
@@ -523,7 +507,8 @@ public class PlayerController : MonoBehaviour
 
             if (IceBallShoot[2])
             {
-                IceBall[2].transform.position += IceShootDir[2];
+                //IceBall[2].transform.position += IceShootDir[2];
+                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceShoot(2, IceShootDir[2]);
                 StartCoroutine(IceBallShootFun(2));
             }
             else
@@ -764,7 +749,7 @@ public class PlayerController : MonoBehaviour
                 _bWounded = true;
                 GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(gameObject.name, false);
             }
-            GameObject.Find("RauiseEvent").GetComponent<RaiseEvent>().ChocolateDelete(other.gameObject);
+            
         }
         if (other.gameObject.tag == "IceBall" && gameObject.name != "IceCharactor(Clone)")
         {

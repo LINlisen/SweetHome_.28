@@ -17,16 +17,19 @@ public class DuoTreasure : MonoBehaviour
     [SerializeField] public bool CanOpenTreasure;//treasure trigger flag
 
     Hashtable roomhash = new Hashtable();
-
+    private void Awake()
+    {
+        roomhash.Add("DuoTreasureState", false);
+        roomhash.Add("PlayerOnDuoTreasure", 0);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+    }
     void Start()
     {
         playerCount = 0;
         playerOn = false;
         CanOpenTreasure = false;
 
-        roomhash.Add("DuoTreasureState", false);
-        roomhash.Add("PlayerOnDuoTreasure", 0);
-        PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
+        
     }
 
     // Update is called once per frame
@@ -44,22 +47,22 @@ public class DuoTreasure : MonoBehaviour
         }
 
         //----muti code------
-        if ((int)PhotonNetwork.CurrentRoom.CustomProperties["PlayerOnDuoTreasure"]==2)
-        {
-            PhotonNetwork.CurrentRoom.CustomProperties["DuoTreasureState"] = true;
-        }
+        //if ((int)PhotonNetwork.CurrentRoom.CustomProperties["PlayerOnDuoTreasure"]==2)
+        //{
+        //    PhotonNetwork.CurrentRoom.CustomProperties["DuoTreasureState"] = true;
+        //}
 
-        if (PhotonNetwork.CurrentRoom.CustomProperties["DuoTreasureState"] == null)
-        {
-            return;
-        }
-        else
-        {
-            if ((bool)PhotonNetwork.CurrentRoom.CustomProperties["DuoTreasureState"] == true)
-            {
-                potionSet.gameObject.SetActive(true);
-            }
-        }
+        //if (PhotonNetwork.CurrentRoom.CustomProperties["DuoTreasureState"] == null)
+        //{
+        //    return;
+        //}
+        //else
+        //{
+        //    if ((bool)PhotonNetwork.CurrentRoom.CustomProperties["DuoTreasureState"] == true)
+        //    {
+        //        potionSet.gameObject.SetActive(true);
+        //    }
+        //}
 
     }
     private void OnTriggerEnter(Collider other)
