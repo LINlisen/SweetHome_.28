@@ -627,12 +627,12 @@ public class PlayerController : MonoBehaviour
         //easter
         if (other.tag == "TreasureDeath")
         {
-            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().TreasureDeath("TreasureDeath", true);
+            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().TreasureDeath("Death_Chest", true);
         }
         //treasureDeath2
         if (other.tag == "TreasureDeathTwo")
         {
-            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().TreasureDeathTwo("TreasureDeathTwo", true);
+            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().TreasureDeathTwo("Death_Chest1", true);
         }
         //duoTreasure
         if ((int)PhotonNetwork.CurrentRoom.CustomProperties["PlayerOnDuoTreasure"] == 2)
