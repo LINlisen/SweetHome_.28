@@ -747,7 +747,7 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.tag == "ChocolateWall")
         {
-            GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
+            
             PhotonView photonView = PhotonView.Get(UpInformation);
             if(gameObject.name == "ChocolateCharactor(Clone)")
             {
@@ -755,6 +755,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
                 walkSpeed -= 10;
                 StartCoroutine("WalkSpeedReset");
                 Destroy(other.gameObject.transform.parent.gameObject);
