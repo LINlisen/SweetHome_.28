@@ -164,7 +164,7 @@ public class RaiseEvent : MonoBehaviourPun
             object[] datas = (object[])obj.CustomData;
             string ObjTag = (string)datas[0];
             //bool ObjState = (bool)datas[1];
-            Animator anim = GameObject.Find(ObjTag).GetComponentInParent<Animator>();
+            Animator anim = GameObject.Find(ObjTag).GetComponent<Animator>();
             anim.SetBool("openbox", true);
         }
         if (obj.Code == GET_ARMOR)
