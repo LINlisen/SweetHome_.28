@@ -81,45 +81,45 @@ public class TimeController : MonoBehaviour
         if (startTime == 0)
         {
             startTime = (int)PhotonNetwork.CurrentRoom.CustomProperties["StartTime"];
-            string playerName ="";
-            switch (PhotonNetwork.LocalPlayer.CustomProperties["Charactor"])
-            {
-                case 1:
-                    playerName = "CandyCharactor(Clone)";
-                    break;
-                case 2:
-                    playerName = "ChocolateCharactor(Clone)";
-                    break;
-                case 3:
-                    playerName = "CanCharactor(Clone)";
-                    break;
-                case 4:
-                    playerName = "IceCharactor(Clone)";
-                    break;
-            }
-            for (int i = 0; i < players.Count(); i++)
-            {
-                switch (players[i].CustomProperties["Charactor"])
-                {
-                    case 1:
-                        GameObject.Find("CandyCharactor(Clone)").GetComponentInChildren<TextMesh>().text = players[i].NickName;
-                        GameObject.Find("CandyCharactor(Clone)").GetComponentInChildren<TextMesh>().transform.LookAt(GameObject.Find(playerName).transform);
-                        break;
-                    case 2:
-                        GameObject.Find("ChocolateCharactor(Clone)").GetComponentInChildren<TextMesh>().text = players[i].NickName;
-                        GameObject.Find("ChocolateCharactor(Clone)").GetComponentInChildren<TextMesh>().transform.LookAt(GameObject.Find(playerName).transform);
-                        break;
-                    case 3:
-                        GameObject.Find("CanCharactor(Clone)").GetComponentInChildren<TextMesh>().text = players[i].NickName;
-                        GameObject.Find("CanCharactor(Clone)").GetComponentInChildren<TextMesh>().transform.LookAt(GameObject.Find(playerName).transform);
-                        break;
-                    case 4:
-                        GameObject.Find("IceCharactor(Clone)").GetComponentInChildren<TextMesh>().text = players[i].NickName;
-                        GameObject.Find("IceCharactor(Clone)").GetComponentInChildren<TextMesh>().transform.LookAt(GameObject.Find(playerName).transform);
-                        break;
-                }
-            }
-            GameObject.Find("PlayerManager(Clone)").GetComponentInChildren<TextMesh>().text = "";
+            //string playerName ="";
+            //switch (PhotonNetwork.LocalPlayer.CustomProperties["Charactor"])
+            //{
+            //    case 1:
+            //        playerName = "CandyCharactor(Clone)";
+            //        break;
+            //    case 2:
+            //        playerName = "ChocolateCharactor(Clone)";
+            //        break;
+            //    case 3:
+            //        playerName = "CanCharactor(Clone)";
+            //        break;
+            //    case 4:
+            //        playerName = "IceCharactor(Clone)";
+            //        break;
+            //}
+            //for (int i = 0; i < players.Count(); i++)
+            //{
+            //    switch (players[i].CustomProperties["Charactor"])
+            //    {
+            //        case 1:
+            //            GameObject.Find("CandyCharactor(Clone)").GetComponentInChildren<TextMesh>().text = players[i].NickName;
+            //            GameObject.Find("CandyCharactor(Clone)").GetComponentInChildren<TextMesh>().transform.LookAt(GameObject.Find(playerName).transform);
+            //            break;
+            //        case 2:
+            //            GameObject.Find("ChocolateCharactor(Clone)").GetComponentInChildren<TextMesh>().text = players[i].NickName;
+            //            GameObject.Find("ChocolateCharactor(Clone)").GetComponentInChildren<TextMesh>().transform.LookAt(GameObject.Find(playerName).transform);
+            //            break;
+            //        case 3:
+            //            GameObject.Find("CanCharactor(Clone)").GetComponentInChildren<TextMesh>().text = players[i].NickName;
+            //            GameObject.Find("CanCharactor(Clone)").GetComponentInChildren<TextMesh>().transform.LookAt(GameObject.Find(playerName).transform);
+            //            break;
+            //        case 4:
+            //            GameObject.Find("IceCharactor(Clone)").GetComponentInChildren<TextMesh>().text = players[i].NickName;
+            //            GameObject.Find("IceCharactor(Clone)").GetComponentInChildren<TextMesh>().transform.LookAt(GameObject.Find(playerName).transform);
+            //            break;
+            //    }
+            //}
+            //GameObject.Find("PlayerManager(Clone)").GetComponentInChildren<TextMesh>().text = "";
         }
         else
         {
