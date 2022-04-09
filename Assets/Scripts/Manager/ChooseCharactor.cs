@@ -79,7 +79,8 @@ public class ChooseCharactor : MonoBehaviour
                     }
                     UserChoose.Id = Candy.Id;
                     UserChoose.Name.text = "史帝夫‧哈靈頓";
-                    UserChoose.Introduction.text = "技能效果：小糖果追蹤敵人5秒，當被追到時，小糖果會黏上去，並緩速敵人2秒。技能增強：小糖果會變快。";
+                    UserChoose.Introduction.text = "技能效果：放置地雷，一次最多可以放4顆，當敵人踩到時會被緩速\n" +
+                        "。技能增強：踩到後炸飛。";
                     if (!_bCreated)
                     {
                         if (UserChoose.CharactorModel.childCount != 0)
@@ -108,7 +109,8 @@ public class ChooseCharactor : MonoBehaviour
                     }
                     UserChoose.Id = Chocolate.Id;
                     UserChoose.Name.text = "傑克‧威爾森";
-                    UserChoose.Introduction.text = "技能效果：放置巧克力牆，當敵人接近時，蓋下來壓住敵人，造成敵人暈眩2秒。技能增強：巧克力牆有隱形效果。";
+                    UserChoose.Introduction.text = "技能效果：放置巧克力牆，玩家本可以以推動巧克力牆去撞敵人，被撞倒後會緩速。\n" +
+                        "技能增強：巧克力牆有隱形效果。";
                     if (!_bCreated)
                     {
                         if (UserChoose.CharactorModel.childCount != 0)
@@ -136,7 +138,8 @@ public class ChooseCharactor : MonoBehaviour
                     }
                     UserChoose.Id = Can.Id;
                     UserChoose.Name.text = "南西‧梅森";
-                    UserChoose.Introduction.text = "技能效果：從玩家自身方圓5米內噴射一攤飲料，範圍內的敵人進入障目狀態。技能增強：增加緩速5秒效果。";
+                    UserChoose.Introduction.text = "技能效果：從玩家自身方圓5米內噴射一攤飲料，範圍內的敵人進入障目狀態。\n" +
+                        "技能增強：增加緩速5秒效果。";
                     if (!_bCreated)
                     {
                         if (UserChoose.CharactorModel.childCount != 0)
@@ -164,7 +167,8 @@ public class ChooseCharactor : MonoBehaviour
                     }
                     UserChoose.Id = Ice.Id;
                     UserChoose.Name.text = "莉莉安";
-                    UserChoose.Introduction.text = "技能效果：玩家擁有三發冰淇淋,當15秒內連續擊中敵人兩發時會造成緩速2秒,在三發射完後進入冷卻。技能增強：緩速效果變成暈眩效果。";
+                    UserChoose.Introduction.text = "技能效果：玩家擁有三發冰淇淋，當敵人被射到時會緩速。\n" +
+                        "技能增強：緩速效果變成暈眩效果。";
                     if (!_bCreated)
                     {
                         if (UserChoose.CharactorModel.childCount != 0)

@@ -41,7 +41,7 @@ public class DuoTreasure : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(roomhash["PlayerOnDuoTreasure"]);
+        //Debug.Log(roomhash["PlayerOnDuoTreasure"]);
 
         //if (playerCount == 2)
         //{
