@@ -412,7 +412,8 @@ public class PlayerController : MonoBehaviour
                 if (IceBall[0] != null)
                 {
                     IceBall[0].transform.position = gameObject.transform.GetChild(4).position;
-                    IceBall[0].transform.rotation = Quaternion.Euler(new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 90, gameObject.transform.rotation.z));
+                    IceBall[0].transform.localEulerAngles = new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z);
+                    //IceBall[0].transform.rotation = gameObject.transform.rotation;
 
                 }
             }
@@ -426,7 +427,8 @@ public class PlayerController : MonoBehaviour
                 if (IceBall[1] != null)
                 {
                     IceBall[1].transform.position = gameObject.transform.GetChild(4).position;
-                    IceBall[1].transform.rotation = Quaternion.Euler(new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 90, gameObject.transform.rotation.z));
+                    IceBall[1].transform.localEulerAngles = new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z);
+                    //IceBall[1].transform.rotation = gameObject.transform.rotation;
                 }
             }
 
@@ -440,7 +442,8 @@ public class PlayerController : MonoBehaviour
                 if (IceBall[2] != null)
                 {
                     IceBall[2].transform.position = gameObject.transform.GetChild(4).position;
-                    IceBall[2].transform.rotation = Quaternion.Euler(new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 90, gameObject.transform.rotation.z));
+                    IceBall[2].transform.localEulerAngles =new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y , gameObject.transform.rotation.z);
+                    //IceBall[2].transform.rotation = gameObject.transform.rotation;
                 }
             }
         }
@@ -487,8 +490,8 @@ public class PlayerController : MonoBehaviour
                 if(IceBall[0] != null)
                 {
                     IceBall[0].transform.position = gameObject.transform.GetChild(4).position;
-                    IceBall[0].transform.rotation = Quaternion.Euler(new Vector3(gameObject.transform.rotation.x,gameObject.transform.rotation.y+90, gameObject.transform.rotation.z));
-
+                    IceBall[0].transform.rotation = Quaternion.Euler(new Vector3(gameObject.transform.rotation.x,gameObject.transform.rotation.y, gameObject.transform.rotation.z));
+                    //IceBall[0].transform.rotation = gameObject.transform.rotation;
                 }
             }
             if (IceBallShoot[1])
@@ -501,8 +504,9 @@ public class PlayerController : MonoBehaviour
             {
                 if (IceBall[1] != null)
                 {
-                      IceBall[1].transform.position = gameObject.transform.GetChild(4).position;
-                      IceBall[1].transform.rotation = Quaternion.Euler(new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y+90, gameObject.transform.rotation.z));
+                    IceBall[1].transform.position = gameObject.transform.GetChild(4).position;
+                    IceBall[1].transform.rotation = Quaternion.Euler(new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y , gameObject.transform.rotation.z));
+                    //IceBall[1].transform.rotation = gameObject.transform.rotation;
                 }
             }
 
@@ -516,8 +520,9 @@ public class PlayerController : MonoBehaviour
             {
                 if (IceBall[2] != null)
                 {
-                      IceBall[2].transform.position = gameObject.transform.GetChild(4).position;
-                      IceBall[2].transform.rotation = Quaternion.Euler(new Vector3(gameObject.transform.rotation.x,gameObject.transform.rotation.y+90, gameObject.transform.rotation.z));
+                    IceBall[2].transform.position = gameObject.transform.GetChild(4).position;
+                    IceBall[2].transform.rotation = Quaternion.Euler(new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y , gameObject.transform.rotation.z));
+                    //IceBall[2].transform.rotation = gameObject.transform.rotation;
                 }
             }
         }

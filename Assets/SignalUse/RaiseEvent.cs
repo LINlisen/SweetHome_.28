@@ -339,8 +339,6 @@ public class RaiseEvent : MonoBehaviourPun
             {
                 GameObject.Find("IceShoot").transform.GetChild(i).gameObject.SetActive(true);
                 GameObject.Find("IceShoot").transform.GetChild(i).transform.position = GameObject.Find("IceCharactor(Clone)").transform.GetChild(4).position;
-                GameObject.Find("IceShoot").transform.GetChild(i).transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
-
             }
             GameObject.Find(Name).gameObject.transform.GetChild(5).gameObject.SetActive(true);
         }
