@@ -487,4 +487,8 @@ public class Launcher : MonoBehaviourPunCallbacks
             Debug.Log(players[i].NickName + "隊伍" + (string)players[i].CustomProperties["WhichTeam"]);
         }
     }
+    public void CameraSceneLoad()
+    {
+        Application.LoadLevel(3);
+    }
 }
