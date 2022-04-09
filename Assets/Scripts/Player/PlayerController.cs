@@ -746,7 +746,10 @@ public class PlayerController : MonoBehaviour
         /*Candy Shoot*/
         if(other.gameObject.transform.tag == "CandyBomb" && gameObject.name!= "CandyCharactor(Clone)")
         {
-            walkSpeed -= 10;
+            if(walkSpeed > 0)
+            {
+                walkSpeed -= 10;
+            }
             StartCoroutine("WalkSpeedReset");
             Destroy(other.gameObject);
         }
@@ -761,7 +764,10 @@ public class PlayerController : MonoBehaviour
             else
             {
                 GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
-                walkSpeed -= 10;
+                if (walkSpeed > 0)
+                {
+                    walkSpeed -= 10;
+                }
                 StartCoroutine("WalkSpeedReset");
                 string deleteName = other.gameObject.transform.parent.name;
                 Destroy(GameObject.Find(deleteName));
@@ -770,7 +776,10 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.tag == "IceBall" && gameObject.name != "IceCharactor(Clone)")
         {
-            walkSpeed -= 10;
+            if (walkSpeed > 0)
+            {
+                walkSpeed -= 10;
+            }
             StartCoroutine("WalkSpeedReset");
         }
     }
