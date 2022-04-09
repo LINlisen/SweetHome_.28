@@ -402,50 +402,50 @@ public class PlayerController : MonoBehaviour
     {
         if (!PV.IsMine)
         {
-            //if (IceBallShoot[0])
-            //{
-            //    IceBall[0].transform.position += IceShootDir[0];
-            //    StartCoroutine(IceBallShootFun(0));
-            //}
-            //else
-            //{
-            //    if (IceBall[0] != null)
-            //    {
-            //        IceBall[0].transform.position = gameObject.transform.GetChild(4).position;
-            //        IceBall[0].transform.localEulerAngles = new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z);
-            //        //IceBall[0].transform.rotation = gameObject.transform.rotation;
+            if (IceBallShoot[0])
+            {
+                IceBall[0].transform.position += IceShootDir[0];
+                StartCoroutine(IceBallShootFun(0));
+            }
+            else
+            {
+                if (IceBall[0] != null)
+                {
+                    IceBall[0].transform.position = gameObject.transform.GetChild(4).position;
+                    IceBall[0].transform.localEulerAngles = new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z);
+                    //IceBall[0].transform.rotation = gameObject.transform.rotation;
 
-            //    }
-            //}
-            //if (IceBallShoot[1])
-            //{
-            //    IceBall[1].transform.position += IceShootDir[1];
-            //    StartCoroutine(IceBallShootFun(1));
-            //}
-            //else
-            //{
-            //    if (IceBall[1] != null)
-            //    {
-            //        IceBall[1].transform.position = gameObject.transform.GetChild(4).position;
-            //        IceBall[1].transform.localEulerAngles = new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z);
-            //        //IceBall[1].transform.rotation = gameObject.transform.rotation;
-            //    }
-            //}
+                }
+            }
+            if (IceBallShoot[1])
+            {
+                IceBall[1].transform.position += IceShootDir[1];
+                StartCoroutine(IceBallShootFun(1));
+            }
+            else
+            {
+                if (IceBall[1] != null)
+                {
+                    IceBall[1].transform.position = gameObject.transform.GetChild(4).position;
+                    IceBall[1].transform.localEulerAngles = new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z);
+                    //IceBall[1].transform.rotation = gameObject.transform.rotation;
+                }
+            }
 
-            //if (IceBallShoot[2])
-            //{
-            //    IceBall[2].transform.position += IceShootDir[2];
-            //    StartCoroutine(IceBallShootFun(2));
-            //}
-            //else
-            //{
-            //    if (IceBall[2] != null)
-            //    {
-            //        IceBall[2].transform.position = gameObject.transform.GetChild(4).position;
-            //        IceBall[2].transform.localEulerAngles =new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y , gameObject.transform.rotation.z);
-            //        //IceBall[2].transform.rotation = gameObject.transform.rotation;
-            //    }
-            //}
+            if (IceBallShoot[2])
+            {
+                IceBall[2].transform.position += IceShootDir[2];
+                StartCoroutine(IceBallShootFun(2));
+            }
+            else
+            {
+                if (IceBall[2] != null)
+                {
+                    IceBall[2].transform.position = gameObject.transform.GetChild(4).position;
+                    IceBall[2].transform.localEulerAngles = new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z);
+                    //IceBall[2].transform.rotation = gameObject.transform.rotation;
+                }
+            }
         }
         else
         {
