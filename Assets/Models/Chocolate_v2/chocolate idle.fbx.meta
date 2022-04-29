@@ -6,7 +6,57 @@ ModelImporter:
   - first:
       74: -1978303741906493279
     second: Armature|idle
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Brown
+    second: {fileID: 2100000, guid: 7d9d701fa5d6a415aa92c52a1ac8ad06, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EYE.006
+    second: {fileID: 2100000, guid: c23790d921b7141428e03dc6191973fe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HAIR.006
+    second: {fileID: 2100000, guid: 17541db3d8e54493ca9a989b594f1a70, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 110d68ce9cbd546978887f883e5f299c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.013
+    second: {fileID: 2100000, guid: b9a5961e0944948ddbc45312777fa374, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.014
+    second: {fileID: 2100000, guid: 8cd0abba9769542cab9677087336af33, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SKIN
+    second: {fileID: 2100000, guid: b5dd4e016f4c648b895986668fb9eedd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SKIN.001
+    second: {fileID: 2100000, guid: d76435697224f413d9a0939ec6f02f6c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SKIN.002
+    second: {fileID: 2100000, guid: 69cb55bf74e264f54a3ccbe1d195de30, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SKIN.008
+    second: {fileID: 2100000, guid: 639fd17a67a634e8180d1d5992bdfecc, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -93,7 +143,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

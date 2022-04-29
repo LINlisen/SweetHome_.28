@@ -92,7 +92,7 @@ public class ChooseCharactor : MonoBehaviour
                         Debug.Log(1);
                         Model=Instantiate(Models.CandyModel, UserChoose.CharactorModel.position, UserChoose.CharactorModel.rotation, UserChoose.CharactorModel);
                         UserChoose.CharactorModel.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-                        UserChoose.CharactorModel.transform.position = new Vector3(-0.2f, -1.88f, 15.91f);
+                        UserChoose.CharactorModel.transform.position = new Vector3(-0.2f, -0.83f, 15.91f);
                         _bCreated = true;
                     }
                     break;
