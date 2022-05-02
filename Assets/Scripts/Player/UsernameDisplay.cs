@@ -18,7 +18,7 @@ public class UsernameDisplay : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-        if ((int)playerPV.Owner.CustomProperties["WhichTeam"] == 0)//籃隊
+        if ((string)playerPV.Owner.CustomProperties["WhichTeam"] == "藍隊")
         {
             text.color = blue;
         }
