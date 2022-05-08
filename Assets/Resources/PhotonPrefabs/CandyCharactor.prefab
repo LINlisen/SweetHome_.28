@@ -58678,6 +58678,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 1
     Name: Wounded
+  - Type: 9
+    SynchronizeType: 0
+    Name: BuffedSkill
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
