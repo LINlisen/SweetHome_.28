@@ -35,6 +35,7 @@ public class PropertiesManager : MonoBehaviour
         hash.Add("Wounded", false);
         hash.Add("Charactor", 1);
         hash.Add("IceAbility", false);
+        hash.Add("IsBuffed", true);//buff skill bool
     }
     void Start()
     {

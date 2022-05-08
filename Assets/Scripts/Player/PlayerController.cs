@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     bool _bPunched = false;
     float _fPunchedCount = 0.0f;
     Vector3 _VecPunched;
+
     //Skill
     bool _bIsSkill = false;
     bool _bIntoCold = false;
@@ -60,7 +61,12 @@ public class PlayerController : MonoBehaviour
     public bool[] IceBallShoot = new bool[3];
     private int IceBallShootNum = 0;
     public bool[] IceDelete = new bool[3];
-    // Start is called before the first frame update
+
+    //buff skill
+    //public bool _bIsBuffed = false;
+
+
+
 
     public CharacterController playerController;
     Rigidbody rb;
@@ -162,87 +168,178 @@ public class PlayerController : MonoBehaviour
     public void Skill()
     {
      
-        if (!_bAbilityOn)
+        if((bool)hash["IsBuffed"] == false)//default skill
         {
-            _bIsSkill = true;
-            if ((int)hash["Charactor"] != 2  && (int)hash["Charactor"] != 4) //Chocolate技能施放動畫設定在按第二次技能鍵
+            if (!_bAbilityOn)
             {
-                playerManager.animator.SetTrigger("Skill");
+                _bIsSkill = true;
+                if ((int)hash["Charactor"] != 2 && (int)hash["Charactor"] != 4) //Chocolate技能施放動畫設定在按第二次技能鍵
+                {
+                    playerManager.animator.SetTrigger("Skill");
+                }
+                switch ((int)hash["Charactor"])
+                {
+                    case 1:
+                        SkillSound.Play();
+                        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandySkillOn(gameObject.name);
+                        _bAbilityOn = true;
+                        break;
+                    case 2:
+                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
+                        _bAbilityOn = true;
+                        break;
+                    case 3:
+                        /*Can Skill*/
+                        //CanSkill.SetActive(true);
+                        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CanSkillOn(gameObject.name);
+                        Debug.Log("CanOn");
+                        //CanSkillEffect.SetActive(true);
+                        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CanSkillEffectOn(gameObject.name);
+                        Debug.Log("CanEffectOn");
+                        SkillSound.Play();
+                        OnGetPlayer();
+                        _bAbilityOn = true;
+                        break;
+                    case 4:
+                        SkillSound.Play();
+                        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceSkillOn(gameObject.name);
+                        for (int i = 0; i < 3; i++)
+                        {
+                            IceBall[i] = GameObject.Find("IceShoot").transform.GetChild(i).gameObject;
+                            IceBallShoot[i] = false;
+                            IceDelete[i] = false;
+                        }
+                        _bAbilityOn = true;
+                        break;
+                }
             }
-            switch ((int)hash["Charactor"])
+            else
             {
-                case 1:
-                    SkillSound.Play();
-                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandySkillOn(gameObject.name);
-                    _bAbilityOn = true;
-                    break;
-                case 2:
-                    gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                    _bAbilityOn = true;
-                    break;
-                case 3:
-                    /*Can Skill*/
-                    //CanSkill.SetActive(true);
-                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CanSkillOn(gameObject.name);
-                    Debug.Log("CanOn");
-                    //CanSkillEffect.SetActive(true);
-                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CanSkillEffectOn(gameObject.name);
-                    Debug.Log("CanEffectOn");
-                    SkillSound.Play();
-                    OnGetPlayer();
-                    _bAbilityOn = true;
-                    break;
-                case 4:
-                    SkillSound.Play();
-                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceSkillOn(gameObject.name);
-                    for (int i = 0; i<3; i++)
-                    {
-                        IceBall[i] = GameObject.Find("IceShoot").transform.GetChild(i).gameObject;
-                        IceBallShoot[i] = false;
-                        IceDelete[i] = false;
-                    }
-                    _bAbilityOn = true;
-                    break;
+                Debug.Log("Click");
+                switch ((int)hash["Charactor"])
+                {
+                    case 1:
+                        SkillShootSound.Play();
+                        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandyBomb"), gameObject.transform.position, gameObject.transform.rotation);
+                        CandyBombNum++;
+                        if (CandyBombNum == 4)
+                        {
+                            _bIntoCold = true;
+                            CandyBombNum = 0;
+                            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandySkillOff(gameObject.name);
+                        }
+                        break;
+                    case 2:
+                        playerManager.animator.SetTrigger("Skill");
+
+                        //gameObject.transform.GetChild(8).gameObject.SetActive(true);
+                        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().ChocolateSkillOn(gameObject.name);
+                        SkillSound.Play();
+                        gameObject.transform.GetChild(4).gameObject.SetActive(false);
+                        gameObject.transform.GetChild(5).gameObject.SetActive(true);
+                        _bIntoCold = true;
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        SkillShootSound.Play();
+                        directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
+                        directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
+                        IceBall[IceBallShootNum].transform.position = IceBall[IceBallShootNum].transform.position - new Vector3(0, 6.5f, 0);
+                        IceBallShoot[IceBallShootNum] = true;
+                        IceShootDir[IceBallShootNum] = -directionXOZ;
+                        playerManager.animator.SetTrigger("Skill");
+                        IceBallShootNum++;
+                        break;
+                }
             }
         }
-        else
+        if((bool)hash["IsBuffed"] == true)//buffed skill
         {
-            Debug.Log("Click");
-            switch ((int)hash["Charactor"])
+            Debug.Log("isBuffed");
+            if (!_bAbilityOn)
             {
-                case 1:
-                    SkillShootSound.Play();
-                    PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandyBomb"), gameObject.transform.position,gameObject.transform.rotation);
-                    CandyBombNum++;
-                    if(CandyBombNum == 4)
-                    {
+                _bIsSkill = true;
+                if ((int)hash["Charactor"] != 2 && (int)hash["Charactor"] != 4) //Chocolate技能施放動畫設定在按第二次技能鍵
+                {
+                    playerManager.animator.SetTrigger("BuffedSkill");
+                }
+                switch ((int)hash["Charactor"])
+                {
+                    case 1:
+                        SkillSound.Play();
+                        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandySkillOn(gameObject.name);
+                        _bAbilityOn = true;
+                        break;
+                    case 2:
+                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
+                        _bAbilityOn = true;
+                        break;
+                    case 3:
+                        /*Can Skill*/
+                        //CanSkill.SetActive(true);
+                        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CanSkillOn(gameObject.name);
+                        Debug.Log("CanOn");
+                        //CanSkillEffect.SetActive(true);
+                        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CanSkillEffectOn(gameObject.name);
+                        Debug.Log("CanEffectOn");
+                        SkillSound.Play();
+                        OnGetPlayer();
+                        _bAbilityOn = true;
+                        break;
+                    case 4:
+                        SkillSound.Play();
+                        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().IceSkillOn(gameObject.name);
+                        for (int i = 0; i < 3; i++)
+                        {
+                            IceBall[i] = GameObject.Find("IceShoot").transform.GetChild(i).gameObject;
+                            IceBallShoot[i] = false;
+                            IceDelete[i] = false;
+                        }
+                        _bAbilityOn = true;
+                        break;
+                }
+            }
+            else
+            {
+                Debug.Log("Click");
+                switch ((int)hash["Charactor"])
+                {
+                    case 1:
+                        playerManager.animator.SetTrigger("BuffedSkill");
+                        SkillShootSound.Play();
+                        //PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandyBomb"), gameObject.transform.position, gameObject.transform.rotation);
+                        //CandyBombNum++;
+                        //if (CandyBombNum == 4)
+                        //{
+                        //    _bIntoCold = true;
+                        //    //CandyBombNum = 0;
+                        //    //GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandySkillOff(gameObject.name);
+                        //}
+                        break;
+                    case 2:
+                        playerManager.animator.SetTrigger("BuffedSkill");
+                        //gameObject.transform.GetChild(8).gameObject.SetActive(true);
+                        //GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().ChocolateSkillOn(gameObject.name);
+                        //SkillSound.Play();
+                        //gameObject.transform.GetChild(4).gameObject.SetActive(false);
+                        //gameObject.transform.GetChild(5).gameObject.SetActive(true);
                         _bIntoCold = true;
-                        CandyBombNum = 0;
-                        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().CandySkillOff(gameObject.name);
-                    }
-                    break;
-                case 2:
-                    playerManager.animator.SetTrigger("Skill");
-
-                    //gameObject.transform.GetChild(8).gameObject.SetActive(true);
-                    GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().ChocolateSkillOn(gameObject.name);
-                    SkillSound.Play();
-                    gameObject.transform.GetChild(4).gameObject.SetActive(false);
-                    gameObject.transform.GetChild(5).gameObject.SetActive(true);
-                    _bIntoCold = true;
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    SkillShootSound.Play();
-                    directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
-                    directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
-                    IceBall[IceBallShootNum].transform.position = IceBall[IceBallShootNum].transform.position - new Vector3(0, 6.5f, 0);
-                    IceBallShoot[IceBallShootNum] = true;
-                    IceShootDir[IceBallShootNum] = -directionXOZ;
-                    playerManager.animator.SetTrigger("Skill");
-                    IceBallShootNum++;
-                    break;
+                        break;
+                    case 3:
+                        playerManager.animator.SetTrigger("BuffedSkill");
+                        break;
+                    case 4:
+                        //SkillShootSound.Play();
+                        //directionXOZ.y = 0f;// 只做平面的上下移动和水平移动，不做高度上的上下移动
+                        //directionXOZ = -playerController.transform.right;// forward 指向物体当前的前方
+                        //IceBall[IceBallShootNum].transform.position = IceBall[IceBallShootNum].transform.position - new Vector3(0, 6.5f, 0);
+                        //IceBallShoot[IceBallShootNum] = true;
+                        //IceShootDir[IceBallShootNum] = -directionXOZ;
+                        playerManager.animator.SetTrigger("BuffedSkill");
+                        //IceBallShootNum++;
+                        break;
+                }
             }
         }
 

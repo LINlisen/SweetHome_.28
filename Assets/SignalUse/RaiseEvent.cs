@@ -23,8 +23,8 @@ public class RaiseEvent : MonoBehaviourPun
     private const byte GET_ARMOR = 6;
     private const byte EXCAPE = 7;
     private const byte POTION_OUT = 8;
-    private const byte TREASURE_DEATHTWO = 9;
-    private const byte DUO_TREASURE = 10;
+    private const byte TREASURE_DEATHTWO = 35;
+    private const byte DUO_TREASURE = 36;
 
 
     /*共同特效部分*/
@@ -58,8 +58,17 @@ public class RaiseEvent : MonoBehaviourPun
     /*Ice Area*/
     private const byte ICE_SKILL_ON = 28; //ICE 技能施放 index 5 
     private const byte ICE_SKILL_OFF = 29; //ICE 技能施放 index 5
-    private const byte ICE_SHOOT = 33;
+    private const byte ICE_SHOOT = 34;
     private const byte ICESHOOT_DELETE = 32;
+
+    //buffed後技能
+    /*candy buff*/
+    private const byte CANDYSHOOT_BUFF_ON = 37;
+    private const byte CANDYSHOOT_BUFF_OFF = 38;
+    private const byte CANDYSHOOT__BUFF_DELETE = 39;
+    private const byte CANDY_SKILL_BUFF_ON = 40; 
+    private const byte CANDY_SKILL_BUFF_OFF = 41; 
+
 
     int TeamBlueExcaper = 0;
     int TeamRedExcaper = 0;
