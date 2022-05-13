@@ -58580,6 +58580,7 @@ MonoBehaviour:
   speedCooldown: 2
   maxAngle: 350
   minAngle: 15
+  b_buffed: 0
   armor: {fileID: 7360618131214421170}
   jumpPadHeight: 0
   rock: {fileID: 2316141889199578944, guid: 8552273b1f8994953818dcd15f8df05d, type: 3}

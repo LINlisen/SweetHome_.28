@@ -90,6 +90,9 @@ public class PlayerController : MonoBehaviour
     Hashtable team;
     Hashtable hash;
 
+    //skill buffed
+    public bool b_buffed = false;
+
     //armor
     [SerializeField] private GameObject armor;
     //[SerializeField] private GameObject armorTag;
@@ -168,7 +171,7 @@ public class PlayerController : MonoBehaviour
     public void Skill()
     {
      
-        if((bool)hash["IsBuffed"] == false)//default skill
+        if(b_buffed == false)//default skill
         {
             if (!_bAbilityOn)
             {
@@ -254,7 +257,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        if((bool)hash["IsBuffed"] == true)//buffed skill
+        if(b_buffed == true)//buffed skill
         {
             Debug.Log("isBuffed");
             if (!_bAbilityOn)
@@ -657,7 +660,14 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Hashtable data = PhotonNetwork.CurrentRoom.CustomProperties;
-        
+
+        //skill buff
+        if (other.gameObject.tag == "BuffedTrg")
+        {
+            b_buffed = true;
+        }
+
+
         //toast
         if (other.gameObject.name == "toast")
         {

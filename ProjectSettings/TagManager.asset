@@ -25,6 +25,7 @@ TagManager:
   - CandyShoot
   - TreasureDeathTwo
   - TwoPerTreasure
+  - BuffedTrg
   layers:
   - Default
   - TransparentFX
