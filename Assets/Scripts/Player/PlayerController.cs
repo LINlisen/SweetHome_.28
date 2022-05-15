@@ -87,7 +87,6 @@ public class PlayerController : MonoBehaviour
     private bool playerOnRightSeesaw;
     public float maxAngle;
     public float minAngle;
-    Hashtable team;
     Hashtable hash;
 
     //skill buffed
@@ -114,6 +113,7 @@ public class PlayerController : MonoBehaviour
     public bool _bWounded = false;
 
     bool flag = false;
+    int t = 0;
 
     Player[] players = PhotonNetwork.PlayerList;
     void Awake()
@@ -127,7 +127,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         explosionRock = rock.GetComponent<ExplosionRock>();
-        team = PhotonNetwork.LocalPlayer.CustomProperties;
         hash = PhotonNetwork.LocalPlayer.CustomProperties;
         skillManager = GameObject.Find("SkillManager").GetComponent<SkillManager>();
         //for show nickname on scene not done
@@ -389,7 +388,7 @@ public class PlayerController : MonoBehaviour
 
                     if (dashCold >= 5.0f)
                     {
-
+                        t = 0;
                         dashTime = 0.0f;
                         _bIsDash = false;
                         TCKInput.SetControllerActive("dashBtn", true);
@@ -842,7 +841,7 @@ public class PlayerController : MonoBehaviour
             hash = PhotonNetwork.LocalPlayer.CustomProperties;
             hash["Point"] = (int)hash["Point"] + 1;
             PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-            photonView.RPC("getPoint", RpcTarget.All, (string)team["WhichTeam"]);
+            photonView.RPC("getPoint", RpcTarget.All, (string)hash["WhichTeam"], PhotonNetwork.LocalPlayer);
             other.GetComponent<AudioSource>().Play();
             other.GetComponent<RaiseEvent>().getPotion(other.gameObject.name);
         }
@@ -909,54 +908,91 @@ public class PlayerController : MonoBehaviour
     }
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-            PhotonView photonView = PhotonView.Get(UpInformation);
-            if (hit.gameObject.tag == "Player" /*&& playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash") &&_bWounded == false*/)
+        int n = 0;
+        Hashtable Wounded = new Hashtable();
+        PhotonView photonView = PhotonView.Get(UpInformation);
+        if (hit.gameObject.tag == "Player" /*&& playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash") &&_bWounded == false*/)
+        {
+            if (!hit.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Dash"))
             {
-                if (playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash"))
+                for (int i = 0; i < PhotonNetwork.PlayerList.Count(); i++)
                 {
-                    if (GameObject.Find(hit.gameObject.name).GetComponent<PlayerController>()._bWounded == false)
+                    if (hit.gameObject.GetComponentInChildren<Text>().text == players[i].NickName)
                     {
-                        GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
-                        Debug.Log("_bWounded是false");
-                        GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
-                        if ((int)hash["Point"] != 0)
+                        n = i;
+                    }
+                }
+                if (GameObject.Find(hit.gameObject.name).GetComponent<PlayerController>()._bWounded == false)
+                {
+                    t++;
+                    GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
+                    if ((int)players[n].CustomProperties["Point"] != 0)
+                    {
+                        if (t == 1)
                         {
-                            Hashtable Wounded = new Hashtable();
-                            Player[] players = PhotonNetwork.PlayerList;
+                            hash = players[n].CustomProperties;
                             hash["Point"] = (int)hash["Point"] - 1;
-                            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-                            photonView.RPC("losePoint", RpcTarget.All, (string)team["WhichTeam"]);
-                            for (int j = 0; j < players.Count(); j++)
-                            {
-                                Wounded = players[j].CustomProperties;
-                                if (player[j].name == hit.gameObject.name)
-                                {
-                                    Wounded["Wounded"] = true;
-                                    players[j].SetCustomProperties(Wounded);
-                                }
-                            }
+                            players[n].SetCustomProperties(hash);
+                            photonView.RPC("losePoint", RpcTarget.All, (string)hash["WhichTeam"], players[n]);
+                            Wounded["Wounded"] = true;
+                            players[n].SetCustomProperties(Wounded);
                             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, true);
                         }
-                        else
-                        {
-                            Hashtable Wounded = new Hashtable();
-                            Player[] players = PhotonNetwork.PlayerList;
-                            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-                            
-                        for (int j = 0; j < players.Count(); j++)
-                            {
-                                Wounded = players[j].CustomProperties;
-                                if (player[j].name == hit.gameObject.name)
-                                {
-                                    Wounded["Wounded"] = true;
-                                    players[j].SetCustomProperties(Wounded);
-                                }
-                            }
-                            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, false);
-                        }
                     }
-                } 
+                    else
+                    {
+                        Debug.Log("只暈");
+                        Wounded["Wounded"] = true;
+                        players[n].SetCustomProperties(Wounded);
+                        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, false);
+                    }
+                }
             }
+        }
+        //if (playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash"))
+        //{
+        //    if (GameObject.Find(hit.gameObject.name).GetComponent<PlayerController>()._bWounded == false)
+        //    {
+        //        GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
+        //        Debug.Log("_bWounded是false");
+        //        GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
+        //        if ((int)hash["Point"] != 0)
+        //        {
+        //            Hashtable Wounded = new Hashtable();
+        //            Player[] players = PhotonNetwork.PlayerList;
+        //            hash["Point"] = (int)hash["Point"] - 1;
+        //            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        //            photonView.RPC("losePoint", RpcTarget.All, (string)team["WhichTeam"]);
+        //            for (int j = 0; j < players.Count(); j++)
+        //            {
+        //                Wounded = players[j].CustomProperties;
+        //                if (player[j].name == hit.gameObject.name)
+        //                {
+        //                    Wounded["Wounded"] = true;
+        //                    players[j].SetCustomProperties(Wounded);
+        //                }
+        //            }
+        //            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, true);
+        //        }
+        //        else
+        //        {
+        //            Hashtable Wounded = new Hashtable();
+        //            Player[] players = PhotonNetwork.PlayerList;
+        //            PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+
+        //        for (int j = 0; j < players.Count(); j++)
+        //            {
+        //                Wounded = players[j].CustomProperties;
+        //                if (player[j].name == hit.gameObject.name)
+        //                {
+        //                    Wounded["Wounded"] = true;
+        //                    players[j].SetCustomProperties(Wounded);
+        //                }
+        //            }
+        //            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, false);
+        //        }
+        //    }
+        //} 
         //hit by the dangerStick or object, add [dangerStick] tag to access
         //if (hit.gameObject.tag == "dangerStick" && _bWounded == false)
         //{

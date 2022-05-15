@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -15,6 +16,7 @@ public class Score : MonoBehaviour
     int redpoint;
     int bluepoint;
     Hashtable roomhash;
+    Hashtable hash;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,9 +34,12 @@ public class Score : MonoBehaviour
     }
 
     [PunRPC]
-    void getPoint(string team)
+    void getPoint(string team, Player player)
     {
-        Debug.Log("getPotion");
+        if(player == PhotonNetwork.LocalPlayer)
+        {
+            Debug.Log("getPotion");
+        }
         if (team == "紅隊")
         {
             redpoint++;
@@ -51,9 +56,12 @@ public class Score : MonoBehaviour
         }
     }
     [PunRPC]
-    void losePoint(string team)
+    void losePoint(string team, Player player)
     {
-        Debug.Log("getPotion");
+        Debug.Log("losePotion");
+        hash = player.CustomProperties;
+        hash["Point"] = (int)hash["Point"] - 1;
+        player.SetCustomProperties(hash);
         if (team == "紅隊")
         {
             redpoint--;
