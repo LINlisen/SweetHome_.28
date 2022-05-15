@@ -13,7 +13,8 @@ public class Result : MonoBehaviour
     [SerializeField] Text TeamBlueExcaper;
     [SerializeField] Text TeamRedScore;
     [SerializeField] Text TeamRedExcaper;
-    [SerializeField] Text TeamWon;
+    [SerializeField] GameObject RedWin;
+    [SerializeField] GameObject BlueWin;
 
     Hashtable roomhash = new Hashtable();
     Hashtable hash = new Hashtable();
@@ -54,21 +55,21 @@ public class Result : MonoBehaviour
         TeamRedExcaper.text = redgetoutnumber.ToString();
         if (bluegetoutnumber == 2)
         {
-            TeamWon.text = "藍隊";
+            BlueWin.SetActive(true);
         }
         else if (redgetoutnumber == 2)
         {
-            TeamWon.text = "紅隊";
+            RedWin.SetActive(true);
         }
         else
         {
             if ((int)roomhash["BlueScore"] > (int)roomhash["RedScore"] || (int)roomhash["BlueScore"] == 25)
             {
-                TeamWon.text = "藍隊";
+                BlueWin.SetActive(true);
             }
             else
             {
-                TeamWon.text = "紅隊";
+                RedWin.SetActive(true);
             }
         }
         //roomhash["LoadingProgress"] = 0;
