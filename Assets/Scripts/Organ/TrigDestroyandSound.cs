@@ -6,24 +6,31 @@ public class TrigDestroyandSound : MonoBehaviour
 {
 
     // Start is called before the first frame update
-    public AudioSource buffsound;
+    public GameObject buffsound;
+    public bool istouch;
     void Start()
     {
-        buffsound = this.GetComponent<AudioSource>();
+        istouch = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
+        if (istouch == true)
         {
             Debug.Log("playerbuffed");
-            buffsound.Play();
-            Destroy(collision.gameObject);
+            buffsound.SetActive(true);
+            this.gameObject.SetActive(false);
+        }
+
+
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            istouch = true;
         }
     }
+   
 }
