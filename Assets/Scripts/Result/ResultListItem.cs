@@ -15,13 +15,22 @@ public class ResultListItem : MonoBehaviourPunCallbacks
 
     public void SetUp(Player _player)
     {
+        Color blue = new Color32(81, 107, 147, 255);
+        Color red = new Color32(202, 88, 88, 255);
         if (_player.IsMasterClient)
         {
             MasterIcon.text = "<sprite=0>";
         }
         player = _player;
         NickName.text = _player.NickName;
-        NickName.color = Color.black;
+        if((string)player.CustomProperties["WhichTeam"] == "紅隊")
+        {
+            NickName.color = red;
+        }
+        else
+        {
+            NickName.color = blue;
+        }
         Score.text = _player.CustomProperties["Point"].ToString();
     }
 

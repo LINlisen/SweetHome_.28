@@ -24,6 +24,7 @@ public class PropertiesManager : MonoBehaviour
         roomhash.Add("Player4", 0);
         roomhash.Add("BlueScore", 0);
         roomhash.Add("RedScore", 0);
+        roomhash.Add("Win", "");
         hash.Add("TimerReady", false);
         hash.Add("Nickname", null);
         hash.Add("WhichTeam", null); // 0為藍隊，1為紅隊
@@ -32,6 +33,7 @@ public class PropertiesManager : MonoBehaviour
         hash.Add("GetOut", false);
         hash.Add("Blind", false);
         hash.Add("Point", 0);
+        hash.Add("Win", false);
         hash.Add("Wounded", false);
         hash.Add("Charactor", 1);
         hash.Add("IceAbility", false);

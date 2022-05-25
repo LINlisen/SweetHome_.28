@@ -158,11 +158,55 @@ public class TimeController : MonoBehaviour
                 {
                     //Timer Completed
                     //Do What Ever You What to Do Here
+                    
                     text_Timmer.gameObject.SetActive(false);
 
                     gameOver.SetActive(true);
                     if(timerIncrementValue <= -1.6)
                     {
+                        int bluegetoutnumber = 0;
+                        int redgetoutnumber = 0;
+                        Player[] players = PhotonNetwork.PlayerList;
+                        for (int i = 0; i < players.Count(); i++)
+                        {
+                            if ((string)players[i].CustomProperties["WhichTeam"] == "紅隊")
+                            {
+                                if ((bool)players[i].CustomProperties["GetOut"] == true)
+                                {
+                                    redgetoutnumber++;
+                                }
+                            }
+                            else
+                            {
+                                if ((bool)players[i].CustomProperties["GetOut"] == true)
+                                {
+                                    bluegetoutnumber++;
+                                }
+                            }
+
+                        }
+                        if (PhotonNetwork.LocalPlayer.IsMasterClient)
+                        {
+                            if (bluegetoutnumber == 2)
+                            {
+                                roomhash["Win"] = "Blue";
+                            }
+                            else if (redgetoutnumber == 2)
+                            {
+                                roomhash["Win"] = "Red";
+                            }
+                            else
+                            {
+                                if ((int)roomhash["BlueScore"] > (int)roomhash["RedScore"] || (int)roomhash["BlueScore"] == 25)
+                                {
+                                    roomhash["Win"] = "Blue";
+                                }
+                                else
+                                {
+                                    roomhash["Win"] = "Red";
+                                }
+                            }
+                        }
                         roomhash["GameOver"] = true;
                         PhotonNetwork.CurrentRoom.SetCustomProperties(roomhash);
                     }

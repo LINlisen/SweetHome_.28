@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -794,6 +794,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 260840109}
+  - component: {fileID: 260840110}
   m_Layer: 5
   m_Name: CharactorModal
   m_TagString: Untagged
@@ -822,6 +823,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 2224, y: 1668}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &260840110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260840108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ede614d9112696244872d3957fef1f84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  candy_model: {fileID: 5500202771079569660}
+  chocolat_model: {fileID: 7371853659934939739}
+  can_model: {fileID: 1924194176585719330}
+  ice_model: {fileID: 8002166162285495902}
 --- !u!1 &347385885
 GameObject:
   m_ObjectHideFlags: 0
@@ -1661,7 +1678,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &691131250
 Transform:
   m_ObjectHideFlags: 0
@@ -3945,7 +3962,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -700, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1840940443
@@ -5189,12 +5206,12 @@ GameObject:
   - component: {fileID: 1296980360914273432}
   - component: {fileID: 1924194176585719329}
   m_Layer: 0
-  m_Name: beverage_choosed
+  m_Name: can_choosed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1977962032114785305
 GameObject:
   m_ObjectHideFlags: 0
@@ -8298,7 +8315,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!137 &8053036327703517110
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0

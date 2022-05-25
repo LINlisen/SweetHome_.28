@@ -25,6 +25,7 @@ public class Result : MonoBehaviour
         int redgetoutnumber = 0;
         int bluescore = 0;
         int redscore = 0;
+        string winner = "";
         Player[] players = PhotonNetwork.PlayerList;
         roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
         hash = PhotonNetwork.LocalPlayer.CustomProperties;
