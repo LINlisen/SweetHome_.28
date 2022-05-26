@@ -206,17 +206,17 @@ public class RaiseEvent : MonoBehaviourPun
                 bool havePoion = (bool)datas[1];
                 GameObject Potion;
                 Vector3 iniPos = GameObject.Find(Playername).gameObject.transform.position + new Vector3(10, 0, 10);           
-                if (havePoion && potionNum == 0)
+                if (havePoion)
                 {
                     Potion = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Potion"), iniPos, GameObject.Find(Playername).gameObject.transform.rotation);
                     _PotionNum++;
                     Potion.name = "00" + _PotionNum;
-                    potionNum++;
                 }
+               
                 _bPotionOut = false;
-                //GameObject.Find(Playername).GetComponent<Animator>().SetTrigger("Wounded");
-                //GameObject.Find(Playername).GetComponent<PlayerController>()._bWounded = false;
-                //StartCoroutine(SetWoundedFalse(3.0f, Playername));
+                GameObject.Find(Playername).GetComponent<Animator>().SetTrigger("Wounded");
+                GameObject.Find(Playername).GetComponent<PlayerController>()._bWounded = false;
+                StartCoroutine(SetWoundedFalse(3.0f, Playername));
             }
         }
         
@@ -555,7 +555,7 @@ public class RaiseEvent : MonoBehaviourPun
         object[] datas = new object[] { PlayerName };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(WOUNDED_OFF, datas, raiseEventOptions, SendOptions.SendReliable);
-        //SetWoundedFalse(5, PlayerName);
+        SetWoundedFalse(5, PlayerName);
     }
     public void WoundedTriggerOn(string PlayerName)
     {
@@ -658,18 +658,18 @@ public class RaiseEvent : MonoBehaviourPun
         //After we have waited 5 seconds print the time again.
         Debug.Log("Finished Coroutine at timestamp : " + Time.time);
     }
-    //IEnumerator SetWoundedFalse(float sec,string Playername)
-    //{
-    //    //Print the time of when the function is first called.
-    //    Debug.Log("Started Coroutine at timestamp : " + Time.time);
+    IEnumerator SetWoundedFalse(float sec,string Playername)
+    {
+        //Print the time of when the function is first called.
+        Debug.Log("Started Coroutine at timestamp : " + Time.time);
 
-    //    //yield on a new YieldInstruction that waits for 5 seconds.
-    //    yield return new WaitForSeconds(sec);
-    //    GameObject.Find(Playername).GetComponent<PlayerController>()._bWounded = false;
-        
-        
-    //    Debug.Log("_bPotionOutfalse");
-    //    //After we have waited 5 seconds print the time again.
-    //    Debug.Log("Finished Coroutine at timestamp : " + Time.time);
-    //}
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(sec);
+        GameObject.Find(Playername).GetComponent<PlayerController>()._bWounded = false;
+      
+      
+        Debug.Log("_bPotionOutfalse");
+        //After we have waited 5 seconds print the time again.
+        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
+    }
 }

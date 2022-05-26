@@ -842,25 +842,28 @@ public class PlayerController : MonoBehaviour
                 {
                     t++;
                     GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
-                    if ((int)players[n].CustomProperties["Point"] != 0)
+                    if (PhotonNetwork.LocalPlayer.IsMasterClient)
                     {
-                        if (t == 1)
+                        if ((int)players[n].CustomProperties["Point"] != 0)
                         {
-                            hash = players[n].CustomProperties;
-                            hash["Point"] = (int)hash["Point"] - 1;
-                            players[n].SetCustomProperties(hash);
-                            photonView.RPC("losePoint", RpcTarget.All, (string)hash["WhichTeam"], players[n]);
+                            if (t == 1)
+                            {
+                                hash = players[n].CustomProperties;
+                                hash["Point"] = (int)hash["Point"] - 1;
+                                players[n].SetCustomProperties(hash);
+                                photonView.RPC("losePoint", RpcTarget.All, (string)hash["WhichTeam"], players[n]);
+                                Wounded["Wounded"] = true;
+                                players[n].SetCustomProperties(Wounded);
+                                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, true);
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log("只暈");
                             Wounded["Wounded"] = true;
                             players[n].SetCustomProperties(Wounded);
-                            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, true);
+                            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, false);
                         }
-                    }
-                    else
-                    {
-                        Debug.Log("只暈");
-                        Wounded["Wounded"] = true;
-                        players[n].SetCustomProperties(Wounded);
-                        GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, false);
                     }
                 }
             }
