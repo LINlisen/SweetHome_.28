@@ -106,11 +106,12 @@ public class PlayerController : MonoBehaviour
     private ExplosionRock explosionRock;
     public GameObject rock;
 
-    public GameObject TeamMate;
+    GameObject TeamMate;
     public GameObject Excaper;
+    public GameObject ExcaperNickname;
     public GameObject ExcaperCamera;
-    public GameObject ExcaperTouchPad;
-    public GameObject ExcaperAbility;
+    GameObject ExcaperTouchPad;
+    GameObject ExcaperAbility;
     //Wounded
     public bool _bWounded = false;
 
@@ -730,6 +731,7 @@ public class PlayerController : MonoBehaviour
                             TeamMate = GameObject.Find("CanCharactor(Clone)/CameraTarget");
                             break;
                         case 4:
+                            TeamMate = GameObject.Find("IceCharactor(Clone)/CameraTarget");
                             break;
                     }
                 }

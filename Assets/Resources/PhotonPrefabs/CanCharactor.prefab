@@ -53346,11 +53346,9 @@ MonoBehaviour:
   armor: {fileID: 7871118643191700467}
   jumpPadHeight: 0
   rock: {fileID: 2316141889199578944, guid: 8552273b1f8994953818dcd15f8df05d, type: 3}
-  TeamMate: {fileID: 0}
   Excaper: {fileID: 7444391406168750464}
+  ExcaperNickname: {fileID: 7053486737146571450}
   ExcaperCamera: {fileID: 1137338111447038399}
-  ExcaperTouchPad: {fileID: 0}
-  ExcaperAbility: {fileID: 0}
   _bWounded: 0
 --- !u!114 &369040858814883697
 MonoBehaviour:

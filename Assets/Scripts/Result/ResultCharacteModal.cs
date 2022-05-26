@@ -99,6 +99,8 @@ public class ResultCharacteModal : MonoBehaviour
                 ice_model.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 break;
         }
+        Debug.Log(winner1);
+        Debug.Log(winner2);
     }
     // Update is called once per frame
     void Update()

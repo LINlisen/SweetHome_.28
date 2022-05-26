@@ -109016,11 +109016,9 @@ MonoBehaviour:
   armor: {fileID: 6546761374523675240}
   jumpPadHeight: 0
   rock: {fileID: 2316141889199578944, guid: 8552273b1f8994953818dcd15f8df05d, type: 3}
-  TeamMate: {fileID: 0}
   Excaper: {fileID: 5059534080203050268}
+  ExcaperNickname: {fileID: 1416071839952723559}
   ExcaperCamera: {fileID: 4046962036810084388}
-  ExcaperTouchPad: {fileID: 0}
-  ExcaperAbility: {fileID: 0}
   _bWounded: 0
 --- !u!114 &3674384034967465706
 MonoBehaviour:
@@ -109092,6 +109090,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 1
     Name: Wounded
+  - Type: 9
+    SynchronizeType: 0
+    Name: BuffedSkill
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
