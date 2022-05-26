@@ -97232,6 +97232,7 @@ GameObject:
   - component: {fileID: 5949416075698178434}
   - component: {fileID: 6969400951930755355}
   - component: {fileID: 6039230880148490910}
+  - component: {fileID: 4966613253601618174}
   m_Layer: 0
   m_Name: CameraHolder
   m_TagString: MainCamera
@@ -97304,6 +97305,19 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8028054502435081002}
   m_Enabled: 1
+--- !u!65 &4966613253601618174
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8028054502435081002}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8145902079431649517
 GameObject:
   m_ObjectHideFlags: 0

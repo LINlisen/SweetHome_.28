@@ -221,7 +221,8 @@ public class PlayerController : MonoBehaviour
             {
                 case 1:
                     SkillShootSound.Play();
-                    PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandyBomb"), gameObject.transform.position, gameObject.transform.rotation);
+                    Vector3 pos =new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 2.0f, gameObject.transform.position.z);
+                    PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "CandyBomb"), pos, gameObject.transform.rotation);
                     CandyBombNum++;
                     if (CandyBombNum == 4)
                     {
@@ -268,6 +269,7 @@ public class PlayerController : MonoBehaviour
             {
                 skillColdTime = 15.0f;
                 dashColdTime = 2.5f;
+                walkSpeed = 24.0f;
             }
             if (TCKInput.GetAction("dashBtn", EActionEvent.Down))
             {
@@ -379,7 +381,6 @@ public class PlayerController : MonoBehaviour
                     _fPunchedCount = 0;
                 }
             }
-
 
         }
         else
@@ -750,7 +751,7 @@ public class PlayerController : MonoBehaviour
             GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().Excape((int)PhotonNetwork.LocalPlayer.CustomProperties["Charactor"], "", (int)PhotonNetwork.LocalPlayer.CustomProperties["WhichTeam"]);
         }
         /*PotionGet*/
-        if (other.gameObject.transform.tag == "Potion")
+        if (other.gameObject.transform.tag == "Potion" && PV.IsMine)
         {
             PhotonView photonView = PhotonView.Get(UpInformation);
             hash = PhotonNetwork.LocalPlayer.CustomProperties;
