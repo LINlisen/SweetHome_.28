@@ -842,8 +842,7 @@ public class PlayerController : MonoBehaviour
                 {
                     t++;
                     GameObject.Find("Audios/Dizzy").GetComponent<AudioSource>().Play();
-                    if (PhotonNetwork.LocalPlayer.IsMasterClient)
-                    {
+
                         if ((int)players[n].CustomProperties["Point"] != 0)
                         {
                             if (t == 1)
@@ -868,7 +867,7 @@ public class PlayerController : MonoBehaviour
                         }
                     }
                 }
-            }
+            
         }
         //if (playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash"))
         //{
