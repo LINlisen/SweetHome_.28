@@ -19,7 +19,7 @@ public class TrigDestroyandSound : MonoBehaviour
         if (istouch == true)
         {
             Debug.Log("playerbuffed");
-            buffsound.SetActive(true);
+            buffsound.GetComponent<AudioSource>().Play();
             this.gameObject.SetActive(false);
         }
 
