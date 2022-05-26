@@ -53342,6 +53342,7 @@ MonoBehaviour:
   speedCooldown: 2
   maxAngle: 350
   minAngle: 15
+  b_buffed: 0
   armor: {fileID: 7871118643191700467}
   jumpPadHeight: 0
   rock: {fileID: 2316141889199578944, guid: 8552273b1f8994953818dcd15f8df05d, type: 3}
@@ -53421,6 +53422,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 1
     Name: Wounded
+  - Type: 9
+    SynchronizeType: 0
+    Name: BuffedSkill
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
