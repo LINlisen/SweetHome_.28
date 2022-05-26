@@ -202,7 +202,17 @@ public class RaiseEvent : MonoBehaviourPun
                 _bPotionOut = true;
                 object[] datas = (object[])obj.CustomData;
                 string Playername = (string)datas[0];
+                bool havePoion = (bool)datas[1];
+                GameObject Potion;
+                Vector3 iniPos = GameObject.Find(Playername).gameObject.transform.position + new Vector3(10, 0, 10);
+                if (havePoion)
+                {
+                    Potion = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Potion"), iniPos, GameObject.Find(Playername).gameObject.transform.rotation);
+                    _PotionNum++;
+                    Potion.name = "00" + _PotionNum;
 
+                }
+                _bPotionOut = false;
                 //GameObject.Find(Playername).GetComponent<Animator>().SetTrigger("Wounded");
                 //GameObject.Find(Playername).GetComponent<PlayerController>()._bWounded = false;
                 //StartCoroutine(SetWoundedFalse(3.0f, Playername));
@@ -377,6 +387,7 @@ public class RaiseEvent : MonoBehaviourPun
                 GameObject.Find("PlayerManager(Clone)").GetComponentInChildren<PlayerController>().IceDelete[index] = true;
             }
         }
+
     }
 
 
@@ -488,21 +499,9 @@ public class RaiseEvent : MonoBehaviourPun
     }
     public void PotionOut(string PlayerName,bool havePoion)
     {
-        string Name = PlayerName;
-        object[] datas = new object[] { Name };
-        GameObject Potion;
+        object[] datas = new object[] { PlayerName,havePoion };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
-        PhotonNetwork.RaiseEvent(POTION_OUT, datas, raiseEventOptions, SendOptions.SendReliable);
-        Vector3 iniPos = GameObject.Find(Name).gameObject.transform.position + new Vector3(10, 0, 10);
-        if (havePoion)
-        {
-            Potion = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Potion"), iniPos, GameObject.Find(Name).gameObject.transform.rotation);
-            _PotionNum++;
-            Potion.name = "00" + _PotionNum;
-            
-        }
-        _bPotionOut = false;
-
+        PhotonNetwork.RaiseEvent(DASH_ON, datas, raiseEventOptions, SendOptions.SendReliable);
     }
    
     /*角色共同特效區*/
