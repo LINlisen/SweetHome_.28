@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO
+using System.IO;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class Score : MonoBehaviour
