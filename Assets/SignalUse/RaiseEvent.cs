@@ -76,6 +76,7 @@ public class RaiseEvent : MonoBehaviourPun
     /* potion out bool*/
     private bool _bPotionOut = false;
     private int _PotionNum = 0;
+    private int potionNum = 0;
     void Start()
     {
        
@@ -204,14 +205,13 @@ public class RaiseEvent : MonoBehaviourPun
                 string Playername = (string)datas[0];
                 bool havePoion = (bool)datas[1];
                 GameObject Potion;
-                Vector3 iniPos = GameObject.Find(Playername).gameObject.transform.position + new Vector3(10, 0, 10);
-                if (havePoion)
+                Vector3 iniPos = GameObject.Find(Playername).gameObject.transform.position + new Vector3(10, 0, 10);           
+                if (havePoion && potionNum == 0)
                 {
                     Potion = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Potion"), iniPos, GameObject.Find(Playername).gameObject.transform.rotation);
                     _PotionNum++;
                     Potion.name = "00" + _PotionNum;
-                    havePoion = true;
-
+                    potionNum++;
                 }
                 _bPotionOut = false;
                 //GameObject.Find(Playername).GetComponent<Animator>().SetTrigger("Wounded");
@@ -226,12 +226,14 @@ public class RaiseEvent : MonoBehaviourPun
             object[] datas = (object[])obj.CustomData;
             string Name = (string)datas[0];
             GameObject.Find(Name).gameObject.transform.GetChild(1).gameObject.SetActive(true);
+            
         }
         if (obj.Code == DASH_OFF)
         {
             object[] datas = (object[])obj.CustomData;
             string Name = (string)datas[0];
             GameObject.Find(Name).gameObject.transform.GetChild(1).gameObject.SetActive(false);
+            _PotionNum = 0;
         }
         if(obj.Code == SPEEDDOWN_GROUND_ON)
         {
