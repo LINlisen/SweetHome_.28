@@ -343,13 +343,13 @@ public class RaiseEvent : MonoBehaviourPun
         {
             object[] datas = (object[])obj.CustomData;
             string Name = (string)datas[0];
-            GameObject.Find(Name).gameObject.transform.GetChild(5).gameObject.SetActive(true);
+            //GameObject.Find(Name).gameObject.transform.GetChild(5).gameObject.SetActive(true);
         }
         if (obj.Code == CAN_SKILL_EFFECT_OFF)
         {
             object[] datas = (object[])obj.CustomData;
             string Name = (string)datas[0];
-            GameObject.Find(Name).gameObject.transform.GetChild(5).gameObject.SetActive(false);
+            //GameObject.Find(Name).gameObject.transform.GetChild(5).gameObject.SetActive(false);
         }
 
         /*冰淇淋特效*/

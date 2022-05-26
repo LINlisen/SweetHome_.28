@@ -12,7 +12,8 @@ public class ResultListItem : MonoBehaviourPunCallbacks
     [SerializeField] Text NickName;
     [SerializeField] Text Score;
     Player player;
-
+    public GameObject ExcapeO;
+    public GameObject ExcapeX;
     public void SetUp(Player _player)
     {
         Color blue = new Color32(81, 107, 147, 255);
@@ -32,6 +33,14 @@ public class ResultListItem : MonoBehaviourPunCallbacks
             NickName.color = blue;
         }
         Score.text = _player.CustomProperties["Point"].ToString();
+        if((bool)player.CustomProperties["GetOut"] == true)
+        {
+            ExcapeO.SetActive(true);
+        }
+        else
+        {
+            ExcapeX.SetActive(false);
+        }
     }
 
 }
