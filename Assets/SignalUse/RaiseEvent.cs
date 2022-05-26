@@ -210,6 +210,7 @@ public class RaiseEvent : MonoBehaviourPun
                     Potion = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Potion"), iniPos, GameObject.Find(Playername).gameObject.transform.rotation);
                     _PotionNum++;
                     Potion.name = "00" + _PotionNum;
+                    havePoion = true;
 
                 }
                 _bPotionOut = false;
