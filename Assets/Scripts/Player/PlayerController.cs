@@ -750,7 +750,8 @@ public class PlayerController : MonoBehaviour
                 GameObject.Find("TeamRedExcape").GetComponent<Text>().text = "紅隊逃出人數: 1";
             }
             PhotonView photonView = PhotonView.Get(UpInformation);
-            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().Excape((int)PhotonNetwork.LocalPlayer.CustomProperties["Charactor"], "", (int)PhotonNetwork.LocalPlayer.CustomProperties["WhichTeam"]);
+
+            //GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().Excape((int)PhotonNetwork.LocalPlayer.CustomProperties["Charactor"], "", (int)PhotonNetwork.LocalPlayer.CustomProperties["WhichTeam"]);
         }
         /*PotionGet*/
         if (other.gameObject.transform.tag == "Potion" && PV.IsMine)

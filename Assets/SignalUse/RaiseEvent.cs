@@ -483,7 +483,7 @@ public class RaiseEvent : MonoBehaviourPun
                 name = "CanCharactor(Clone)";
                 break;
             case 4:
-
+                name = "IceCharactor(Clone)";
                 break;
         }
         string ObjName = name;
