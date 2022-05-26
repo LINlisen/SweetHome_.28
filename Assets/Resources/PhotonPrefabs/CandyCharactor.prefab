@@ -58584,12 +58584,9 @@ MonoBehaviour:
   armor: {fileID: 7360618131214421170}
   jumpPadHeight: 0
   rock: {fileID: 2316141889199578944, guid: 8552273b1f8994953818dcd15f8df05d, type: 3}
-  TeamMate: {fileID: 0}
   Excaper: {fileID: 701146338910874550}
   ExcaperNickname: {fileID: 5908440734384254826}
   ExcaperCamera: {fileID: 8028054502435081002}
-  ExcaperTouchPad: {fileID: 0}
-  ExcaperAbility: {fileID: 0}
   _bWounded: 0
 --- !u!114 &2438392420292023281
 MonoBehaviour:
@@ -97853,15 +97850,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: debf0f0de5eaa45c8993021ae4596dfc, type: 3}
---- !u!4 &211994972816765196 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: debf0f0de5eaa45c8993021ae4596dfc,
-    type: 3}
-  m_PrefabInstance: {fileID: 395069029923165927}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &701146338910874550 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: debf0f0de5eaa45c8993021ae4596dfc,
+    type: 3}
+  m_PrefabInstance: {fileID: 395069029923165927}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &211994972816765196 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: debf0f0de5eaa45c8993021ae4596dfc,
     type: 3}
   m_PrefabInstance: {fileID: 395069029923165927}
   m_PrefabAsset: {fileID: 0}
@@ -98513,15 +98510,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bf282c425103414f8a89c61af819da9, type: 3}
---- !u!4 &4643318443905939372 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8671807029257833730, guid: 3bf282c425103414f8a89c61af819da9,
-    type: 3}
-  m_PrefabInstance: {fileID: 4046505197783906990}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7360618131214421170 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6777416304857691676, guid: 3bf282c425103414f8a89c61af819da9,
+    type: 3}
+  m_PrefabInstance: {fileID: 4046505197783906990}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4643318443905939372 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8671807029257833730, guid: 3bf282c425103414f8a89c61af819da9,
     type: 3}
   m_PrefabInstance: {fileID: 4046505197783906990}
   m_PrefabAsset: {fileID: 0}

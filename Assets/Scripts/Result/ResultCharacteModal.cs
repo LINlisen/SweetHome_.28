@@ -13,6 +13,8 @@ public class ResultCharacteModal : MonoBehaviour
     public GameObject chocolat_model;
     public GameObject can_model;
     public GameObject ice_model;
+    public GameObject pos_1;
+    public GameObject pos_2;
     Hashtable roomhash = new Hashtable();
     Player[] players = PhotonNetwork.PlayerList;
     int winner1 = 0;
@@ -57,22 +59,22 @@ public class ResultCharacteModal : MonoBehaviour
         {
             case 1:
                 candy_model.SetActive(true);
-                candy_model.transform.position = new Vector3(-46.2f, 8.3f, 222.7f);
+                candy_model.transform.position = pos_1.transform.position;
                 candy_model.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 break;
             case 2:
                 chocolat_model.SetActive(true);
-                chocolat_model.transform.position = new Vector3(-46.2f, 8.3f, 222.7f);
+                chocolat_model.transform.position = pos_1.transform.position;
                 chocolat_model.transform.localScale = new Vector3(4.0f, 4.0f, 4.0f);
                 break;
             case 3:
                 can_model.SetActive(true);
-                can_model.transform.position = new Vector3(-46.2f, 8.3f, 222.7f);
+                can_model.transform.position = pos_1.transform.position;
                 can_model.transform.localScale = new Vector3(14.0f, 14.0f, 14.0f);
                 break;
             case 4:
                 ice_model.SetActive(true);
-                ice_model.transform.position = new Vector3(-46.2f, 8.3f, 222.7f);
+                ice_model.transform.position = pos_1.transform.position;
                 ice_model.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 break;
         }
@@ -80,22 +82,22 @@ public class ResultCharacteModal : MonoBehaviour
         {
             case 1:
                 candy_model.SetActive(true);
-                candy_model.transform.position = new Vector3(-24.68f, 10.9f, 234.57f);
+                candy_model.transform.position = pos_2.transform.position;
                 candy_model.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 break;
             case 2:
                 chocolat_model.SetActive(true);
-                chocolat_model.transform.position = new Vector3(-24.68f, 10.9f, 234.57f);
+                chocolat_model.transform.position = pos_2.transform.position;
                 chocolat_model.transform.localScale = new Vector3(4.0f, 4.0f, 4.0f);
                 break;
             case 3:
                 can_model.SetActive(true);
-                can_model.transform.position = new Vector3(-24.68f, 10.9f, 234.57f);
+                can_model.transform.position =  pos_2.transform.position;
                 can_model.transform.localScale = new Vector3(14.0f, 14.0f, 14.0f);
                 break;
             case 4:
                 ice_model.SetActive(true);
-                ice_model.transform.position = new Vector3(-24.68f, 10.9f, 234.57f);
+                ice_model.transform.position = pos_2.transform.position;
                 ice_model.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 break;
         }
