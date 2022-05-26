@@ -501,7 +501,7 @@ public class RaiseEvent : MonoBehaviourPun
     {
         object[] datas = new object[] { PlayerName,havePoion };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
-        PhotonNetwork.RaiseEvent(DASH_ON, datas, raiseEventOptions, SendOptions.SendReliable);
+        PhotonNetwork.RaiseEvent(POTION_OUT, datas, raiseEventOptions, SendOptions.SendReliable);
     }
    
     /*角色共同特效區*/
