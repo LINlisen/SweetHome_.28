@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using System.Linq;
 
 public class Score : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class Score : MonoBehaviour
     bool _bPotionOut;
     Hashtable roomhash;
     Hashtable hash;
+    Player[] players = PhotonNetwork.PlayerList;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +35,21 @@ public class Score : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        redpoint = 0;
+        bluepoint = 0;
+        for (int i=0;i< players.Count(); i++)
+        {
+            if((string)players[i].CustomProperties["WhichTeam"] == "紅隊")
+            {
+                redpoint += (int)players[i].CustomProperties["Point"];
+            }
+            else
+            {
+                bluepoint += (int)players[i].CustomProperties["Point"];
+            }
+        }
+        teamredpoint.text = redpoint.ToString();
+        teambluepoint.text = bluepoint.ToString();
     }
 
     [PunRPC]

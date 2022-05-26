@@ -757,7 +757,7 @@ public class PlayerController : MonoBehaviour
             hash = PhotonNetwork.LocalPlayer.CustomProperties;
             hash["Point"] = (int)hash["Point"] + 1;
             PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-            photonView.RPC("getPoint", RpcTarget.All, (string)hash["WhichTeam"], PhotonNetwork.LocalPlayer);
+            //photonView.RPC("getPoint", RpcTarget.All, (string)hash["WhichTeam"], PhotonNetwork.LocalPlayer);
             other.GetComponent<AudioSource>().Play();
             other.GetComponent<RaiseEvent>().getPotion(other.gameObject.name);
         }
@@ -850,7 +850,7 @@ public class PlayerController : MonoBehaviour
                                 hash = players[n].CustomProperties;
                                 hash["Point"] = (int)hash["Point"] - 1;
                                 players[n].SetCustomProperties(hash);
-                                photonView.RPC("losePoint", RpcTarget.All, (string)hash["WhichTeam"], players[n]);
+                                //photonView.RPC("losePoint", RpcTarget.All, (string)hash["WhichTeam"], players[n]);
                                 Wounded["Wounded"] = true;
                                 players[n].SetCustomProperties(Wounded);
                                 photonView.RPC("PotionOut", RpcTarget.All, hit.gameObject.name, true);
