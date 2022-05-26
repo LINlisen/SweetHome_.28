@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class Score : MonoBehaviour
@@ -15,6 +16,8 @@ public class Score : MonoBehaviour
     [SerializeField] Text teamredpoint;
     int redpoint;
     int bluepoint;
+    int _PotionNum;
+    bool _bPotionOut;
     Hashtable roomhash;
     Hashtable hash;
     // Start is called before the first frame update
@@ -82,4 +85,20 @@ public class Score : MonoBehaviour
     //Hashtable team = PhotonNetwork.LocalPlayer.CustomProperties;
     //PhotonView photonView = PhotonView.Get(this);
     //photonView.RPC("getPoint", RpcTarget.All,(int)team["WhichTeam"]);
+    [PunRPC]
+    void PotionOut(string Playername,bool havePoion)
+    {
+        Debug.Log("RPC Poition out");
+        GameObject Potion;
+        Vector3 iniPos = GameObject.Find(Playername).gameObject.transform.position + new Vector3(10, 0, 10);
+        if (havePoion)
+        {
+            Potion = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Potion"), iniPos, GameObject.Find(Playername).gameObject.transform.rotation);
+            _PotionNum++;
+            Potion.name = "00" + _PotionNum;
+        }
+        GameObject.Find(Playername).GetComponent<Animator>().SetTrigger("Wounded");
+        GameObject.Find(Playername).GetComponent<PlayerController>()._bWounded = false;
+        //StartCoroutine(SetWoundedFalse(3.0f, Playername));
+    }
 }

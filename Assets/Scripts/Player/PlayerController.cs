@@ -854,7 +854,8 @@ public class PlayerController : MonoBehaviour
                                 photonView.RPC("losePoint", RpcTarget.All, (string)hash["WhichTeam"], players[n]);
                                 Wounded["Wounded"] = true;
                                 players[n].SetCustomProperties(Wounded);
-                                GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, true);
+                                photonView.RPC("PotionOut", RpcTarget.All, hit.gameObject.name, true);
+                                //GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, true);
                             }
                         }
                         else
@@ -862,7 +863,8 @@ public class PlayerController : MonoBehaviour
                             Debug.Log("只暈");
                             Wounded["Wounded"] = true;
                             players[n].SetCustomProperties(Wounded);
-                            GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, false);
+                            photonView.RPC("PotionOut", RpcTarget.All, hit.gameObject.name, false);
+                            //GameObject.Find("RaiseEvent").GetComponent<RaiseEvent>().PotionOut(hit.gameObject.name, false);
                         }
                     }
                 }
