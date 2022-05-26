@@ -827,9 +827,9 @@ public class PlayerController : MonoBehaviour
         int n = 0;
         Hashtable Wounded = new Hashtable();
         PhotonView photonView = PhotonView.Get(UpInformation);
-        if (hit.gameObject.tag == "Player" /*&& playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash") &&_bWounded == false*/)
+        if (hit.gameObject.tag == "Player" && playerManager.animator.GetCurrentAnimatorStateInfo(0).IsName("Dash") /*_bWounded == false*/)
         {
-            if (hit.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Dash"))
+            if (!hit.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Dash"))
             {
                 for (int i = 0; i < PhotonNetwork.PlayerList.Count(); i++)
                 {
