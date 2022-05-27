@@ -17,8 +17,8 @@ public class ResultCharacteModal : MonoBehaviour
     public GameObject pos_2;
     Hashtable roomhash = new Hashtable();
     Player[] players = PhotonNetwork.PlayerList;
-    int winner1 = 0;
-    int winner2 = 0;
+    int n = 0;
+    int[] winner = new int[2];
     // Start is called before the first frame update
     void Start()
     {
@@ -30,32 +30,20 @@ public class ResultCharacteModal : MonoBehaviour
             {
                 if ((string)players[i].CustomProperties["WhichTeam"] == "藍隊")
                 {
-                    if (winner1 == winner2)
-                    {
-                        winner1 = i;
-                    }
-                    else
-                    {
-                        winner2 = i;
-                    }
+                    winner[n] = i;
+                    n++;
                 }
             }
             else
             {
                 if ((string)players[i].CustomProperties["WhichTeam"] == "紅隊")
                 {
-                    if (winner1 == winner2)
-                    {
-                        winner1 = i;
-                    }
-                    else
-                    {
-                        winner2 = i;
-                    }
+                    winner[n] = i;
+                    n++;
                 }
             }
         }
-        switch ((int)players[winner1].CustomProperties["Charactor"])
+        switch ((int)players[winner[0]].CustomProperties["Charactor"])
         {
             case 1:
                 candy_model.SetActive(true);
@@ -78,7 +66,7 @@ public class ResultCharacteModal : MonoBehaviour
                 ice_model.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 break;
         }
-        switch ((int)players[winner2].CustomProperties["Charactor"])
+        switch ((int)players[winner[1]].CustomProperties["Charactor"])
         {
             case 1:
                 candy_model.SetActive(true);
@@ -101,8 +89,6 @@ public class ResultCharacteModal : MonoBehaviour
                 ice_model.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 break;
         }
-        Debug.Log(winner1);
-        Debug.Log(winner2);
     }
     // Update is called once per frame
     void Update()

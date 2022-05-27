@@ -39,7 +39,7 @@ public class ResultListItem : MonoBehaviourPunCallbacks
         }
         else
         {
-            ExcapeX.SetActive(false);
+            ExcapeX.SetActive(true);
         }
     }
 

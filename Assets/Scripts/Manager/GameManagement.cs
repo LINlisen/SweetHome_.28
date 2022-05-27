@@ -17,6 +17,8 @@ public class GameManagement : MonoBehaviourPunCallbacks
     Hashtable hash = new Hashtable();
     Hashtable roomhash = new Hashtable();
     Player[] players = PhotonNetwork.PlayerList;
+    int bluegetoutnumber = 0;
+    int redgetoutnumber = 0;
     void Start()
     {
         hash = PhotonNetwork.LocalPlayer.CustomProperties;
@@ -52,8 +54,8 @@ public class GameManagement : MonoBehaviourPunCallbacks
     }
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
-        int bluegetoutnumber = 0;
-        int redgetoutnumber = 0;
+        bluegetoutnumber = 0;
+        redgetoutnumber = 0;
         for (int i = 0; i < players.Count(); i++)
         {
             if ((bool)players[i].CustomProperties["GetOut"] == true)

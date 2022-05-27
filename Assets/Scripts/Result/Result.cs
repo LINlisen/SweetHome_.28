@@ -31,6 +31,8 @@ public class Result : MonoBehaviour
         hash = PhotonNetwork.LocalPlayer.CustomProperties;
         for (int i = 0; i < players.Count(); i++)
         {
+            Debug.Log(players[i].CustomProperties["GetOut"]);
+            Debug.Log(players[i].NickName);
             if ((string)players[i].CustomProperties["WhichTeam"] == "紅隊")
             {
                 redscore += (int)players[i].CustomProperties["Point"];
