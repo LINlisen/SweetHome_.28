@@ -23,6 +23,10 @@ public class ResultCharacteModal : MonoBehaviour
     void Start()
     {
         roomhash = PhotonNetwork.CurrentRoom.CustomProperties;
+        candy_model.GetComponent<Animator>().SetTrigger("Celebrate");
+        chocolat_model.GetComponent<Animator>().SetTrigger("Celebrate");
+        can_model.GetComponent<Animator>().SetTrigger("Celebrate");
+        ice_model.GetComponent<Animator>().SetTrigger("Celebrate");
         Debug.Log(roomhash["Win"]);
         for (int i = 0; i < PhotonNetwork.PlayerList.Count(); i++)
         {
