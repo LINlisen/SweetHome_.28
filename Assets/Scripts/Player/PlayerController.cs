@@ -733,12 +733,13 @@ public class PlayerController : MonoBehaviour
                     }
                 }
             }
+            Excaper.SetActive(false);
             if (PV.IsMine)
             {
                 hash = PhotonNetwork.LocalPlayer.CustomProperties;
                 hash["GetOut"] = true;
                 PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
-                Excaper.SetActive(false);
+                
                 ExcaperTouchPad = GameObject.Find("_TCKCanvas");
                 ExcaperTouchPad.SetActive(false);
                 ExcaperAbility = GameObject.Find("AbilityBtn");
